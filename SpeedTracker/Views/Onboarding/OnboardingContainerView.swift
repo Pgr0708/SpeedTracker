@@ -2,22 +2,23 @@
 //  OnboardingContainerView.swift
 //  SpeedTracker
 //
-//  Main onboarding container with smooth animations
+//  Onboarding flow with smooth animations (step 2 in app flow)
 //
 
 import SwiftUI
 
 struct OnboardingContainerView: View {
+    @EnvironmentObject var theme: ThemeManager
     @StateObject private var viewModel = OnboardingViewModel()
     
     var body: some View {
         ZStack {
             // Animated gradient background
-            AppConstants.Colors.backgroundGradient
+            theme.backgroundGradient
                 .ignoresSafeArea()
             
             // Animated particles/stars effect
-            ParticleBackgroundView()
+            ParticleBackgroundView(theme: theme)
             
             VStack(spacing: 0) {
                 // Skip button
@@ -28,8 +29,8 @@ struct OnboardingContainerView: View {
                         viewModel.skip()
                     }) {
                         Text("Skip")
-                            .font(.button)
-                            .foregroundColor(AppConstants.Colors.textSecondary)
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(theme.textSecondary)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
                     }
@@ -43,6 +44,7 @@ struct OnboardingContainerView: View {
                     ForEach(Array(viewModel.pages.enumerated()), id: \.element.id) { index, page in
                         OnboardingPageView(page: page)
                             .tag(index)
+                            .environmentObject(theme)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
@@ -54,11 +56,11 @@ struct OnboardingContainerView: View {
                 // Page indicators
                 HStack(spacing: 8) {
                     ForEach(0..<viewModel.pages.count, id: \.self) { index in
-                        Circle()
-                            .fill(index == viewModel.currentPage ? 
-                                  AppConstants.Colors.electricBlue : 
-                                  AppConstants.Colors.textSecondary.opacity(0.3))
-                            .frame(width: index == viewModel.currentPage ? 24 : 8, 
+                        Capsule()
+                            .fill(index == viewModel.currentPage ?
+                                  theme.primaryColor :
+                                  theme.textSecondary.opacity(0.3))
+                            .frame(width: index == viewModel.currentPage ? 24 : 8,
                                    height: 8)
                             .animation(.spring(
                                 response: AppConstants.Design.springResponse,
@@ -87,8 +89,8 @@ struct OnboardingContainerView: View {
                             viewModel.previousPage()
                         }) {
                             Text("Back")
-                                .font(.button)
-                                .foregroundColor(AppConstants.Colors.textSecondary)
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(theme.textSecondary)
                                 .padding(.vertical, 12)
                         }
                         .opacity(viewModel.currentPage > 0 ? 1 : 0)
@@ -103,6 +105,7 @@ struct OnboardingContainerView: View {
 
 // Particle background for dynamic effect
 struct ParticleBackgroundView: View {
+    let theme: ThemeManager
     @State private var particles: [Particle] = []
     
     struct Particle: Identifiable {
@@ -118,7 +121,7 @@ struct ParticleBackgroundView: View {
             ZStack {
                 ForEach(particles) { particle in
                     Circle()
-                        .fill(AppConstants.Colors.electricBlue)
+                        .fill(theme.primaryColor)
                         .frame(width: 3, height: 3)
                         .scaleEffect(particle.scale)
                         .opacity(particle.opacity)
@@ -161,4 +164,5 @@ struct ParticleBackgroundView: View {
 
 #Preview {
     OnboardingContainerView()
+        .environmentObject(ThemeManager.shared)
 }

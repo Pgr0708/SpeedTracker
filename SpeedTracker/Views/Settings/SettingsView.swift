@@ -2,19 +2,36 @@
 //  SettingsView.swift
 //  SpeedTracker
 //
-//  Settings screen with glass morphism
+//  Settings screen with real preferences and dark/light mode
 //
 
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var selectedUnit: AppConstants.SpeedUnit = .kmh
-    @State private var isHapticsEnabled = true
-    @State private var selectedLanguage: AppConstants.SupportedLanguage = .english
+    @EnvironmentObject var theme: ThemeManager
+    @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw: String = AppConstants.SpeedUnit.kmh.rawValue
+    @AppStorage(AppConstants.UserDefaultsKeys.isHapticEnabled) private var isHapticsEnabled = true
+    @AppStorage(AppConstants.UserDefaultsKeys.isDarkModeEnabled) private var isDarkMode = true
+    @AppStorage(AppConstants.UserDefaultsKeys.maxSpeedLimit) private var maxSpeedLimit: Double = 120
+    @AppStorage(AppConstants.UserDefaultsKeys.minSpeedLimit) private var minSpeedLimit: Double = 0
+    @AppStorage(AppConstants.UserDefaultsKeys.preferredLanguage) private var preferredLanguage: String = "en"
+    
+    @State private var showSpeedUnitPicker = false
+    @State private var showColorPicker = false
+    @State private var showLanguagePicker = false
+    @State private var showResetAlert = false
+    
+    var speedUnit: AppConstants.SpeedUnit {
+        AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh
+    }
+    
+    var currentLanguage: AppConstants.SupportedLanguage {
+        AppConstants.SupportedLanguage(rawValue: preferredLanguage) ?? .english
+    }
     
     var body: some View {
         ZStack {
-            AppConstants.Colors.backgroundGradient
+            theme.backgroundGradient
                 .ignoresSafeArea()
             
             ScrollView(showsIndicators: false) {
@@ -22,108 +39,170 @@ struct SettingsView: View {
                     // Header
                     HStack {
                         Text("SETTINGS")
-                            .font(.headingLarge)
-                            .foregroundColor(AppConstants.Colors.textPrimary)
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
+                            .foregroundColor(theme.textPrimary)
                         
                         Spacer()
                     }
                     .padding(.horizontal, AppConstants.Design.paddingL)
                     .padding(.top, AppConstants.Design.paddingXL)
                     
-                    // Profile Card
-                    GlassMorphismCard {
-                        HStack(spacing: AppConstants.Design.paddingM) {
-                            // Avatar
-                            Circle()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [
-                                            AppConstants.Colors.electricBlue,
-                                            AppConstants.Colors.limeGreen
-                                        ],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .frame(width: 60, height: 60)
-                                .overlay(
-                                    Image(systemName: "person.fill")
-                                        .font(.title2)
-                                        .foregroundColor(.white)
-                                )
-                            
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Speed Enthusiast")
-                                    .font(.bodyLarge)
-                                    .foregroundColor(AppConstants.Colors.textPrimary)
-                                
-                                Text("Free Plan")
-                                    .font(.caption)
-                                    .foregroundColor(AppConstants.Colors.textSecondary)
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(AppConstants.Colors.textSecondary)
-                        }
-                    }
-                    .padding(.horizontal, AppConstants.Design.paddingL)
-                    
-                    // Preferences
+                    // Appearance Section
                     VStack(spacing: AppConstants.Design.paddingM) {
-                        SettingsSection(title: "PREFERENCES") {
+                        SettingsSection(title: "APPEARANCE", theme: theme) {
+                            // Dark Mode Toggle
+                            SettingToggle(
+                                icon: isDarkMode ? "moon.fill" : "sun.max.fill",
+                                title: "Dark Mode",
+                                color: Color(hex: "9D4EDD"),
+                                isOn: Binding(
+                                    get: { isDarkMode },
+                                    set: { newVal in
+                                        isDarkMode = newVal
+                                        theme.isDarkMode = newVal
+                                    }
+                                ),
+                                theme: theme
+                            )
+                            
+                            // Theme Color
+                            SettingRow(
+                                icon: "paintpalette.fill",
+                                title: "Theme Color",
+                                value: theme.themeColor.displayName,
+                                color: theme.primaryColor,
+                                theme: theme
+                            ) {
+                                showColorPicker = true
+                            }
+                        }
+                        
+                        // Tracking Section
+                        SettingsSection(title: "TRACKING", theme: theme) {
                             SettingRow(
                                 icon: "gauge",
                                 title: "Speed Unit",
-                                value: selectedUnit.rawValue,
-                                color: AppConstants.Colors.electricBlue
-                            ) {}
+                                value: speedUnit.rawValue,
+                                color: theme.primaryColor,
+                                theme: theme
+                            ) {
+                                showSpeedUnitPicker = true
+                            }
                             
-                            SettingRow(
-                                icon: "globe",
-                                title: "Language",
-                                value: selectedLanguage.displayName,
-                                color: AppConstants.Colors.limeGreen
-                            ) {}
+                            // Max Speed Limit
+                            VStack(spacing: 8) {
+                                HStack(spacing: AppConstants.Design.paddingM) {
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                        .font(.title3)
+                                        .foregroundColor(AppConstants.Colors.neonOrange)
+                                        .frame(width: 32)
+                                    
+                                    Text("Max Speed Limit")
+                                        .font(.system(size: 15, weight: .medium))
+                                        .foregroundColor(theme.textPrimary)
+                                    
+                                    Spacer()
+                                    
+                                    Text("\(Int(maxSpeedLimit)) \(speedUnit.rawValue)")
+                                        .font(.system(size: 14, weight: .bold))
+                                        .foregroundColor(AppConstants.Colors.neonOrange)
+                                }
+                                
+                                Slider(value: $maxSpeedLimit, in: 20...300, step: 5)
+                                    .tint(AppConstants.Colors.neonOrange)
+                            }
+                            .padding(.horizontal, AppConstants.Design.paddingM)
+                            .padding(.vertical, AppConstants.Design.paddingM)
+                            
+                            // Min Speed Limit
+                            VStack(spacing: 8) {
+                                HStack(spacing: AppConstants.Design.paddingM) {
+                                    Image(systemName: "tortoise.fill")
+                                        .font(.title3)
+                                        .foregroundColor(AppConstants.Colors.limeGreen)
+                                        .frame(width: 32)
+                                    
+                                    Text("Min Speed Threshold")
+                                        .font(.system(size: 15, weight: .medium))
+                                        .foregroundColor(theme.textPrimary)
+                                    
+                                    Spacer()
+                                    
+                                    Text("\(Int(minSpeedLimit)) \(speedUnit.rawValue)")
+                                        .font(.system(size: 14, weight: .bold))
+                                        .foregroundColor(AppConstants.Colors.limeGreen)
+                                }
+                                
+                                Slider(value: $minSpeedLimit, in: 0...50, step: 1)
+                                    .tint(AppConstants.Colors.limeGreen)
+                            }
+                            .padding(.horizontal, AppConstants.Design.paddingM)
+                            .padding(.vertical, AppConstants.Design.paddingM)
                             
                             SettingToggle(
                                 icon: "waveform",
                                 title: "Haptic Feedback",
                                 color: AppConstants.Colors.neonOrange,
-                                isOn: $isHapticsEnabled
+                                isOn: $isHapticsEnabled,
+                                theme: theme
                             )
                         }
                         
-                        SettingsSection(title: "PREMIUM") {
+                        // General Section
+                        SettingsSection(title: "GENERAL", theme: theme) {
                             SettingRow(
-                                icon: "star.fill",
-                                title: "Upgrade to Premium",
-                                value: "",
-                                color: AppConstants.Colors.neonOrange,
-                                showChevron: true
-                            ) {}
+                                icon: "globe",
+                                title: "Language",
+                                value: currentLanguage.displayName,
+                                color: AppConstants.Colors.limeGreen,
+                                theme: theme
+                            ) {
+                                showLanguagePicker = true
+                            }
                         }
                         
-                        SettingsSection(title: "SUPPORT") {
+                        // Support Section
+                        SettingsSection(title: "SUPPORT", theme: theme) {
+                            SettingRow(
+                                icon: "star.fill",
+                                title: "Rate App",
+                                color: Color(hex: "FFD700"),
+                                theme: theme
+                            ) { }
+                            
                             SettingRow(
                                 icon: "questionmark.circle.fill",
                                 title: "Help & Support",
-                                color: Color(hex: "9D4EDD")
-                            ) {}
+                                color: Color(hex: "9D4EDD"),
+                                theme: theme
+                            ) { }
                             
                             SettingRow(
                                 icon: "doc.text.fill",
                                 title: "Privacy Policy",
-                                color: Color(hex: "9D4EDD")
-                            ) {}
+                                color: Color(hex: "9D4EDD"),
+                                theme: theme
+                            ) { }
                             
                             SettingRow(
                                 icon: "info.circle.fill",
                                 title: "About",
-                                value: "v1.0.0",
-                                color: Color(hex: "9D4EDD")
-                            ) {}
+                                value: "v\(AppConstants.App.version)",
+                                color: Color(hex: "9D4EDD"),
+                                theme: theme
+                            ) { }
+                        }
+                        
+                        // Danger Zone
+                        SettingsSection(title: "DATA", theme: theme) {
+                            SettingRow(
+                                icon: "trash.fill",
+                                title: "Reset All Data",
+                                color: Color(hex: "FF3B5C"),
+                                theme: theme
+                            ) {
+                                showResetAlert = true
+                            }
                         }
                     }
                     .padding(.horizontal, AppConstants.Design.paddingL)
@@ -131,23 +210,118 @@ struct SettingsView: View {
                 }
             }
         }
+        // Speed Unit Picker Sheet
+        .sheet(isPresented: $showSpeedUnitPicker) {
+            PickerSheet(title: "Speed Unit", theme: theme) {
+                ForEach(AppConstants.SpeedUnit.allCases, id: \.rawValue) { unit in
+                    Button {
+                        speedUnitRaw = unit.rawValue
+                        showSpeedUnitPicker = false
+                        HapticManager.shared.selection()
+                    } label: {
+                        HStack {
+                            Text(unit.rawValue)
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(theme.textPrimary)
+                            Spacer()
+                            if speedUnit == unit {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(theme.primaryColor)
+                            }
+                        }
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 20)
+                    }
+                }
+            }
+        }
+        // Color Picker Sheet
+        .sheet(isPresented: $showColorPicker) {
+            PickerSheet(title: "Theme Color", theme: theme) {
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                    ForEach(AppConstants.ThemeColor.allCases, id: \.rawValue) { color in
+                        Button {
+                            theme.themeColor = color
+                            showColorPicker = false
+                            HapticManager.shared.selection()
+                        } label: {
+                            VStack(spacing: 8) {
+                                Circle()
+                                    .fill(color.gradient)
+                                    .frame(width: 50, height: 50)
+                                    .overlay(
+                                        Circle()
+                                            .strokeBorder(Color.white, lineWidth: theme.themeColor == color ? 3 : 0)
+                                    )
+                                    .shadow(color: color.primaryColor.opacity(theme.themeColor == color ? 0.5 : 0), radius: 8)
+                                
+                                Text(color.displayName)
+                                    .font(.system(size: 11, weight: .medium))
+                                    .foregroundColor(theme.textSecondary)
+                            }
+                        }
+                    }
+                }
+                .padding(20)
+            }
+        }
+        // Language Picker Sheet
+        .sheet(isPresented: $showLanguagePicker) {
+            PickerSheet(title: "Language", theme: theme) {
+                ForEach(AppConstants.SupportedLanguage.allCases, id: \.rawValue) { lang in
+                    Button {
+                        preferredLanguage = lang.rawValue
+                        showLanguagePicker = false
+                        HapticManager.shared.selection()
+                    } label: {
+                        HStack(spacing: 12) {
+                            Text(lang.flagEmoji)
+                                .font(.system(size: 20))
+                            Text(lang.displayName)
+                                .font(.system(size: 16))
+                                .foregroundColor(theme.textPrimary)
+                            Spacer()
+                            if currentLanguage == lang {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(theme.primaryColor)
+                            }
+                        }
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 20)
+                    }
+                }
+            }
+        }
+        .alert("Reset All Data?", isPresented: $showResetAlert) {
+            Button("Reset", role: .destructive) {
+                // Clear onboarding flags and trip data
+                let domain = Bundle.main.bundleIdentifier!
+                UserDefaults.standard.removePersistentDomain(forName: domain)
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("This will delete all trips and reset preferences. This cannot be undone.")
+        }
     }
 }
 
+// MARK: - Setting Components
 struct SettingsSection<Content: View>: View {
     let title: String
+    let theme: ThemeManager
     let content: Content
     
-    init(title: String, @ViewBuilder content: () -> Content) {
+    init(title: String, theme: ThemeManager, @ViewBuilder content: () -> Content) {
         self.title = title
+        self.theme = theme
         self.content = content()
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: AppConstants.Design.paddingS) {
             Text(title)
-                .font(.caption)
-                .foregroundColor(AppConstants.Colors.textSecondary)
+                .font(.system(size: 12, weight: .bold))
+                .foregroundColor(theme.textSecondary)
                 .padding(.leading, AppConstants.Design.paddingS)
             
             GlassMorphismCard(padding: 0) {
@@ -165,6 +339,7 @@ struct SettingRow: View {
     var value: String = ""
     let color: Color
     var showChevron: Bool = true
+    let theme: ThemeManager
     let action: () -> Void
     
     init(
@@ -173,6 +348,7 @@ struct SettingRow: View {
         value: String = "",
         color: Color,
         showChevron: Bool = true,
+        theme: ThemeManager,
         action: @escaping () -> Void = {}
     ) {
         self.icon = icon
@@ -180,6 +356,7 @@ struct SettingRow: View {
         self.value = value
         self.color = color
         self.showChevron = showChevron
+        self.theme = theme
         self.action = action
     }
     
@@ -192,21 +369,21 @@ struct SettingRow: View {
                     .frame(width: 32)
                 
                 Text(title)
-                    .font(.bodyMedium)
-                    .foregroundColor(AppConstants.Colors.textPrimary)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(theme.textPrimary)
                 
                 Spacer()
                 
                 if !value.isEmpty {
                     Text(value)
-                        .font(.bodySmall)
-                        .foregroundColor(AppConstants.Colors.textSecondary)
+                        .font(.system(size: 13))
+                        .foregroundColor(theme.textSecondary)
                 }
                 
                 if showChevron {
                     Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundColor(AppConstants.Colors.textSecondary)
+                        .font(.system(size: 12))
+                        .foregroundColor(theme.textTertiary)
                 }
             }
             .padding(.horizontal, AppConstants.Design.paddingM)
@@ -220,6 +397,7 @@ struct SettingToggle: View {
     let title: String
     let color: Color
     @Binding var isOn: Bool
+    let theme: ThemeManager
     
     var body: some View {
         HStack(spacing: AppConstants.Design.paddingM) {
@@ -229,20 +407,53 @@ struct SettingToggle: View {
                 .frame(width: 32)
             
             Text(title)
-                .font(.bodyMedium)
-                .foregroundColor(AppConstants.Colors.textPrimary)
+                .font(.system(size: 15, weight: .medium))
+                .foregroundColor(theme.textPrimary)
             
             Spacer()
             
             Toggle("", isOn: $isOn)
                 .labelsHidden()
-                .tint(AppConstants.Colors.electricBlue)
+                .tint(theme.primaryColor)
         }
         .padding(.horizontal, AppConstants.Design.paddingM)
         .padding(.vertical, AppConstants.Design.paddingM)
     }
 }
 
+// MARK: - Picker Sheet
+struct PickerSheet<Content: View>: View {
+    let title: String
+    let theme: ThemeManager
+    let content: Content
+    
+    init(title: String, theme: ThemeManager, @ViewBuilder content: () -> Content) {
+        self.title = title
+        self.theme = theme
+        self.content = content()
+    }
+    
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                theme.backgroundGradient
+                    .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack(spacing: 0) {
+                        content
+                    }
+                    .padding(.top, 20)
+                }
+            }
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .presentationDetents([.medium])
+    }
+}
+
 #Preview {
     SettingsView()
+        .environmentObject(ThemeManager.shared)
 }

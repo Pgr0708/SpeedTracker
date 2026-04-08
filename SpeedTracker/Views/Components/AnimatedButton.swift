@@ -2,7 +2,7 @@
 //  AnimatedButton.swift
 //  SpeedTracker
 //
-//  Animated sport-themed button component
+//  Animated button component with theme support
 //
 
 import SwiftUI
@@ -42,12 +42,11 @@ struct AnimatedButton: View {
             HStack(spacing: 12) {
                 if let icon = icon {
                     Image(systemName: icon)
-                        .font(.bodyLarge)
+                        .font(.system(size: 16, weight: .semibold))
                 }
                 
                 Text(title)
-                    .font(.button)
-                    .fontWeight(.semibold)
+                    .font(.system(size: 16, weight: .semibold))
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 18)
@@ -74,14 +73,15 @@ struct AnimatedButton: View {
     
     @ViewBuilder
     private var backgroundView: some View {
+        let theme = ThemeManager.shared
         switch variant {
         case .primary:
-            AppConstants.Colors.primaryGradient
+            theme.primaryGradient
         case .secondary:
             LinearGradient(
                 colors: [
-                    AppConstants.Colors.darkBlue,
-                    AppConstants.Colors.surfaceBlue
+                    theme.isDarkMode ? AppConstants.Colors.darkBlue : Color(hex: "E8EAED"),
+                    theme.isDarkMode ? AppConstants.Colors.surfaceBlue : Color(hex: "D5D7DA")
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -94,22 +94,26 @@ struct AnimatedButton: View {
     }
     
     private var foregroundColor: Color {
+        let theme = ThemeManager.shared
         switch variant {
         case .ghost:
-            return AppConstants.Colors.electricBlue
+            return theme.primaryColor
+        case .secondary:
+            return theme.isDarkMode ? .white : Color(hex: "1A1A2E")
         default:
-            return AppConstants.Colors.textPrimary
+            return .white
         }
     }
     
     private var shadowColor: Color {
+        let theme = ThemeManager.shared
         switch variant {
         case .primary:
-            return AppConstants.Colors.electricBlue.opacity(0.4)
+            return theme.primaryColor.opacity(0.4)
         case .accent:
             return AppConstants.Colors.neonOrange.opacity(0.4)
         case .secondary, .ghost:
-            return Color.black.opacity(0.2)
+            return Color.black.opacity(0.1)
         }
     }
 }
@@ -122,11 +126,8 @@ struct AnimatedButton: View {
         
         VStack(spacing: 24) {
             AnimatedButton("Start Tracking", icon: "play.fill", variant: .primary) {}
-            
             AnimatedButton("View History", icon: "clock.fill", variant: .secondary) {}
-            
             AnimatedButton("Premium", icon: "star.fill", variant: .accent) {}
-            
             AnimatedButton("Skip", variant: .ghost) {}
         }
         .padding()

@@ -2,7 +2,7 @@
 //  GlassMorphismCard.swift
 //  SpeedTracker
 //
-//  Reusable liquid glass card component
+//  Reusable glass card component (works in dark and light mode)
 //
 
 import SwiftUI
@@ -30,15 +30,15 @@ struct GlassMorphismCard<Content: View>: View {
                     // Base glass layer
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .fill(.ultraThinMaterial)
-                        .opacity(0.3)
+                        .opacity(0.4)
                     
                     // Gradient overlay
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .fill(
                             LinearGradient(
                                 colors: [
-                                    Color.white.opacity(0.15),
-                                    Color.white.opacity(0.05)
+                                    Color.white.opacity(0.12),
+                                    Color.white.opacity(0.04)
                                 ],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
@@ -50,18 +50,18 @@ struct GlassMorphismCard<Content: View>: View {
                         .strokeBorder(
                             LinearGradient(
                                 colors: [
-                                    Color.white.opacity(0.3),
-                                    Color.white.opacity(0.1)
+                                    Color.white.opacity(0.25),
+                                    Color.white.opacity(0.08)
                                 ],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
-                            lineWidth: 1.5
+                            lineWidth: 1
                         )
                 }
             )
             .shadow(
-                color: AppConstants.Colors.electricBlue.opacity(0.1),
+                color: Color.black.opacity(0.1),
                 radius: 20,
                 x: 0,
                 y: 10
@@ -79,37 +79,18 @@ struct GlassMorphismCard<Content: View>: View {
             GlassMorphismCard {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Speed")
-                        .font(.headingMedium)
-                        .foregroundColor(AppConstants.Colors.textPrimary)
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundColor(.white)
                     
                     Text("125")
-                        .font(.displayLarge)
+                        .font(.system(size: 60, weight: .bold))
                         .foregroundColor(AppConstants.Colors.electricBlue)
                     
                     Text("km/h")
-                        .font(.bodyLarge)
-                        .foregroundColor(AppConstants.Colors.textSecondary)
+                        .font(.system(size: 16))
+                        .foregroundColor(.gray)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            
-            GlassMorphismCard(cornerRadius: 16, padding: 16) {
-                HStack {
-                    Image(systemName: "location.fill")
-                        .font(.title2)
-                        .foregroundColor(AppConstants.Colors.limeGreen)
-                    
-                    VStack(alignment: .leading) {
-                        Text("GPS Active")
-                            .font(.bodyLarge)
-                            .foregroundColor(AppConstants.Colors.textPrimary)
-                        Text("Accuracy: High")
-                            .font(.caption)
-                            .foregroundColor(AppConstants.Colors.textSecondary)
-                    }
-                    
-                    Spacer()
-                }
             }
         }
         .padding()

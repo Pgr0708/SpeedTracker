@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 class OnboardingViewModel: ObservableObject {
     @Published var currentPage: Int = 0
     @Published var hasCompletedOnboarding: Bool = false

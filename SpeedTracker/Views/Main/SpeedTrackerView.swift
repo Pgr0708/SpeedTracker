@@ -2,183 +2,292 @@
 //  SpeedTrackerView.swift
 //  SpeedTracker
 //
-//  Main speed tracking screen with liquid glass UI
+//  Main speed tracking screen with REAL GPS data
 //
 
 import SwiftUI
 
 struct SpeedTrackerView: View {
-    @State private var currentSpeed: Double = 0
-    @State private var maxSpeed: Double = 0
-    @State private var avgSpeed: Double = 0
-    @State private var isTracking = false
+    @EnvironmentObject var theme: ThemeManager
+    @StateObject private var locationManager = LocationManager.shared
+    @StateObject private var tripStore = TripStore.shared
+    @StateObject private var notificationManager = NotificationManager.shared
+    
+    @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw: String = AppConstants.SpeedUnit.kmh.rawValue
+    @AppStorage(AppConstants.UserDefaultsKeys.maxSpeedLimit) private var maxSpeedLimit: Double = 120
+    @AppStorage(AppConstants.UserDefaultsKeys.minSpeedLimit) private var minSpeedLimit: Double = 0
+    
     @State private var animateGlow = false
+    @State private var showStopConfirm = false
+    @State private var lastAlertSpeed: Double = 0
+    
+    var speedUnit: AppConstants.SpeedUnit {
+        AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh
+    }
+    
+    var displaySpeed: Double {
+        locationManager.convertedSpeed(locationManager.currentSpeed, unit: speedUnit)
+    }
+    
+    var displayMaxSpeed: Double {
+        locationManager.convertedSpeed(locationManager.maxSpeed, unit: speedUnit)
+    }
+    
+    var displayAvgSpeed: Double {
+        locationManager.convertedSpeed(locationManager.avgSpeed, unit: speedUnit)
+    }
+    
+    var displayDistance: String {
+        let dist = locationManager.totalDistance
+        if dist >= 1000 {
+            return String(format: "%.1f", dist / 1000)
+        }
+        return String(format: "%.0f", dist)
+    }
+    
+    var distanceUnit: String {
+        locationManager.totalDistance >= 1000 ? "km" : "m"
+    }
+    
+    var elapsedFormatted: String {
+        let t = Int(locationManager.elapsedTime)
+        let m = t / 60
+        let s = t % 60
+        if m >= 60 {
+            return String(format: "%d:%02d:%02d", m/60, m%60, s)
+        }
+        return String(format: "%d:%02d", m, s)
+    }
+    
+    // Speed color based on limits
+    var speedColor: Color {
+        if displaySpeed > maxSpeedLimit {
+            return Color(hex: "FF3B5C") // red - over limit
+        } else if displaySpeed > maxSpeedLimit * 0.8 {
+            return AppConstants.Colors.neonOrange // warning
+        }
+        return theme.primaryColor
+    }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: AppConstants.Design.paddingL) {
-                // Header
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("SPEEDTRACKER")
-                            .font(.headingSmall)
-                            .foregroundColor(AppConstants.Colors.electricBlue)
-                        
-                        Text("Ready to track")
-                            .font(.caption)
-                            .foregroundColor(AppConstants.Colors.textSecondary)
-                    }
+        ZStack {
+            theme.backgroundGradient
+                .ignoresSafeArea()
+            
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: AppConstants.Design.paddingL) {
+                    // Header
+                    headerView
                     
-                    Spacer()
+                    // Main Speed Display
+                    speedGaugeView
                     
-                    // GPS Status
-                    HStack(spacing: 6) {
-                        Circle()
-                            .fill(AppConstants.Colors.limeGreen)
-                            .frame(width: 8, height: 8)
-                            .shadow(color: AppConstants.Colors.limeGreen, radius: 4)
-                        
-                        Text("GPS")
-                            .font(.caption)
-                            .foregroundColor(AppConstants.Colors.textSecondary)
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(
-                        Capsule()
-                            .fill(.ultraThinMaterial)
-                    )
+                    // Stats Grid
+                    statsGrid
+                    
+                    // Control Button
+                    controlButton
+                    
+                    Spacer().frame(height: 80)
                 }
-                .padding(.horizontal, AppConstants.Design.paddingL)
-                .padding(.top, AppConstants.Design.paddingXL)
-                
-                // Main Speed Display
-                ZStack {
-                    // Outer glow ring
-                    Circle()
-                        .stroke(
-                            AppConstants.Colors.electricBlue.opacity(0.3),
-                            lineWidth: 20
-                        )
-                        .blur(radius: 10)
-                        .scaleEffect(animateGlow ? 1.1 : 1.0)
-                        .animation(
-                            .easeInOut(duration: 2)
-                            .repeatForever(autoreverses: true),
-                            value: animateGlow
-                        )
-                    
-                    // Speed circle
-                    GlassMorphismCard(cornerRadius: 200, padding: 60) {
-                        VStack(spacing: 8) {
-                            Text("\(Int(currentSpeed))")
-                                .font(.custom(AppConstants.Typography.orbitronBold, size: 80))
-                                .foregroundStyle(
-                                    LinearGradient(
-                                        colors: [
-                                            AppConstants.Colors.electricBlue,
-                                            AppConstants.Colors.limeGreen
-                                        ],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .shadow(color: AppConstants.Colors.electricBlue, radius: 20)
-                            
-                            Text("km/h")
-                                .font(.headingMedium)
-                                .foregroundColor(AppConstants.Colors.textSecondary)
-                        }
-                    }
-                    .frame(width: 280, height: 280)
-                }
-                .padding(.vertical, AppConstants.Design.paddingL)
-                .onAppear {
-                    animateGlow = true
-                }
-                
-                // Stats Grid
-                LazyVGrid(
-                    columns: [
-                        GridItem(.flexible()),
-                        GridItem(.flexible())
-                    ],
-                    spacing: AppConstants.Design.paddingM
-                ) {
-                    StatCard(
-                        title: "MAX SPEED",
-                        value: "\(Int(maxSpeed))",
-                        unit: "km/h",
-                        icon: "arrow.up.circle.fill",
-                        color: AppConstants.Colors.neonOrange
-                    )
-                    
-                    StatCard(
-                        title: "AVG SPEED",
-                        value: "\(Int(avgSpeed))",
-                        unit: "km/h",
-                        icon: "chart.line.uptrend.xyaxis",
-                        color: AppConstants.Colors.limeGreen
-                    )
-                    
-                    StatCard(
-                        title: "DISTANCE",
-                        value: "0.0",
-                        unit: "km",
-                        icon: "location.fill",
-                        color: AppConstants.Colors.electricBlue
-                    )
-                    
-                    StatCard(
-                        title: "DURATION",
-                        value: "00:00",
-                        unit: "min",
-                        icon: "clock.fill",
-                        color: Color(hex: "9D4EDD")
-                    )
-                }
-                .padding(.horizontal, AppConstants.Design.paddingL)
-                
-                // Control Button
-                AnimatedButton(
-                    isTracking ? "Stop Tracking" : "Start Tracking",
-                    icon: isTracking ? "stop.fill" : "play.fill",
-                    variant: isTracking ? .accent : .primary
-                ) {
-                    isTracking.toggle()
-                    if isTracking {
-                        startMockTracking()
-                    } else {
-                        stopTracking()
-                    }
-                }
-                .padding(.horizontal, AppConstants.Design.paddingL)
-                .padding(.bottom, 100) // Space for tab bar
             }
         }
-        .sportGradientBackground()
+        .onAppear {
+            animateGlow = true
+        }
+        .onChange(of: displaySpeed) { _, newSpeed in
+            // Speed limit alert
+            if newSpeed > maxSpeedLimit && newSpeed - lastAlertSpeed > 5 {
+                lastAlertSpeed = newSpeed
+                HapticManager.shared.notification(type: .warning)
+                notificationManager.scheduleSpeedAlert(speed: newSpeed, limit: maxSpeedLimit)
+            }
+        }
+        .alert("Stop Tracking?", isPresented: $showStopConfirm) {
+            Button("Stop & Save", role: .destructive) {
+                stopAndSave()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Your trip will be saved to history.")
+        }
     }
     
-    private func startMockTracking() {
-        // Mock speed animation for demo
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            if !isTracking {
-                timer.invalidate()
-                return
+    // MARK: - Header
+    var headerView: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("SPEEDTRACKER")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .foregroundColor(theme.primaryColor)
+                
+                Text(locationManager.isTracking ? 
+                     (locationManager.isMoving ? "Tracking..." : "Waiting for movement") : 
+                     "Ready to track")
+                    .font(.system(size: 13))
+                    .foregroundColor(theme.textSecondary)
             }
             
-            currentSpeed = Double.random(in: 0...120)
-            if currentSpeed > maxSpeed {
-                maxSpeed = currentSpeed
+            Spacer()
+            
+            // GPS Status
+            HStack(spacing: 6) {
+                Circle()
+                    .fill(locationManager.hasLocationPermission ?
+                          AppConstants.Colors.limeGreen : Color(hex: "FF3B5C"))
+                    .frame(width: 8, height: 8)
+                    .shadow(color: locationManager.hasLocationPermission ?
+                            AppConstants.Colors.limeGreen : Color(hex: "FF3B5C"), radius: 4)
+                
+                Text(gpsStatusText)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(theme.textSecondary)
             }
-            avgSpeed = (avgSpeed + currentSpeed) / 2
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(
+                Capsule()
+                    .fill(theme.isDarkMode ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.regularMaterial))
+            )
         }
+        .padding(.horizontal, AppConstants.Design.paddingL)
+        .padding(.top, AppConstants.Design.paddingXL)
     }
     
-    private func stopTracking() {
-        currentSpeed = 0
-        maxSpeed = 0
-        avgSpeed = 0
+    var gpsStatusText: String {
+        if !locationManager.hasLocationPermission { return "No GPS" }
+        if locationManager.gpsAccuracy < 0 { return "GPS" }
+        if locationManager.gpsAccuracy < 10 { return "GPS ★★★" }
+        if locationManager.gpsAccuracy < 25 { return "GPS ★★" }
+        return "GPS ★"
+    }
+    
+    // MARK: - Speed Gauge
+    var speedGaugeView: some View {
+        ZStack {
+            // Outer glow ring
+            Circle()
+                .stroke(speedColor.opacity(0.3), lineWidth: 20)
+                .blur(radius: 10)
+                .frame(width: 280, height: 280)
+                .scaleEffect(animateGlow && locationManager.isMoving ? 1.1 : 1.0)
+                .animation(
+                    locationManager.isMoving ?
+                    .easeInOut(duration: 1.5).repeatForever(autoreverses: true) :
+                    .easeInOut(duration: 2).repeatForever(autoreverses: true),
+                    value: animateGlow
+                )
+            
+            // Speed circle
+            GlassMorphismCard(cornerRadius: 200, padding: 60) {
+                VStack(spacing: 8) {
+                    Text("\(Int(displaySpeed))")
+                        .font(.system(size: 72, weight: .bold, design: .rounded))
+                        .foregroundColor(speedColor)
+                        .shadow(color: speedColor.opacity(0.5), radius: 10)
+                        .contentTransition(.numericText())
+                        .animation(.spring(response: 0.3), value: Int(displaySpeed))
+                    
+                    Text(speedUnit.rawValue)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(theme.textSecondary)
+                }
+            }
+            .frame(width: 280, height: 280)
+            
+            // Speed limit indicator
+            if displaySpeed > maxSpeedLimit {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(Color(hex: "FF3B5C"))
+                        Text("OVER LIMIT")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(Color(hex: "FF3B5C"))
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(
+                        Capsule()
+                            .fill(Color(hex: "FF3B5C").opacity(0.2))
+                    )
+                }
+                .frame(width: 280, height: 280)
+                .offset(y: 20)
+            }
+        }
+        .padding(.vertical, AppConstants.Design.paddingL)
+    }
+    
+    // MARK: - Stats Grid
+    var statsGrid: some View {
+        LazyVGrid(
+            columns: [GridItem(.flexible()), GridItem(.flexible())],
+            spacing: AppConstants.Design.paddingM
+        ) {
+            StatCard(
+                title: "MAX SPEED",
+                value: "\(Int(displayMaxSpeed))",
+                unit: speedUnit.rawValue,
+                icon: "arrow.up.circle.fill",
+                color: AppConstants.Colors.neonOrange,
+                theme: theme
+            )
+            
+            StatCard(
+                title: "AVG SPEED",
+                value: "\(Int(displayAvgSpeed))",
+                unit: speedUnit.rawValue,
+                icon: "chart.line.uptrend.xyaxis",
+                color: AppConstants.Colors.limeGreen,
+                theme: theme
+            )
+            
+            StatCard(
+                title: "DISTANCE",
+                value: displayDistance,
+                unit: distanceUnit,
+                icon: "location.fill",
+                color: theme.primaryColor,
+                theme: theme
+            )
+            
+            StatCard(
+                title: "DURATION",
+                value: elapsedFormatted,
+                unit: "",
+                icon: "clock.fill",
+                color: Color(hex: "9D4EDD"),
+                theme: theme
+            )
+        }
+        .padding(.horizontal, AppConstants.Design.paddingL)
+    }
+    
+    // MARK: - Control Button
+    var controlButton: some View {
+        AnimatedButton(
+            locationManager.isTracking ? "Stop Tracking" : "Start Tracking",
+            icon: locationManager.isTracking ? "stop.fill" : "play.fill",
+            variant: locationManager.isTracking ? .accent : .primary
+        ) {
+            if locationManager.isTracking {
+                showStopConfirm = true
+            } else {
+                locationManager.startTracking()
+            }
+        }
+        .padding(.horizontal, AppConstants.Design.paddingL)
+    }
+    
+    // MARK: - Stop & Save
+    private func stopAndSave() {
+        if let trip = locationManager.stopTracking() {
+            tripStore.saveTrip(trip)
+            HapticManager.shared.notification(type: .success)
+        }
+        lastAlertSpeed = 0
     }
 }
 
@@ -188,6 +297,7 @@ struct StatCard: View {
     let unit: String
     let icon: String
     let color: Color
+    let theme: ThemeManager
     
     var body: some View {
         GlassMorphismCard(cornerRadius: AppConstants.Design.cornerRadiusM, padding: AppConstants.Design.paddingM) {
@@ -202,17 +312,20 @@ struct StatCard: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
-                        .font(.caption)
-                        .foregroundColor(AppConstants.Colors.textSecondary)
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundColor(theme.textSecondary)
                     
                     HStack(alignment: .firstTextBaseline, spacing: 4) {
                         Text(value)
-                            .font(.headingMedium)
-                            .foregroundColor(AppConstants.Colors.textPrimary)
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(theme.textPrimary)
+                            .contentTransition(.numericText())
                         
-                        Text(unit)
-                            .font(.caption)
-                            .foregroundColor(AppConstants.Colors.textSecondary)
+                        if !unit.isEmpty {
+                            Text(unit)
+                                .font(.system(size: 12))
+                                .foregroundColor(theme.textSecondary)
+                        }
                     }
                 }
             }
@@ -222,4 +335,5 @@ struct StatCard: View {
 
 #Preview {
     SpeedTrackerView()
+        .environmentObject(ThemeManager.shared)
 }

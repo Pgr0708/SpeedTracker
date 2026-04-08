@@ -45,22 +45,83 @@ enum AppConstants {
         static let springDampingFraction: Double = 0.7
     }
     
-    // MARK: - Sport Colors
+    // MARK: - Theme Colors
+    enum ThemeColor: String, CaseIterable, Codable {
+        case blue = "blue"
+        case green = "green"
+        case orange = "orange"
+        case purple = "purple"
+        case red = "red"
+        case cyan = "cyan"
+        
+        var displayName: String {
+            switch self {
+            case .blue: return "Electric Blue"
+            case .green: return "Lime Green"
+            case .orange: return "Neon Orange"
+            case .purple: return "Royal Purple"
+            case .red: return "Racing Red"
+            case .cyan: return "Cyber Cyan"
+            }
+        }
+        
+        var primaryColor: Color {
+            switch self {
+            case .blue: return Color(hex: "00D9FF")
+            case .green: return Color(hex: "39FF14")
+            case .orange: return Color(hex: "FF6B35")
+            case .purple: return Color(hex: "9D4EDD")
+            case .red: return Color(hex: "FF3B5C")
+            case .cyan: return Color(hex: "00E5FF")
+            }
+        }
+        
+        var secondaryColor: Color {
+            switch self {
+            case .blue: return Color(hex: "0099CC")
+            case .green: return Color(hex: "00CC00")
+            case .orange: return Color(hex: "FF8C42")
+            case .purple: return Color(hex: "7B2FBE")
+            case .red: return Color(hex: "D4314A")
+            case .cyan: return Color(hex: "00B8D4")
+            }
+        }
+        
+        var gradient: LinearGradient {
+            LinearGradient(
+                colors: [primaryColor, secondaryColor],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+    }
+    
+    // MARK: - Adaptive Colors (Dark/Light mode)
     enum Colors {
-        // Primary Palette
+        // Primary Palette (theme-dependent - use ThemeManager)
         static let electricBlue = Color(hex: "00D9FF")
         static let neonOrange = Color(hex: "FF6B35")
         static let limeGreen = Color(hex: "39FF14")
         
-        // Background
+        // Background - Dark
         static let deepNavy = Color(hex: "0A1128")
         static let darkBlue = Color(hex: "1E2749")
         static let surfaceBlue = Color(hex: "2A3B5F")
         
-        // Text
+        // Background - Light
+        static let lightBg = Color(hex: "F5F7FA")
+        static let lightSurface = Color(hex: "FFFFFF")
+        static let lightCard = Color(hex: "F0F2F5")
+        
+        // Text - Dark
         static let textPrimary = Color.white
         static let textSecondary = Color(hex: "B8C1EC")
         static let textTertiary = Color(hex: "7B8AB8")
+        
+        // Text - Light
+        static let textPrimaryLight = Color(hex: "1A1A2E")
+        static let textSecondaryLight = Color(hex: "6B7280")
+        static let textTertiaryLight = Color(hex: "9CA3AF")
         
         // Gradients
         static let primaryGradient = LinearGradient(
@@ -83,6 +144,12 @@ enum AppConstants {
         
         static let backgroundGradient = LinearGradient(
             colors: [deepNavy, darkBlue, surfaceBlue],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        
+        static let lightBackgroundGradient = LinearGradient(
+            colors: [lightBg, lightSurface],
             startPoint: .top,
             endPoint: .bottom
         )
@@ -121,18 +188,34 @@ enum AppConstants {
     // MARK: - UserDefaults Keys
     enum UserDefaultsKeys {
         static let hasCompletedOnboarding = "hasCompletedOnboarding"
+        static let hasSelectedLanguage = "hasSelectedLanguage"
+        static let hasCompletedPaywall = "hasCompletedPaywall"
+        static let hasCompletedPreferences = "hasCompletedPreferences"
         static let preferredSpeedUnit = "preferredSpeedUnit"
         static let preferredLanguage = "preferredLanguage"
         static let isHapticEnabled = "isHapticEnabled"
         static let isDarkModeEnabled = "isDarkModeEnabled"
+        static let themeColor = "themeColor"
+        static let maxSpeedLimit = "maxSpeedLimit"
+        static let minSpeedLimit = "minSpeedLimit"
+        static let isPremium = "isPremium"
     }
     
     // MARK: - Speed Units
-    enum SpeedUnit: String, CaseIterable {
+    enum SpeedUnit: String, CaseIterable, Codable {
         case kmh = "km/h"
         case mph = "mph"
         case ms = "m/s"
         case knots = "knots"
+        
+        var conversionFromMPS: Double {
+            switch self {
+            case .kmh: return 3.6
+            case .mph: return 2.23694
+            case .ms: return 1.0
+            case .knots: return 1.94384
+            }
+        }
     }
     
     // MARK: - Supported Languages
@@ -168,6 +251,25 @@ enum AppConstants {
             case .turkish: return "Türkçe"
             case .italian: return "Italiano"
             case .arabic: return "العربية"
+            }
+        }
+        
+        var flagEmoji: String {
+            switch self {
+            case .english: return "🇺🇸"
+            case .korean: return "🇰🇷"
+            case .japanese: return "🇯🇵"
+            case .greek: return "🇬🇷"
+            case .french: return "🇫🇷"
+            case .german: return "🇩🇪"
+            case .spanish: return "🇪🇸"
+            case .portuguese: return "🇵🇹"
+            case .chineseSimplified: return "🇨🇳"
+            case .vietnamese: return "🇻🇳"
+            case .portugueseBrazil: return "🇧🇷"
+            case .turkish: return "🇹🇷"
+            case .italian: return "🇮🇹"
+            case .arabic: return "🇸🇦"
             }
         }
         

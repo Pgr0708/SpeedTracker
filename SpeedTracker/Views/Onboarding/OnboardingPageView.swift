@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingPageView: View {
+    @EnvironmentObject var theme: ThemeManager
     let page: OnboardingPage
     @State private var animate = false
     
@@ -15,7 +16,7 @@ struct OnboardingPageView: View {
         VStack(spacing: AppConstants.Design.paddingXL) {
             Spacer()
             
-            // Icon/Animation container with glass morphism
+            // Icon/Animation container
             ZStack {
                 // Glow effect
                 Circle()
@@ -75,17 +76,17 @@ struct OnboardingPageView: View {
             // Content
             VStack(spacing: AppConstants.Design.paddingM) {
                 Text(page.title)
-                    .font(.headingLarge)
-                    .foregroundColor(AppConstants.Colors.textPrimary)
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundColor(theme.textPrimary)
                     .multilineTextAlignment(.center)
                     .opacity(animate ? 1 : 0)
                     .offset(y: animate ? 0 : 20)
                 
                 Text(page.description)
-                    .font(.bodyLarge)
-                    .foregroundColor(AppConstants.Colors.textSecondary)
+                    .font(.system(size: 16))
+                    .foregroundColor(theme.textSecondary)
                     .multilineTextAlignment(.center)
-                    .lineSpacing(8)
+                    .lineSpacing(6)
                     .padding(.horizontal, AppConstants.Design.paddingL)
                     .opacity(animate ? 1 : 0)
                     .offset(y: animate ? 0 : 30)
@@ -95,10 +96,7 @@ struct OnboardingPageView: View {
         }
         .onAppear {
             withAnimation(
-                .spring(
-                    response: 0.8,
-                    dampingFraction: 0.7
-                )
+                .spring(response: 0.8, dampingFraction: 0.7)
                 .delay(0.2)
             ) {
                 animate = true
@@ -116,5 +114,6 @@ struct OnboardingPageView: View {
             .ignoresSafeArea()
         
         OnboardingPageView(page: OnboardingPage.pages[0])
+            .environmentObject(ThemeManager.shared)
     }
 }
