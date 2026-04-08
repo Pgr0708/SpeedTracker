@@ -1,0 +1,47 @@
+/* 
+  Localizable.strings
+  SpeedTracker - English
+*/
+
+// MARK: - Onboarding
+"onboarding.skip" = "Skip";
+"onboarding.next" = "Next";
+"onboarding.back" = "Back";
+"onboarding.getStarted" = "Get Started";
+
+"onboarding.page1.title" = "Track Your Speed";
+"onboarding.page1.description" = "Real-time GPS speed tracking with precision accuracy. Monitor your speed in km/h, mph, m/s, or knots.";
+
+"onboarding.page2.title" = "Record Your Journeys";
+"onboarding.page2.description" = "Automatically save your trips with detailed statistics, routes, and achievements.";
+
+"onboarding.page3.title" = "Compete & Improve";
+"onboarding.page3.description" = "Set personal records, track your progress, and challenge yourself to go faster.";
+
+// MARK: - Main Screen
+"main.speed" = "Speed";
+"main.maxSpeed" = "Max Speed";
+"main.avgSpeed" = "Avg Speed";
+"main.distance" = "Distance";
+"main.duration" = "Duration";
+"main.startTracking" = "Start Tracking";
+"main.stopTracking" = "Stop Tracking";
+"main.pauseTracking" = "Pause";
+"main.resumeTracking" = "Resume";
+
+// MARK: - Settings
+"settings.title" = "Settings";
+"settings.units" = "Units";
+"settings.language" = "Language";
+"settings.haptics" = "Haptic Feedback";
+
+// MARK: - Units
+"unit.kmh" = "km/h";
+"unit.mph" = "mph";
+"unit.ms" = "m/s";
+"unit.knots" = "knots";
+
+// MARK: - Common
+"common.save" = "Save";
+"common.cancel" = "Cancel";
+"common.done" = "Done";
