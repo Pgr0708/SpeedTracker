@@ -199,6 +199,7 @@ enum AppConstants {
         static let maxSpeedLimit = "maxSpeedLimit"
         static let minSpeedLimit = "minSpeedLimit"
         static let isPremium = "isPremium"
+        static let isHUDModeEnabled = "isHUDModeEnabled"
     }
     
     // MARK: - Speed Units

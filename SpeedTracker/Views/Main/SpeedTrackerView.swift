@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+internal import _LocationEssentials
 
 struct SpeedTrackerView: View {
     @EnvironmentObject var theme: ThemeManager
@@ -57,6 +58,22 @@ struct SpeedTrackerView: View {
             return String(format: "%d:%02d:%02d", m/60, m%60, s)
         }
         return String(format: "%d:%02d", m, s)
+    }
+    
+    var altitudeFormatted: String {
+        if let altitude = locationManager.currentLocation?.altitude {
+            return String(format: "%.0f", altitude)
+        }
+        return "--"
+    }
+    
+    var coordinatesFormatted: (String, String) {
+        if let location = locationManager.currentLocation {
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            return (String(format: "%.4f", lat), String(format: "%.4f", lon))
+        }
+        return ("--", "--")
     }
     
     // Speed color based on limits
@@ -231,7 +248,7 @@ struct SpeedTrackerView: View {
                 value: "\(Int(displayMaxSpeed))",
                 unit: speedUnit.rawValue,
                 icon: "arrow.up.circle.fill",
-                color: AppConstants.Colors.neonOrange,
+                color: theme.primaryColor,
                 theme: theme
             )
             
@@ -240,7 +257,7 @@ struct SpeedTrackerView: View {
                 value: "\(Int(displayAvgSpeed))",
                 unit: speedUnit.rawValue,
                 icon: "chart.line.uptrend.xyaxis",
-                color: AppConstants.Colors.limeGreen,
+                color: theme.primaryColor,
                 theme: theme
             )
             
@@ -258,7 +275,25 @@ struct SpeedTrackerView: View {
                 value: elapsedFormatted,
                 unit: "",
                 icon: "clock.fill",
-                color: Color(hex: "9D4EDD"),
+                color: theme.primaryColor,
+                theme: theme
+            )
+            
+            StatCard(
+                title: "ALTITUDE",
+                value: altitudeFormatted,
+                unit: "m",
+                icon: "mountain.2.fill",
+                color: theme.primaryColor,
+                theme: theme
+            )
+            
+            StatCard(
+                title: "COORDINATES",
+                value: coordinatesFormatted.0,
+                unit: coordinatesFormatted.1,
+                icon: "location.circle.fill",
+                color: theme.primaryColor,
                 theme: theme
             )
         }
@@ -315,16 +350,28 @@ struct StatCard: View {
                         .font(.system(size: 11, weight: .medium))
                         .foregroundColor(theme.textSecondary)
                     
-                    HStack(alignment: .firstTextBaseline, spacing: 4) {
-                        Text(value)
-                            .font(.system(size: 24, weight: .bold, design: .rounded))
-                            .foregroundColor(theme.textPrimary)
-                            .contentTransition(.numericText())
-                        
-                        if !unit.isEmpty {
+                    if title == "COORDINATES" {
+                        // Special layout for coordinates
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(value)
+                                .font(.system(size: 16, weight: .bold, design: .monospaced))
+                                .foregroundColor(theme.textPrimary)
                             Text(unit)
-                                .font(.system(size: 12))
-                                .foregroundColor(theme.textSecondary)
+                                .font(.system(size: 16, weight: .bold, design: .monospaced))
+                                .foregroundColor(theme.textPrimary)
+                        }
+                    } else {
+                        HStack(alignment: .firstTextBaseline, spacing: 4) {
+                            Text(value)
+                                .font(.system(size: 24, weight: .bold, design: .rounded))
+                                .foregroundColor(theme.textPrimary)
+                                .contentTransition(.numericText())
+                            
+                            if !unit.isEmpty {
+                                Text(unit)
+                                    .font(.system(size: 12))
+                                    .foregroundColor(theme.textSecondary)
+                            }
                         }
                     }
                 }

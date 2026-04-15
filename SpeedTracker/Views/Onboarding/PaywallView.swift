@@ -12,6 +12,7 @@ struct PaywallView: View {
     @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedPaywall) private var hasCompletedPaywall = false
     @State private var selectedPlan = 1 // 0=weekly, 1=yearly, 2=lifetime
     @State private var appeared = false
+    @Environment(\.dismiss) private var dismiss
     
     let plans = [
         ("Weekly", "$1.99/week", "$1.99", "After 3-day free trial"),
@@ -30,7 +31,10 @@ struct PaywallView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            withAnimation { hasCompletedPaywall = true }
+                            withAnimation { 
+                                hasCompletedPaywall = true 
+                                dismiss()
+                            }
                         }) {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.system(size: 28))
@@ -121,20 +125,30 @@ struct PaywallView: View {
                     AnimatedButton("Start Free Trial", icon: "sparkles", variant: .primary) {
                         // In production: integrate with RevenueCat/StoreKit
                         UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.isPremium)
-                        withAnimation { hasCompletedPaywall = true }
+                        withAnimation { 
+                            hasCompletedPaywall = true 
+                            dismiss()
+                        }
                     }
                     .padding(.horizontal, 24)
                     
                     // Skip / Restore
                     HStack(spacing: 24) {
                         Button("Restore Purchases") {
-                            withAnimation { hasCompletedPaywall = true }
+                            // In production: integrate with RevenueCat/StoreKit restore
+                            withAnimation { 
+                                hasCompletedPaywall = true 
+                                dismiss()
+                            }
                         }
                         .font(.system(size: 14))
                         .foregroundColor(theme.textSecondary)
                         
                         Button("Continue Free") {
-                            withAnimation { hasCompletedPaywall = true }
+                            withAnimation { 
+                                hasCompletedPaywall = true 
+                                dismiss()
+                            }
                         }
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(theme.primaryColor)

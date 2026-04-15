@@ -10,6 +10,10 @@ import SwiftUI
 struct MainTabView: View {
     @EnvironmentObject var theme: ThemeManager
     @State private var selectedTab = 0
+    @State private var showHUDMode = false
+    @State private var showPaywall = false
+    
+    @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -29,17 +33,28 @@ struct MainTabView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             // Custom tab bar
-            CustomTabBar(selectedTab: $selectedTab)
+            CustomTabBar(selectedTab: $selectedTab, showHUDMode: $showHUDMode, showPaywall: $showPaywall, isPremium: isPremium)
                 .padding(.horizontal, AppConstants.Design.paddingL)
                 .padding(.bottom, AppConstants.Design.paddingS)
         }
         .environmentObject(theme)
+        .fullScreenCover(isPresented: $showHUDMode) {
+            HUDModeView()
+                .environmentObject(theme)
+        }
+        .sheet(isPresented: $showPaywall) {
+            PaywallView()
+                .environmentObject(theme)
+        }
     }
 }
 
 struct CustomTabBar: View {
     @EnvironmentObject var theme: ThemeManager
     @Binding var selectedTab: Int
+    @Binding var showHUDMode: Bool
+    @Binding var showPaywall: Bool
+    let isPremium: Bool
     
     var body: some View {
         HStack(spacing: 0) {
@@ -67,6 +82,24 @@ struct CustomTabBar: View {
                     selectedTab = 1
                 }
                 HapticManager.shared.selection()
+            }
+            
+            Spacer()
+            
+            // HUD Mode button (premium feature)
+            TabBarButton(
+                icon: "windshield",
+                title: "HUD",
+                isSelected: false,
+                isPremium: true,
+                theme: theme
+            ) {
+                HapticManager.shared.selection()
+                if isPremium {
+                    showHUDMode = true
+                } else {
+                    showPaywall = true
+                }
             }
             
             Spacer()
@@ -111,15 +144,25 @@ struct TabBarButton: View {
     let icon: String
     let title: String
     let isSelected: Bool
+    var isPremium: Bool = false
     let theme: ThemeManager
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
             VStack(spacing: 6) {
-                Image(systemName: icon)
-                    .font(.system(size: 22, weight: .semibold))
-                    .foregroundColor(isSelected ? theme.primaryColor : theme.textSecondary)
+                ZStack {
+                    Image(systemName: icon)
+                        .font(.system(size: 22, weight: .semibold))
+                        .foregroundColor(isSelected ? theme.primaryColor : theme.textSecondary)
+                    
+                    if isPremium {
+                        Image(systemName: "crown.fill")
+                            .font(.system(size: 8))
+                            .foregroundColor(Color(hex: "FFD700"))
+                            .offset(x: 12, y: -10)
+                    }
+                }
                 
                 Text(title)
                     .font(.system(size: 11, weight: .medium))
