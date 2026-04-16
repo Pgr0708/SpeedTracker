@@ -71,6 +71,9 @@ struct LanguageSelectionView: View {
                 // Continue button
                 AnimatedButton("Continue", icon: "arrow.right", variant: .primary) {
                     preferredLanguage = selectedLanguage.rawValue
+                    // Wire iOS bundle localization — takes effect on next launch
+                    UserDefaults.standard.set([selectedLanguage.rawValue], forKey: "AppleLanguages")
+                    UserDefaults.standard.synchronize()
                     withAnimation(.easeInOut(duration: 0.3)) {
                         hasSelectedLanguage = true
                     }

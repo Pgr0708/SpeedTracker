@@ -2,76 +2,70 @@
 //  SpeedTrackerApp.swift
 //  SpeedTracker
 //
-//  App entry point with proper flow:
-//  Language → Onboarding → Paywall → Preferences → Permissions → Home
-//
-
 import SwiftUI
 
 @main
 struct SpeedTrackerApp: App {
     @StateObject private var themeManager = ThemeManager.shared
-    
-    @AppStorage(AppConstants.UserDefaultsKeys.hasSelectedLanguage)
-    private var hasSelectedLanguage = false
-    
-    @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedOnboarding)
-    private var hasCompletedOnboarding = false
-    
-    @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedPaywall)
-    private var hasCompletedPaywall = false
-    
-    @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedPreferences)
-    private var hasCompletedPreferences = false
-    
+    @StateObject private var authService = AuthService.shared
+    @StateObject private var purchaseService = PurchaseService.shared
+    @StateObject private var cloudKitService = CloudKitService.shared
+
+    @AppStorage(AppConstants.UserDefaultsKeys.hasSelectedLanguage) private var hasSelectedLanguage = false
+    @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
+    @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedPaywall) private var hasCompletedPaywall = false
+    @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedPreferences) private var hasCompletedPreferences = false
+    @AppStorage(AppConstants.UserDefaultsKeys.didLogOut) private var didLogOut = false
+
     @State private var hasGrantedPermissions = false
-    
+    @State private var showSplash = true
+
     init() {
-        // Enable haptics by default
-        if UserDefaults.standard.object(forKey: AppConstants.UserDefaultsKeys.isHapticEnabled) == nil {
-            UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.isHapticEnabled)
-        }
-        // Default dark mode
-        if UserDefaults.standard.object(forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled) == nil {
-            UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled)
-        }
-        // Default speed limits
-        if UserDefaults.standard.object(forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) == nil {
-            UserDefaults.standard.set(120.0, forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit)
-        }
-        if UserDefaults.standard.object(forKey: AppConstants.UserDefaultsKeys.minSpeedLimit) == nil {
-            UserDefaults.standard.set(0.0, forKey: AppConstants.UserDefaultsKeys.minSpeedLimit)
-        }
+        setDefaults()
+        PurchaseService.configure()
     }
-    
+
     var body: some Scene {
         WindowGroup {
             Group {
-                if !hasSelectedLanguage {
+                if showSplash {
+                    SplashView { showSplash = false }
+                } else if didLogOut {
+                    SignInView { didLogOut = false }
+                } else if !hasSelectedLanguage {
                     LanguageSelectionView()
                 } else if !hasCompletedOnboarding {
                     OnboardingContainerView()
                 } else if !hasCompletedPaywall {
                     PaywallView()
+                } else if !hasGrantedPermissions && !hasCompletedPreferences {
+                    PermissionsView(hasGrantedPermissions: $hasGrantedPermissions)
                 } else if !hasCompletedPreferences {
                     PreferencesSetupView()
-                } else if !hasGrantedPermissions {
-                    PermissionsView(hasGrantedPermissions: $hasGrantedPermissions)
                 } else {
                     MainTabView()
                 }
             }
             .environmentObject(themeManager)
+            .environmentObject(authService)
+            .environmentObject(purchaseService)
+            .environmentObject(cloudKitService)
             .preferredColorScheme(themeManager.isDarkMode ? .dark : .light)
             .onAppear {
-                // If user has been through everything before, skip permissions check
-                if hasCompletedPreferences {
-                    let locManager = LocationManager.shared
-                    if locManager.hasLocationPermission {
-                        hasGrantedPermissions = true
-                    }
+                authService.checkCredentialState()
+                if hasCompletedPreferences && LocationManager.shared.hasLocationPermission {
+                    hasGrantedPermissions = true
                 }
             }
         }
+    }
+
+    private func setDefaults() {
+        let ud = UserDefaults.standard
+        if ud.object(forKey: AppConstants.UserDefaultsKeys.isHapticEnabled) == nil { ud.set(true, forKey: AppConstants.UserDefaultsKeys.isHapticEnabled) }
+        if ud.object(forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled) == nil { ud.set(true, forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled) }
+        if ud.object(forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) == nil { ud.set(120.0, forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) }
+        if ud.object(forKey: AppConstants.UserDefaultsKeys.minSpeedLimit) == nil { ud.set(0.0, forKey: AppConstants.UserDefaultsKeys.minSpeedLimit) }
+        if ud.object(forKey: AppConstants.UserDefaultsKeys.isSoundMuted) == nil { ud.set(false, forKey: AppConstants.UserDefaultsKeys.isSoundMuted) }
     }
 }

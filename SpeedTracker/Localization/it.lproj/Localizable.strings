@@ -45,3 +45,104 @@
 "common.save" = "Save";
 "common.cancel" = "Cancel";
 "common.done" = "Done";
+
+
+// MARK: - Pedometer
+"pedometer.title" = "Pedometer";
+"pedometer.steps" = "Steps";
+"pedometer.distance" = "Distance";
+"pedometer.calories" = "Calories";
+"pedometer.pace" = "Pace";
+"pedometer.elapsed" = "Elapsed";
+"pedometer.goalProgress" = "% of goal";
+"pedometer.startWorkout" = "Start Workout";
+"pedometer.stopWorkout" = "Stop Workout";
+"pedometer.recentSessions" = "Recent Sessions";
+"pedometer.stopConfirm.title" = "Stop Workout?";
+"pedometer.stopConfirm.message" = "Your session will be saved to history.";
+"pedometer.stopAndSave" = "Stop & Save";
+
+// MARK: - Compass
+"compass.title" = "Compass";
+"compass.heading" = "Heading";
+"compass.altitude" = "Altitude";
+"compass.coordinates" = "Coordinates";
+
+// MARK: - History
+"history.title" = "History";
+"history.noTrips" = "No Trips Yet";
+"history.noTripsDesc" = "Start tracking your speed to see your trip history here";
+"history.totalTrips" = "Total Trips";
+"history.totalDistance" = "Total Distance";
+"history.upgrade" = "Upgrade";
+"history.upgradeDesc" = "Upgrade to unlock full history";
+
+// MARK: - Settings (new keys)
+"settings.account" = "Account";
+"settings.appearance" = "Appearance";
+"settings.tracking" = "Tracking";
+"settings.general" = "General";
+"settings.support" = "Support";
+"settings.data" = "Data";
+"settings.darkMode" = "Dark Mode";
+"settings.themeColor" = "Theme Color";
+"settings.mirrorMode" = "Mirror Mode (HUD)";
+"settings.maxSpeedLimit" = "Max Speed Limit";
+"settings.minSpeedThreshold" = "Min Speed Threshold";
+"settings.soundAlerts" = "Speed Alert Sounds";
+"settings.hapticFeedback" = "Haptic Feedback";
+"settings.rateApp" = "Rate App";
+"settings.contactUs" = "Contact Us";
+"settings.privacyPolicy" = "Privacy Policy";
+"settings.termsOfService" = "Terms of Service";
+"settings.about" = "About";
+"settings.resetAllData" = "Reset All Data";
+"settings.signOut" = "Sign Out";
+"settings.restorePurchases" = "Restore Purchases";
+"settings.iCloudSync" = "iCloud Sync";
+"settings.upgradePremium" = "Upgrade to Premium";
+
+// MARK: - HUD Mode
+"hud.title" = "HUD Mode";
+"hud.mirrorOn" = "Mirror ON";
+"hud.mirrorOff" = "Mirror OFF";
+"hud.overLimit" = "OVER LIMIT";
+"hud.mirrorInstruction" = "Place below windshield — speed reflects upward";
+"hud.directView" = "Direct view mode";
+
+// MARK: - Paywall
+"paywall.unlockPremium" = "Unlock Premium";
+"paywall.fullExperience" = "Full speed tracking experience";
+"paywall.restorePurchases" = "Restore Purchases";
+"paywall.continueFree" = "Continue Free";
+"paywall.autoRenewable" = "Auto-renewable. Cancel anytime in App Store settings.";
+"paywall.startFreeTrial" = "Start Free Trial";
+"paywall.subscribeNow" = "Subscribe Now";
+
+// MARK: - Permissions
+"permissions.title" = "Permissions Required";
+"permissions.desc" = "SpeedTracker needs access to track speed and activity";
+"permissions.location" = "Location Access";
+"permissions.motion" = "Motion & Fitness";
+"permissions.health" = "Health (Optional)";
+"permissions.notifications" = "Notifications";
+"permissions.grantLocation" = "Grant Location Access";
+"permissions.continue" = "Continue";
+"permissions.openSettings" = "Open Settings";
+
+// MARK: - Alerts
+"alert.stopTrip.title" = "Stop Tracking?";
+"alert.stopTrip.message" = "Your trip will be saved to history.";
+"alert.stopTrip.save" = "Stop & Save";
+"alert.resetData.title" = "Reset All Data?";
+"alert.resetData.message" = "This will delete all trips and reset preferences. This cannot be undone.";
+"alert.resetData.confirm" = "Reset";
+"alert.signOut.title" = "Sign Out?";
+"alert.signOut.message" = "You can sign back in at any time to restore your data.";
+"alert.signOut.confirm" = "Sign Out";
+"alert.languageRestart.title" = "Restart Required";
+"alert.languageRestart.message" = "The app will need to restart to apply the new language.";
+"alert.languageRestart.apply" = "Apply & Restart";
+"alert.maxSpeed" = "Max Speed Exceeded!";
+"alert.minSpeed" = "Below Min Speed";
+

@@ -50,13 +50,17 @@ struct TripDetailView: View {
                 .foregroundColor(theme.textSecondary)
                 .padding(.horizontal, 24)
             
-            Map {
+            Map(initialPosition: .region(MKCoordinateRegion(
+                center: trip.startCoordinate,
+                latitudinalMeters: max(trip.distance * 1.5, 500),
+                longitudinalMeters: max(trip.distance * 1.5, 500)
+            ))) {
                 // Route polyline
                 if trip.routeCoordinates.count > 1 {
                     MapPolyline(coordinates: trip.routeCoordinates.map(\.coordinate))
                         .stroke(theme.primaryColor, lineWidth: 4)
                 }
-                
+
                 // Start pin
                 Annotation("Start", coordinate: trip.startCoordinate) {
                     Image(systemName: "flag.fill")
@@ -66,7 +70,7 @@ struct TripDetailView: View {
                         .background(Circle().fill(AppConstants.Colors.limeGreen))
                         .shadow(radius: 4)
                 }
-                
+
                 // End pin
                 Annotation("End", coordinate: trip.endCoordinate) {
                     Image(systemName: "flag.checkered")

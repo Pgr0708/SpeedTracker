@@ -200,6 +200,43 @@ enum AppConstants {
         static let minSpeedLimit = "minSpeedLimit"
         static let isPremium = "isPremium"
         static let isHUDModeEnabled = "isHUDModeEnabled"
+        static let isSoundMuted = "isSoundMuted"
+        static let isMirrorModeEnabled = "isMirrorModeEnabled"
+        static let didLogOut = "didLogOut"
+        static let isNotificationsEnabled = "isNotificationsEnabled"
+        static let userProfile = "userProfile"
+        static let hasShownSplash = "hasShownSplash"
+        static let pedometerSessions = "pedometerSessions"
+        static let lastCloudKitSync = "lastCloudKitSync"
+        static let pendingCloudKitUploads = "pendingCloudKitUploads"
+    }
+
+    // MARK: - RevenueCat & IAP
+    enum Purchase {
+        // IMPORTANT: Replace with your actual RevenueCat API key before App Store submission
+        static let revenueCatAPIKey = "appl_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        static let entitlementID = "premium"
+        static let weeklyProductID = "com.speedtracker.weekly"
+        static let monthlyProductID = "com.speedtracker.monthly"
+        static let yearlyProductID = "com.speedtracker.yearly"
+        static let lifetimeProductID = "com.speedtracker.lifetime"
+    }
+
+    // MARK: - URLs
+    enum URLs {
+        // IMPORTANT: Replace with actual URLs before App Store submission
+        static let contactUs = "https://your-support-url.com"
+        static let privacyPolicy = "https://your-support-url.com/privacy"
+        static let termsOfService = "https://your-support-url.com/terms"
+        static let rateApp = "https://apps.apple.com/app/id0000000000" // replace with real App Store ID
+    }
+
+    // MARK: - iCloud
+    enum CloudKit {
+        static let containerID = "iCloud.com.centillion.SpeedTracker"
+        static let tripRecordType = "TripRecord"
+        static let pedometerSessionType = "PedometerSession"
+        static let userPreferencesType = "UserPreferences"
     }
     
     // MARK: - Speed Units
