@@ -51,10 +51,10 @@ SplashView (2.5s)
 ## Subscription Plans (RevenueCat)
 | Plan | Price | Trial | Product ID |
 |------|-------|-------|-----------|
-| Weekly | $2.99/wk | — | com.speedtracker.weekly |
-| Monthly | $7.99/mo | — | com.speedtracker.monthly |
-| Yearly | $49.99/yr | 3-day | com.speedtracker.yearly |
-| Lifetime | $99.99 | — | com.speedtracker.lifetime |
+| Weekly | $1.99/wk | — | speedtracker_weekly |
+| Monthly | $4.99/mo | — | speedtracker_monthly |
+| Yearly | $19.99/yr | — | speedtracker_yearly |
+| Lifetime | $99.99 | — | speedtracker_lifetime |
 
 RevenueCat entitlement: `"premium"`
 **API Key placeholder:** `appl_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX` in `Constants.swift → AppConstants.Purchase.revenueCatAPIKey`

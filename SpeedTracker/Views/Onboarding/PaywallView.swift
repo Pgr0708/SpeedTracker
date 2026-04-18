@@ -79,6 +79,11 @@ struct PaywallView: View {
         .sheet(isPresented: $showTermsSheet) {
             InAppWebView(url: URL(string: AppConstants.URLs.termsAndConditions)!)
         }
+        .alert("Purchase Error", isPresented: $purchaseService.showError) {
+            Button(L10n.string("common.done")) {}
+        } message: {
+            Text(purchaseService.errorMessage ?? "Unknown purchase error.")
+        }
         .alert(L10n.string("paywall.restoreTitle"), isPresented: $purchaseService.showRestoreSuccess) {
             Button(L10n.string("common.done")) {}
         } message: { Text(purchaseService.restoreMessage) }
@@ -198,7 +203,7 @@ struct PlanCard: View {
         switch plan.id {
         case AppConstants.Purchase.weeklyProductID: return L10n.string("paywall.badge.flexible")
         case AppConstants.Purchase.monthlyProductID: return L10n.string("paywall.badge.popular")
-        case AppConstants.Purchase.yearlyProductID: return L10n.string("paywall.badge.trial")
+        case AppConstants.Purchase.yearlyProductID: return plan.badge
         case AppConstants.Purchase.lifetimeProductID: return L10n.string("paywall.badge.payOnce")
         default: return plan.badge
         }

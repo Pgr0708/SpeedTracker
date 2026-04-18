@@ -52,6 +52,31 @@ struct SpeedTrackerApp: App {
             .environmentObject(localizationManager)
             .environment(\.locale, localizationManager.currentLocale)
             .preferredColorScheme(themeManager.isDarkMode ? .dark : .light)
+            .task {
+                await purchaseService.syncRevenueCatUser(
+                    isAuthenticated: authService.isAuthenticated,
+                    userID: authService.userID
+                )
+                try? await purchaseService.refreshProducts()
+                await purchaseService.checkPremiumStatus()
+            }
+            .onChange(of: authService.isAuthenticated) { isAuthenticated in
+                Task {
+                    await purchaseService.syncRevenueCatUser(
+                        isAuthenticated: isAuthenticated,
+                        userID: authService.userID
+                    )
+                    await purchaseService.checkPremiumStatus()
+                }
+            }
+            .onChange(of: authService.userID) { userID in
+                Task {
+                    await purchaseService.syncRevenueCatUser(
+                        isAuthenticated: authService.isAuthenticated,
+                        userID: userID
+                    )
+                }
+            }
             .onAppear {
                 authService.checkCredentialState()
                 if hasCompletedPreferences && LocationManager.shared.hasLocationPermission {

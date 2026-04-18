@@ -13,10 +13,10 @@ Detailed specification for Speed Tracker subscription products.
 All products follow reverse domain notation:
 
 ```
-com.speedtracker.premium.weekly
-com.speedtracker.premium.monthly
-com.speedtracker.premium.yearly
-com.speedtracker.premium.lifetime
+speedtracker_weekly
+speedtracker_monthly
+speedtracker_yearly
+speedtracker_lifetime
 ```
 
 **Note**: These IDs must be created in App Store Connect and match exactly in code.
@@ -32,14 +32,14 @@ All auto-renewable subscriptions must be in the same group per Apple's requireme
 
 ### 1. Weekly Subscription
 
-**Product ID**: `com.speedtracker.premium.weekly`
+**Product ID**: `speedtracker_weekly`
 **Type**: Auto-renewable subscription
 **Duration**: 1 week (7 days)
-**Price**: $2.99 USD
+**Price**: $1.99 USD
 **Renewal**: Automatic
 
 **Localized Prices** (examples):
-- United States: $2.99
+- United States: $1.99
 - Canada: $3.99 CAD
 - United Kingdom: £2.99
 - Europe: €2.99
@@ -54,20 +54,20 @@ All auto-renewable subscriptions must be in the same group per Apple's requireme
 - Benefit: "Perfect for testing premium features before committing long-term"
 - Best For: "Occasional users and trial seekers"
 
-**Free Trial**: None (only yearly has trial)
+**Free Trial**: None
 
 ---
 
 ### 2. Monthly Subscription
 
-**Product ID**: `com.speedtracker.premium.monthly`
+**Product ID**: `speedtracker_monthly`
 **Type**: Auto-renewable subscription
 **Duration**: 1 month (30 days)
-**Price**: $7.99 USD
+**Price**: $4.99 USD
 **Renewal**: Automatic
 
 **Localized Prices**:
-- United States: $7.99
+- United States: $4.99
 - Canada: $10.99 CAD
 - United Kingdom: £7.99
 - Europe: €7.99
@@ -79,11 +79,11 @@ All auto-renewable subscriptions must be in the same group per Apple's requireme
 
 **Marketing Copy**:
 - Tagline: "Best Flexibility"
-- Badge: "Save 15% vs Weekly"
+- Badge: "Most Popular"
 - Benefit: "Pay monthly, cancel anytime, no long-term commitment"
 - Best For: "Regular users who want flexibility"
 
-**Savings**: 33% vs weekly ($11.96/month if weekly)
+**Savings**: 38% vs weekly ($8/month if weekly)
 
 **Free Trial**: None
 
@@ -91,14 +91,14 @@ All auto-renewable subscriptions must be in the same group per Apple's requireme
 
 ### 3. Yearly Subscription (Recommended)
 
-**Product ID**: `com.speedtracker.premium.yearly`
+**Product ID**: `speedtracker_yearly`
 **Type**: Auto-renewable subscription
 **Duration**: 1 year (365 days)
-**Price**: $49.99 USD
+**Price**: $19.99 USD
 **Renewal**: Automatic
 
 **Localized Prices**:
-- United States: $49.99
+- United States: $19.99
 - Canada: $64.99 CAD
 - United Kingdom: £49.99
 - Europe: €49.99
@@ -106,30 +106,27 @@ All auto-renewable subscriptions must be in the same group per Apple's requireme
 - Japan: ¥6,000
 
 **Display Name**: "Yearly Premium"
-**Description**: "One year of premium features with 3-day free trial. Best value!"
+**Description**: "One year of premium features at the lowest effective monthly price."
 
 **Marketing Copy**:
-- Tagline: "BEST VALUE - Save 60%"
-- Badge: "3-Day Free Trial"
-- Benefit: "Just $4.16/month - save $106/year vs weekly plan"
+- Tagline: "BEST VALUE"
+- Badge: "Best Value"
+- Benefit: "Just $2.08/month - save $79/year vs weekly plan"
 - Best For: "Committed users who drive regularly"
 
-**Free Trial**: 3 days
-- User pays nothing for first 3 days
-- Charged $49.99 on day 4 if not cancelled
-- Full access during trial
+**Free Trial**: None
 
 **Savings**: 
-- 48% vs monthly ($95.88/year if monthly)
-- 72% vs weekly ($155.48/year if weekly)
+- 58% vs monthly ($60/year if monthly)
+- 76% vs weekly ($104/year if weekly)
 
-**Introductory Offer**: 3-day free trial (configured in App Store Connect)
+**Introductory Offer**: None
 
 ---
 
 ### 4. Lifetime Purchase
 
-**Product ID**: `com.speedtracker.premium.lifetime`
+**Product ID**: `speedtracker_lifetime`
 **Type**: Non-consumable (one-time purchase)
 **Duration**: Forever (non-renewing)
 **Price**: $99.99 USD
@@ -164,9 +161,9 @@ All auto-renewable subscriptions must be in the same group per Apple's requireme
 
 | Plan | Price | Per Month | Per Year | Savings |
 |------|-------|-----------|----------|---------|
-| Weekly | $2.99/week | $12.96 | $155.48 | — |
-| Monthly | $7.99/month | $7.99 | $95.88 | 38% vs weekly |
-| Yearly | $49.99/year | $4.16 | $49.99 | 68% vs weekly, 48% vs monthly |
+| Weekly | $2/week | $8.00 | $104.00 | — |
+| Monthly | $5/month | $5.00 | $60.00 | 38% vs weekly |
+| Yearly | $25/year | $2.08 | $25.00 | 76% vs weekly, 58% vs monthly |
 | Lifetime | $99.99 once | — | — | Pays for itself in 13 months vs monthly |
 
 ## Paywall Display Strategy
@@ -176,9 +173,9 @@ All auto-renewable subscriptions must be in the same group per Apple's requireme
 1. **Yearly** (top position, highlighted)
    - Large card with blue border
    - "BEST VALUE" badge
-   - "3-DAY FREE TRIAL" badge
-   - Show monthly price: "$4.16/month"
-   - Small text: "Billed annually at $49.99"
+   - "BEST VALUE" badge
+   - Show monthly price: "$2.08/month"
+   - Small text: "Billed annually at $25"
    - Most prominent CTA
 
 2. **Lifetime** (second position)
@@ -190,12 +187,12 @@ All auto-renewable subscriptions must be in the same group per Apple's requireme
 3. **Monthly** (third position)
    - "FLEXIBLE" badge
    - "Save 15% vs weekly"
-   - Show monthly price: "$7.99/month"
+   - Show monthly price: "$5/month"
    - "Cancel anytime"
 
 4. **Weekly** (last position, smaller)
    - No badge
-   - Show weekly price: "$2.99/week"
+   - Show weekly price: "$2/week"
    - "Try before committing"
 
 ### Recommended Default
@@ -206,9 +203,9 @@ User can tap other options to change selection.
 
 ### CTA Button Text
 
-- Weekly: "Subscribe for $2.99/week"
-- Monthly: "Subscribe for $7.99/month"
-- Yearly: "Start 3-Day Free Trial" (then "$49.99/year")
+- Weekly: "Subscribe for $2/week"
+- Monthly: "Subscribe for $5/month"
+- Yearly: "Subscribe for $25/year"
 - Lifetime: "Buy Lifetime Access for $99.99"
 
 ## App Store Connect Configuration

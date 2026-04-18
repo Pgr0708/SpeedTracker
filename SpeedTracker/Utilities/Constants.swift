@@ -225,13 +225,13 @@ enum AppConstants {
 
     // MARK: - RevenueCat & IAP
     enum Purchase {
-        // IMPORTANT: Replace with your actual RevenueCat API key before App Store submission
-        static let revenueCatAPIKey = "appl_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        static let entitlementID = "premium"
-        static let weeklyProductID = "com.speedtracker.weekly"
-        static let monthlyProductID = "com.speedtracker.monthly"
-        static let yearlyProductID = "com.speedtracker.yearly"
-        static let lifetimeProductID = "com.speedtracker.lifetime"
+        static let revenueCatAPIKey = "appl_qMtIhfXHEBEDXsfTOfNHxUSPcgd"
+        static let primaryEntitlementID = "pro"
+        static let lifetimeEntitlementID = "lifetime"
+        static let weeklyProductID = "speedtracker_weekly"
+        static let monthlyProductID = "speedtracker_monthly"
+        static let yearlyProductID = "speedtracker_yearly"
+        static let lifetimeProductID = "speedtracker_lifetime"
     }
 
     // MARK: - URLs

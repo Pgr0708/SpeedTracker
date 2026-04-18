@@ -37,10 +37,10 @@ RevenueCat simplifies subscription management by providing:
 Create these product identifiers in App Store Connect:
 
 ```
-Weekly:   com.speedtracker.premium.weekly
-Monthly:  com.speedtracker.premium.monthly
-Yearly:   com.speedtracker.premium.yearly
-Lifetime: com.speedtracker.premium.lifetime
+Weekly:   speedtracker_weekly
+Monthly:  speedtracker_monthly
+Yearly:   speedtracker_yearly
+Lifetime: speedtracker_lifetime
 ```
 
 ### 4. RevenueCat Entitlements
@@ -50,10 +50,10 @@ Create one entitlement: **"premium"**
 All subscription products grant the same entitlement level.
 
 Map products to entitlement in RevenueCat:
-- `com.speedtracker.premium.weekly` → "premium"
-- `com.speedtracker.premium.monthly` → "premium"
-- `com.speedtracker.premium.yearly` → "premium"
-- `com.speedtracker.premium.lifetime` → "premium"
+- `speedtracker_weekly` → "premium"
+- `speedtracker_monthly` → "premium"
+- `speedtracker_yearly` → "premium"
+- `speedtracker_lifetime` → "premium"
 
 ## iOS SDK Integration
 
@@ -278,14 +278,14 @@ struct PaywallView: View {
 
 Display packages in this order (most attractive first):
 
-1. **Yearly** (with "3-Day Free Trial" badge and "Best Value" flag)
+1. **Yearly** (with "Best Value" badge)
 2. **Lifetime** (with "One-Time Purchase" badge)
-3. **Monthly** (with "Save 15%" badge)
+3. **Monthly** (with "Most Popular" badge)
 4. **Weekly** (no badge)
 
 ### Free Trial Handling
 
-Only yearly plan has free trial:
+No free trial is configured:
 
 ```swift
 func hasFreeTrial(package: Package) -> Bool {
