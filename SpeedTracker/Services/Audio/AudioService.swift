@@ -24,14 +24,14 @@ class AudioService: ObservableObject {
         guard !isMuted else { return }
         guard canPlayMaxAlert() else { return }
         lastMaxAlertTime = Date()
-        playBeeps(count: 3, interval: 0.15, systemSound: 1052)
+        playBeeps(count: 6, interval: 0.12, systemSound: 1052)
     }
 
     func playMinSpeedAlert() {
         guard !isMuted else { return }
         guard canPlayMinAlert() else { return }
         lastMinAlertTime = Date()
-        playBeeps(count: 2, interval: 0.2, systemSound: 1057)
+        playBeeps(count: 4, interval: 0.14, systemSound: 1057)
     }
 
     func toggleMute() {
@@ -47,6 +47,11 @@ class AudioService: ObservableObject {
     private func canPlayMinAlert() -> Bool {
         guard let last = lastMinAlertTime else { return true }
         return Date().timeIntervalSince(last) > cooldown
+    }
+
+    func resetAlertCooldowns() {
+        lastMaxAlertTime = nil
+        lastMinAlertTime = nil
     }
 
     private func playBeeps(count: Int, interval: TimeInterval, systemSound: SystemSoundID) {

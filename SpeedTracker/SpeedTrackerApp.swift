@@ -10,6 +10,7 @@ struct SpeedTrackerApp: App {
     @StateObject private var authService = AuthService.shared
     @StateObject private var purchaseService = PurchaseService.shared
     @StateObject private var cloudKitService = CloudKitService.shared
+    @StateObject private var localizationManager = LocalizationManager.shared
 
     @AppStorage(AppConstants.UserDefaultsKeys.hasSelectedLanguage) private var hasSelectedLanguage = false
     @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
@@ -30,8 +31,6 @@ struct SpeedTrackerApp: App {
             Group {
                 if showSplash {
                     SplashView { showSplash = false }
-                } else if didLogOut {
-                    SignInView { didLogOut = false }
                 } else if !hasSelectedLanguage {
                     LanguageSelectionView()
                 } else if !hasCompletedOnboarding {
@@ -50,6 +49,8 @@ struct SpeedTrackerApp: App {
             .environmentObject(authService)
             .environmentObject(purchaseService)
             .environmentObject(cloudKitService)
+            .environmentObject(localizationManager)
+            .environment(\.locale, localizationManager.currentLocale)
             .preferredColorScheme(themeManager.isDarkMode ? .dark : .light)
             .onAppear {
                 authService.checkCredentialState()
@@ -62,6 +63,7 @@ struct SpeedTrackerApp: App {
 
     private func setDefaults() {
         let ud = UserDefaults.standard
+        didLogOut = false
         if ud.object(forKey: AppConstants.UserDefaultsKeys.isHapticEnabled) == nil { ud.set(true, forKey: AppConstants.UserDefaultsKeys.isHapticEnabled) }
         if ud.object(forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled) == nil { ud.set(true, forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled) }
         if ud.object(forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) == nil { ud.set(120.0, forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) }

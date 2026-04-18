@@ -64,6 +64,17 @@ enum AppConstants {
             case .cyan: return "Cyber Cyan"
             }
         }
+
+        var displayNameKey: String {
+            switch self {
+            case .blue: return "theme.blue"
+            case .green: return "theme.green"
+            case .orange: return "theme.orange"
+            case .purple: return "theme.purple"
+            case .red: return "theme.red"
+            case .cyan: return "theme.cyan"
+            }
+        }
         
         var primaryColor: Color {
             switch self {
@@ -207,6 +218,7 @@ enum AppConstants {
         static let userProfile = "userProfile"
         static let hasShownSplash = "hasShownSplash"
         static let pedometerSessions = "pedometerSessions"
+        static let hasSeenHUDTiltTip = "hasSeenHUDTiltTip"
         static let lastCloudKitSync = "lastCloudKitSync"
         static let pendingCloudKitUploads = "pendingCloudKitUploads"
     }
@@ -228,6 +240,7 @@ enum AppConstants {
         static let contactUs = "https://your-support-url.com"
         static let privacyPolicy = "https://your-support-url.com/privacy"
         static let termsOfService = "https://your-support-url.com/terms"
+        static let termsAndConditions = "https://example.com/terms-and-conditions"
         static let rateApp = "https://apps.apple.com/app/id0000000000" // replace with real App Store ID
     }
 
@@ -252,6 +265,15 @@ enum AppConstants {
             case .mph: return 2.23694
             case .ms: return 1.0
             case .knots: return 1.94384
+            }
+        }
+
+        var localizationKey: String {
+            switch self {
+            case .kmh: return "unit.kmh"
+            case .mph: return "unit.mph"
+            case .ms: return "unit.ms"
+            case .knots: return "unit.knots"
             }
         }
     }

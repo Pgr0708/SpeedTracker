@@ -51,8 +51,8 @@ struct CompassView: View {
     // MARK: - Header
     var headerView: some View {
         HStack {
-            Text("COMPASS")
-                .font(Font.custom(AppConstants.Typography.orbitronBold, size: 28))
+            Text(L10n.text("compass.title"))
+                .font(.headingMedium)
                 .foregroundColor(theme.textPrimary)
             Spacer()
         }
@@ -138,14 +138,14 @@ struct CompassView: View {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: AppConstants.Design.paddingM) {
                 CompassStatCard(
                     icon: "arrow.up",
-                    title: "Altitude",
+                    title: L10n.string("compass.altitude"),
                     value: altitudeFormatted,
                     color: theme.primaryColor,
                     theme: theme
                 )
                 CompassStatCard(
                     icon: "location.fill",
-                    title: "Heading",
+                    title: L10n.string("compass.heading"),
                     value: headingFormatted + " " + cardinalDirection,
                     color: Color(hex: "FF3B5C"),
                     theme: theme
@@ -159,11 +159,11 @@ struct CompassView: View {
                         .foregroundColor(theme.primaryColor)
                         .frame(width: 32)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("COORDINATES")
-                            .font(Font.custom(AppConstants.Typography.rajdhaniMedium, size: 11))
+                        Text(L10n.text("compass.coordinates"))
+                            .font(.label)
                             .foregroundColor(theme.textSecondary)
                         Text(coordFormatted)
-                            .font(Font.custom(AppConstants.Typography.rajdhaniMedium, size: 15))
+                            .font(.bodyMedium)
                             .foregroundColor(theme.textPrimary)
                     }
                     Spacer()
@@ -189,11 +189,11 @@ struct CompassStatCard: View {
                 HStack(spacing: 6) {
                     Image(systemName: icon).font(.system(size: 13)).foregroundColor(color)
                     Text(title)
-                        .font(Font.custom(AppConstants.Typography.rajdhaniMedium, size: 11))
+                        .font(.label)
                         .foregroundColor(theme.textSecondary)
                 }
                 Text(value)
-                    .font(Font.custom(AppConstants.Typography.orbitronBold, size: 18))
+                    .font(.orbitron(18))
                     .foregroundColor(theme.textPrimary)
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)

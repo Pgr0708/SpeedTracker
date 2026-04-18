@@ -4,52 +4,52 @@
 */
 
 // MARK: - Onboarding
-"onboarding.skip" = "Skip";
-"onboarding.next" = "Next";
-"onboarding.back" = "Back";
-"onboarding.getStarted" = "Get Started";
+"onboarding.skip" = "Παράλειψη";
+"onboarding.next" = "Επόμενο";
+"onboarding.back" = "Πίσω";
+"onboarding.getStarted" = "Έναρξη";
 
-"onboarding.page1.title" = "Track Your Speed";
-"onboarding.page1.description" = "Real-time GPS speed tracking with precision accuracy. Monitor your speed in km/h, mph, m/s, or knots.";
+"onboarding.page1.title" = "Παρακολούθησε την ταχύτητά σου";
+"onboarding.page1.description" = "Παρακολούθηση ταχύτητας GPS σε πραγματικό χρόνο με υψηλή ακρίβεια. Δες την ταχύτητα σε km/h, mph, m/s ή κόμβους.";
 
-"onboarding.page2.title" = "Record Your Journeys";
-"onboarding.page2.description" = "Automatically save your trips with detailed statistics, routes, and achievements.";
+"onboarding.page2.title" = "Κατέγραψε τις διαδρομές σου";
+"onboarding.page2.description" = "Αποθήκευσε αυτόματα τις διαδρομές σου με λεπτομερή στατιστικά, διαδρομές και επιτεύγματα.";
 
-"onboarding.page3.title" = "Compete & Improve";
-"onboarding.page3.description" = "Set personal records, track your progress, and challenge yourself to go faster.";
+"onboarding.page3.title" = "Συναγωνίσου και βελτιώσου";
+"onboarding.page3.description" = "Βάλε προσωπικά ρεκόρ, παρακολούθησε την πρόοδό σου και ξεπέρασε τον εαυτό σου.";
 
 // MARK: - Main Screen
-"main.speed" = "Speed";
-"main.maxSpeed" = "Max Speed";
-"main.avgSpeed" = "Avg Speed";
-"main.distance" = "Distance";
-"main.duration" = "Duration";
+"main.speed" = "Ταχύτητα";
+"main.maxSpeed" = "Μέγ. ταχύτητα";
+"main.avgSpeed" = "Μέση ταχύτητα";
+"main.distance" = "Απόσταση";
+"main.duration" = "Διάρκεια";
 "main.startTracking" = "Start Tracking";
 "main.stopTracking" = "Stop Tracking";
 "main.pauseTracking" = "Pause";
 "main.resumeTracking" = "Resume";
 
 // MARK: - Settings
-"settings.title" = "Settings";
+"settings.title" = "Ρυθμίσεις";
 "settings.units" = "Units";
-"settings.language" = "Language";
+"settings.language" = "Γλώσσα";
 "settings.haptics" = "Haptic Feedback";
 
 // MARK: - Units
 "unit.kmh" = "km/h";
 "unit.mph" = "mph";
 "unit.ms" = "m/s";
-"unit.knots" = "knots";
+"unit.knots" = "κόμβοι";
 
 // MARK: - Common
-"common.save" = "Save";
-"common.cancel" = "Cancel";
-"common.done" = "Done";
+"common.save" = "Αποθήκευση";
+"common.cancel" = "Ακύρωση";
+"common.done" = "Έτοιμο";
 
 
 // MARK: - Pedometer
 "pedometer.title" = "Pedometer";
-"pedometer.steps" = "Steps";
+"pedometer.steps" = "Βήματα";
 "pedometer.distance" = "Distance";
 "pedometer.calories" = "Calories";
 "pedometer.pace" = "Pace";
@@ -69,7 +69,7 @@
 "compass.coordinates" = "Coordinates";
 
 // MARK: - History
-"history.title" = "History";
+"history.title" = "Ιστορικό";
 "history.noTrips" = "No Trips Yet";
 "history.noTripsDesc" = "Start tracking your speed to see your trip history here";
 "history.totalTrips" = "Total Trips";
@@ -78,71 +78,186 @@
 "history.upgradeDesc" = "Upgrade to unlock full history";
 
 // MARK: - Settings (new keys)
-"settings.account" = "Account";
-"settings.appearance" = "Appearance";
-"settings.tracking" = "Tracking";
-"settings.general" = "General";
-"settings.support" = "Support";
-"settings.data" = "Data";
-"settings.darkMode" = "Dark Mode";
-"settings.themeColor" = "Theme Color";
-"settings.mirrorMode" = "Mirror Mode (HUD)";
-"settings.maxSpeedLimit" = "Max Speed Limit";
-"settings.minSpeedThreshold" = "Min Speed Threshold";
-"settings.soundAlerts" = "Speed Alert Sounds";
-"settings.hapticFeedback" = "Haptic Feedback";
-"settings.rateApp" = "Rate App";
-"settings.contactUs" = "Contact Us";
-"settings.privacyPolicy" = "Privacy Policy";
-"settings.termsOfService" = "Terms of Service";
-"settings.about" = "About";
-"settings.resetAllData" = "Reset All Data";
-"settings.signOut" = "Sign Out";
-"settings.restorePurchases" = "Restore Purchases";
-"settings.iCloudSync" = "iCloud Sync";
-"settings.upgradePremium" = "Upgrade to Premium";
+"settings.account" = "Λογαριασμός";
+"settings.appearance" = "Εμφάνιση";
+"settings.tracking" = "Παρακολούθηση";
+"settings.general" = "Γενικά";
+"settings.support" = "Υποστήριξη";
+"settings.data" = "Δεδομένα";
+"settings.darkMode" = "Σκοτεινή λειτουργία";
+"settings.themeColor" = "Χρώμα θέματος";
+"settings.mirrorMode" = "Λειτουργία καθρέφτη (HUD)";
+"settings.maxSpeedLimit" = "Μέγιστο όριο ταχύτητας";
+"settings.minSpeedThreshold" = "Ελάχιστο όριο ταχύτητας";
+"settings.soundAlerts" = "Ήχοι ειδοποίησης ταχύτητας";
+"settings.hapticFeedback" = "Απτική ανάδραση";
+"settings.rateApp" = "Αξιολόγηση εφαρμογής";
+"settings.contactUs" = "Επικοινωνία";
+"settings.privacyPolicy" = "Πολιτική απορρήτου";
+"settings.termsOfService" = "Όροι χρήσης";
+"settings.about" = "Σχετικά";
+"settings.resetAllData" = "Επαναφορά όλων των δεδομένων";
+"settings.signOut" = "Αποσύνδεση";
+"settings.restorePurchases" = "Επαναφορά αγορών";
+"settings.iCloudSync" = "Συγχρονισμός iCloud";
+"settings.upgradePremium" = "Αναβάθμιση σε Premium";
 
 // MARK: - HUD Mode
-"hud.title" = "HUD Mode";
-"hud.mirrorOn" = "Mirror ON";
-"hud.mirrorOff" = "Mirror OFF";
-"hud.overLimit" = "OVER LIMIT";
-"hud.mirrorInstruction" = "Place below windshield — speed reflects upward";
-"hud.directView" = "Direct view mode";
+"hud.title" = "HUD";
+"hud.mirrorOn" = "Καθρέφτης ON";
+"hud.mirrorOff" = "Καθρέφτης OFF";
+"hud.overLimit" = "ΠΑΝΩ ΑΠΟ ΤΟ ΟΡΙΟ";
+"hud.mirrorInstruction" = "Τοποθετήστε κάτω από το παρμπρίζ - η ταχύτητα προβάλλεται προς τα πάνω";
+"hud.directView" = "Λειτουργία άμεσης προβολής";
 
 // MARK: - Paywall
-"paywall.unlockPremium" = "Unlock Premium";
-"paywall.fullExperience" = "Full speed tracking experience";
-"paywall.restorePurchases" = "Restore Purchases";
-"paywall.continueFree" = "Continue Free";
-"paywall.autoRenewable" = "Auto-renewable. Cancel anytime in App Store settings.";
-"paywall.startFreeTrial" = "Start Free Trial";
-"paywall.subscribeNow" = "Subscribe Now";
+"paywall.unlockPremium" = "Ξεκλείδωσε το Premium";
+"paywall.fullExperience" = "Πλήρης εμπειρία παρακολούθησης ταχύτητας";
+"paywall.restorePurchases" = "Επαναφορά αγορών";
+"paywall.continueFree" = "Συνέχεια δωρεάν";
+"paywall.autoRenewable" = "Αυτόματη ανανέωση. Ακύρωση οποιαδήποτε στιγμή από τις ρυθμίσεις App Store.";
+"paywall.startFreeTrial" = "Έναρξη δωρεάν δοκιμής";
+"paywall.subscribeNow" = "Εγγραφή τώρα";
 
 // MARK: - Permissions
-"permissions.title" = "Permissions Required";
-"permissions.desc" = "SpeedTracker needs access to track speed and activity";
-"permissions.location" = "Location Access";
-"permissions.motion" = "Motion & Fitness";
-"permissions.health" = "Health (Optional)";
-"permissions.notifications" = "Notifications";
-"permissions.grantLocation" = "Grant Location Access";
-"permissions.continue" = "Continue";
-"permissions.openSettings" = "Open Settings";
+"permissions.title" = "Απαιτούνται άδειες";
+"permissions.desc" = "Το SpeedTracker χρειάζεται πρόσβαση για παρακολούθηση ταχύτητας και δραστηριότητας";
+"permissions.location" = "Πρόσβαση τοποθεσίας";
+"permissions.motion" = "Κίνηση & Fitness";
+"permissions.health" = "Υγεία (προαιρετικό)";
+"permissions.notifications" = "Ειδοποιήσεις";
+"permissions.grantLocation" = "Ενεργοποίηση τοποθεσίας";
+"permissions.continue" = "Συνέχεια";
+"permissions.openSettings" = "Άνοιγμα ρυθμίσεων";
 
 // MARK: - Alerts
-"alert.stopTrip.title" = "Stop Tracking?";
-"alert.stopTrip.message" = "Your trip will be saved to history.";
-"alert.stopTrip.save" = "Stop & Save";
-"alert.resetData.title" = "Reset All Data?";
-"alert.resetData.message" = "This will delete all trips and reset preferences. This cannot be undone.";
-"alert.resetData.confirm" = "Reset";
-"alert.signOut.title" = "Sign Out?";
-"alert.signOut.message" = "You can sign back in at any time to restore your data.";
-"alert.signOut.confirm" = "Sign Out";
-"alert.languageRestart.title" = "Restart Required";
-"alert.languageRestart.message" = "The app will need to restart to apply the new language.";
-"alert.languageRestart.apply" = "Apply & Restart";
-"alert.maxSpeed" = "Max Speed Exceeded!";
-"alert.minSpeed" = "Below Min Speed";
+"alert.stopTrip.title" = "Διακοπή παρακολούθησης;";
+"alert.stopTrip.message" = "Η διαδρομή σας θα αποθηκευτεί στο ιστορικό.";
+"alert.stopTrip.save" = "Διακοπή και αποθήκευση";
+"alert.resetData.title" = "Επαναφορά όλων των δεδομένων;";
+"alert.resetData.message" = "Αυτό θα διαγράψει όλες τις διαδρομές και θα επαναφέρει τις προτιμήσεις. Δεν αναιρείται.";
+"alert.resetData.confirm" = "Επαναφορά";
+"alert.signOut.title" = "Αποσύνδεση;";
+"alert.signOut.message" = "Μπορείτε να συνδεθείτε ξανά οποιαδήποτε στιγμή για επαναφορά δεδομένων.";
+"alert.signOut.confirm" = "Αποσύνδεση";
+"alert.languageRestart.title" = "Απαιτείται επανεκκίνηση";
+"alert.languageRestart.message" = "Η εφαρμογή πρέπει να επανεκκινηθεί για να εφαρμοστεί η γλώσσα.";
+"alert.languageRestart.apply" = "Εφαρμογή και επανεκκίνηση";
+"alert.maxSpeed" = "Υπέρβαση μέγιστης ταχύτητας!";
+"alert.minSpeed" = "Κάτω από την ελάχιστη ταχύτητα";
 
+"common.continue" = "Συνέχεια";
+"common.close" = "Κλείσιμο";
+"common.never" = "Ποτέ";
+"common.premium" = "Premium";
+"main.startTrip" = "Έναρξη διαδρομής";
+"main.tracking" = "Παρακολούθηση...";
+"main.waiting" = "Αναμονή...";
+"main.ready" = "Έτοιμο";
+"main.noGPS" = "Χωρίς GPS";
+"main.gps" = "GPS";
+"main.gpsStrong" = "GPS ★★★";
+"main.gpsMedium" = "GPS ★★";
+"main.gpsWeak" = "GPS ★";
+"main.startPromptTitle" = "Ξεκινήστε διαδρομή για ζωντανά στατιστικά";
+"main.startPromptSubtitle" = "Ταχύτητα, απόσταση, υψόμετρο και πορεία εμφανίζονται μετά την έναρξη";
+"main.livePerformance" = "Ζωντανή απόδοση";
+"settings.speedUnit" = "Μονάδα ταχύτητας";
+"settings.defaultUser" = "Χρήστης SpeedTracker";
+"settings.appleSignIn" = "Σύνδεση με Apple";
+"settings.lastSyncPrefix" = "Τελ.:";
+"hud.live" = "LIVE";
+"hud.readyTitle" = "Το HUD είναι έτοιμο";
+"hud.readySubtitle" = "Ξεκινήστε διαδρομή εδώ για προβολή ταχύτητας στο παρμπρίζ";
+"languageSelection.title" = "Επιλογή γλώσσας";
+"languageSelection.subtitle" = "Επιλέξτε τη γλώσσα που προτιμάτε";
+"theme.blue" = "Ηλεκτρικό μπλε";
+"theme.green" = "Lime πράσινο";
+"theme.orange" = "Νέον πορτοκαλί";
+"theme.purple" = "Βασιλικό μωβ";
+"theme.red" = "Κόκκινο racing";
+"theme.cyan" = "Κυβερνο-κυανό";
+"onboarding.page1.bullet1" = "Ακρίβεια GPS σε πραγματικό χρόνο";
+"onboarding.page1.bullet2" = "km/h · mph · m/s · κόμβοι";
+"onboarding.page1.bullet3" = "Ζωντανό γράφημα ταχύτητας";
+"onboarding.page2.bullet1" = "Πλήρης διαδρομή στον χάρτη";
+"onboarding.page2.bullet2" = "Δεδομένα ταχύτητας και υψομέτρου";
+"onboarding.page2.bullet3" = "Διάρκεια και απόσταση";
+"onboarding.page3.bullet1" = "Προσωπικά ρεκόρ";
+"onboarding.page3.bullet2" = "Βηματόμετρο και θερμίδες";
+"onboarding.page3.bullet3" = "Προσαρμοσμένα θέματα";
+"permissions.locationDesc" = "Απαραίτητο για παρακολούθηση ταχύτητας GPS";
+"permissions.motionDesc" = "Απαραίτητο για το βηματόμετρο";
+"permissions.healthDesc" = "Για συγχρονισμό θερμίδων και δεδομένων fitness";
+"permissions.notificationsDesc" = "Ειδοποιήσεις ταχύτητας και περιλήψεις διαδρομών";
+"permissions.granted" = "Εγκρίθηκε";
+"permissions.denied" = "Απορρίφθηκε";
+"permissions.required" = "Απαραίτητο";
+"permissions.tapToGrant" = "Πάτησε για έγκριση";
+"permissions.optional" = "Προαιρετικό";
+"preferences.colorTitle" = "Διάλεξε χρώμα";
+"preferences.colorSubtitle" = "Επίλεξε χρώμα έμφασης για την εφαρμογή";
+"preferences.appearanceTitle" = "Εμφάνιση";
+"preferences.appearanceSubtitle" = "Επίλεξε σκούρα ή φωτεινή λειτουργία";
+"preferences.speedUnitTitle" = "Μονάδα ταχύτητας";
+"preferences.speedUnitSubtitle" = "Επίλεξε τη μονάδα που προτιμάς";
+"preferences.speedLimitsTitle" = "Όρια ταχύτητας";
+"preferences.speedLimitsSubtitle" = "Όρισε μέγιστες και ελάχιστες ειδοποιήσεις";
+"preferences.dark" = "Σκούρο";
+"preferences.light" = "Φωτεινό";
+"preferences.maxSpeedHint" = "Θα ειδοποιείσαι όταν ξεπερνάς αυτή την ταχύτητα";
+"preferences.minSpeedHint" = "Κάτω από αυτήν την τιμή δεν θα γίνεται καταγραφή";
+"main.stopMini" = "Διακοπή";
+"settings.off" = "Απενεργ.";
+"settings.soundOn" = "Ήχος ενεργός";
+"settings.soundOff" = "Ήχος ανενεργός";
+"alert.bigMaxTitle" = "ΧΤΥΠΗΣΕΣ ΤΟ ΜΕΓΙΣΤΟ ΟΡΙΟ";
+"alert.bigMaxBody" = "Κόψε ταχύτητα τώρα. Βρίσκεσαι πάνω από το ασφαλές όριό σου.";
+"alert.bigMinTitle" = "ΠΡΟΕΙΔΟΠΟΙΗΣΗ ΧΑΜΗΛΗΣ ΤΑΧΥΤΗΤΑΣ";
+"alert.bigMinBody" = "Η ταχύτητα έπεσε κάτω από το ελάχιστο ασφαλές επίπεδο καταγραφής.";
+"hud.horizontal" = "Οριζόντια";
+"hud.vertical" = "Κάθετα";
+"hud.skipStopSave" = "Παράλειψη";
+"paywall.featureHud" = "Λειτουργία HUD για το παρμπρίζ";
+"paywall.featurePedometer" = "Βηματόμετρο με καταγραφή θερμίδων";
+"paywall.featureHistory" = "Πλήρες ιστορικό διαδρομών με χάρτες";
+"paywall.featureAlerts" = "Μεγάλες ειδοποιήσεις ταχύτητας με δυνατό ήχο";
+"paywall.featureThemes" = "Θέματα και προσαρμογή";
+"paywall.featureSync" = "Συγχρονισμός iCloud σε όλες τις συσκευές";
+"paywall.featureMirror" = "Λειτουργία καθρέφτη για αντανακλάσεις";
+"paywall.termsButton" = "Όροι & Προϋποθέσεις";
+"paywall.restoreTitle" = "Επαναφορά αγορών";
+"paywall.restoreSuccess" = "Το Premium επανήλθε και ξεκίνησε ο συγχρονισμός cloud.";
+"paywall.restoreNeedLogin" = "Συνδέσου πρώτα με Apple και μετά κάνε επαναφορά αγορών.";
+"paywall.ribbon.bestValue" = "ΚΑΛΥΤΕΡΗ ΤΙΜΗ";
+"paywall.ribbon.popular" = "ΠΙΟ ΔΗΜΟΦΙΛΕΣ";
+"paywall.plan.weekly" = "Εβδομαδιαίο";
+"paywall.plan.monthly" = "Μηνιαίο";
+"paywall.plan.yearly" = "Ετήσιο";
+"paywall.plan.lifetime" = "Ισόβιο";
+"paywall.badge.flexible" = "Ευέλικτο";
+"paywall.badge.popular" = "Πιο δημοφιλές";
+"paywall.badge.trial" = "Δωρεάν δοκιμή 3 ημερών";
+"paywall.badge.payOnce" = "Μία πληρωμή";
+"paywall.period.week" = "/εβδ.";
+"paywall.period.month" = "/μήνα";
+"paywall.period.year" = "/έτος";
+"history.showingTrips" = "Εμφανίζονται %d από %d διαδρομές";
+"history.lockedTrips" = "%d ακόμη διαδρομές κλειδωμένες - κάνε αναβάθμιση για προβολή";
+"history.maxShort" = "ΜΕΓ";
+"history.avgShort" = "ΜΟ";
+"history.distShort" = "ΑΠΟΣΤ";
+"pedometer.active" = "ΕΝΕΡΓΟ";
+"pedometer.goalStatus" = "%d%% του στόχου";
+"pedometer.motionRequired" = "Απαιτείται άδεια Κίνηση & Fitness. Ενεργοποίησέ την στις Ρυθμίσεις.";
+"pedometer.stepsCount" = "%d βήματα";
+"auth.welcomeBack" = "Καλώς ήρθες ξανά";
+"auth.restoreDesc" = "Συνδέσου για να επαναφέρεις τις αγορές σου\nκαι να συγχρονίσεις τα δεδομένα σου";
+"auth.privateData" = "Τα δεδομένα σου είναι ιδιωτικά και αποθηκεύονται στο iCloud";
+"tripDetail.title" = "Λεπτομέρειες διαδρομής";
+"tripDetail.route" = "Διαδρομή";
+"tripDetail.start" = "Έναρξη";
+"tripDetail.end" = "Τέλος";
+"tripDetail.speedOverTime" = "Ταχύτητα με την πάροδο του χρόνου";
+"tripDetail.noSpeedData" = "Δεν υπάρχουν διαθέσιμα δεδομένα ταχύτητας";
+"common.settings" = "Ρυθμίσεις";

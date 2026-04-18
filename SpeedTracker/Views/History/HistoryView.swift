@@ -45,9 +45,9 @@ struct HistoryView: View {
     var emptyState: some View {
         VStack(spacing: 20) {
             Image(systemName: "clock.badge.questionmark").font(.system(size: 60)).foregroundColor(theme.textTertiary)
-            Text("No Trips Yet").font(.system(size: 24, weight: .bold, design: .rounded)).foregroundColor(theme.textPrimary)
-            Text("Start tracking your speed to see\nyour trip history here")
-                .font(.system(size: 15)).foregroundColor(theme.textSecondary).multilineTextAlignment(.center)
+            Text(L10n.text("history.noTrips")).font(.headingSmall).foregroundColor(theme.textPrimary)
+            Text(L10n.text("history.noTripsDesc"))
+                .font(.bodySmall).foregroundColor(theme.textSecondary).multilineTextAlignment(.center)
         }
     }
 
@@ -56,8 +56,8 @@ struct HistoryView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: AppConstants.Design.paddingL) {
                 HStack {
-                    Text("HISTORY")
-                        .font(Font.custom(AppConstants.Typography.orbitronBold, size: 28))
+                    Text(L10n.text("history.title"))
+                        .font(.headingMedium)
                         .foregroundColor(theme.textPrimary)
                     Spacer()
                 }
@@ -94,14 +94,14 @@ struct HistoryView: View {
         GlassMorphismCard {
             HStack(spacing: AppConstants.Design.paddingL) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("TOTAL TRIPS").font(.system(size: 11, weight: .medium)).foregroundColor(theme.textSecondary)
-                    Text("\(tripStore.totalTrips)").font(.system(size: 28, weight: .bold, design: .rounded)).foregroundColor(theme.primaryColor)
+                    Text(L10n.text("history.totalTrips")).font(.label).foregroundColor(theme.textSecondary)
+                    Text("\(tripStore.totalTrips)").font(.orbitron(28)).foregroundColor(theme.primaryColor)
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text("TOTAL DISTANCE").font(.system(size: 11, weight: .medium)).foregroundColor(theme.textSecondary)
+                    Text(L10n.text("history.totalDistance")).font(.label).foregroundColor(theme.textSecondary)
                     Text(formatTotalDistance(tripStore.totalDistance))
-                        .font(.system(size: 22, weight: .bold, design: .rounded)).foregroundColor(AppConstants.Colors.limeGreen)
+                        .font(.orbitron(22)).foregroundColor(AppConstants.Colors.limeGreen)
                 }
             }
         }
@@ -114,12 +114,12 @@ struct HistoryView: View {
             HStack(spacing: 12) {
                 Image(systemName: "crown.fill").font(.system(size: 18)).foregroundColor(Color(hex: "FFD700"))
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Showing 5 of \(tripStore.trips.count) trips")
-                        .font(.system(size: 14, weight: .semibold)).foregroundColor(theme.textPrimary)
-                    Text("Upgrade to unlock full history").font(.system(size: 12)).foregroundColor(theme.textSecondary)
+                    Text(L10n.string("history.showingTrips", 5, tripStore.trips.count))
+                        .font(.bodySmall).foregroundColor(theme.textPrimary)
+                    Text(L10n.text("history.upgradeDesc")).font(.caption).foregroundColor(theme.textSecondary)
                 }
                 Spacer()
-                Text("Upgrade").font(.system(size: 13, weight: .bold))
+                Text(L10n.text("history.upgrade")).font(.label)
                     .foregroundColor(Color(hex: "FFD700"))
                     .padding(.horizontal, 12).padding(.vertical, 6)
                     .background(Color(hex: "FFD700").opacity(0.2)).cornerRadius(8)
@@ -140,8 +140,8 @@ struct HistoryView: View {
         Button { showPaywall = true } label: {
             HStack(spacing: 10) {
                 Image(systemName: "lock.fill").font(.system(size: 14)).foregroundColor(theme.textTertiary)
-                Text("\(tripStore.trips.count - 5) more trips locked — upgrade to view")
-                    .font(.system(size: 13)).foregroundColor(theme.textTertiary)
+                Text(L10n.string("history.lockedTrips", tripStore.trips.count - 5))
+                    .font(.caption).foregroundColor(theme.textTertiary)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
@@ -171,8 +171,8 @@ struct TripCard: View {
                     }
                     Spacer()
                     HStack(spacing: 4) {
-                        Image(systemName: "clock").font(.system(size: 12))
-                        Text(trip.durationFormatted).font(.system(size: 13, weight: .medium))
+                    Image(systemName: "clock").font(.system(size: 12))
+                        Text(trip.durationFormatted).font(.caption)
                     }
                     .foregroundColor(theme.textSecondary).padding(.horizontal, 10).padding(.vertical, 5)
                     .background(Capsule().fill(theme.isDarkMode ? Color.white.opacity(0.08) : Color.black.opacity(0.05)))
@@ -180,9 +180,9 @@ struct TripCard: View {
                 }
                 Divider().background(theme.textSecondary.opacity(0.2))
                 HStack(spacing: AppConstants.Design.paddingL) {
-                    TripStatView(icon: "speedometer", value: "\(Int(trip.maxSpeedConverted(speedUnit)))", unit: speedUnit.rawValue, label: "MAX", color: AppConstants.Colors.neonOrange, theme: theme)
-                    TripStatView(icon: "chart.line.uptrend.xyaxis", value: "\(Int(trip.avgSpeedConverted(speedUnit)))", unit: speedUnit.rawValue, label: "AVG", color: theme.primaryColor, theme: theme)
-                    TripStatView(icon: "location.fill", value: trip.distanceFormatted, unit: "", label: "DIST", color: AppConstants.Colors.limeGreen, theme: theme)
+                    TripStatView(icon: "speedometer", value: "\(Int(trip.maxSpeedConverted(speedUnit)))", unit: L10n.string(speedUnit.localizationKey), label: L10n.string("history.maxShort"), color: AppConstants.Colors.neonOrange, theme: theme)
+                    TripStatView(icon: "chart.line.uptrend.xyaxis", value: "\(Int(trip.avgSpeedConverted(speedUnit)))", unit: L10n.string(speedUnit.localizationKey), label: L10n.string("history.avgShort"), color: theme.primaryColor, theme: theme)
+                    TripStatView(icon: "location.fill", value: trip.distanceFormatted, unit: "", label: L10n.string("history.distShort"), color: AppConstants.Colors.limeGreen, theme: theme)
                 }
             }
         }
@@ -195,10 +195,10 @@ struct TripStatView: View {
         VStack(spacing: 4) {
             Image(systemName: icon).font(.system(size: 14)).foregroundColor(color)
             HStack(alignment: .firstTextBaseline, spacing: 2) {
-                Text(value).font(.system(size: 16, weight: .bold)).foregroundColor(theme.textPrimary)
-                if !unit.isEmpty { Text(unit).font(.system(size: 10)).foregroundColor(theme.textSecondary) }
+                Text(value).font(.bodyMedium).foregroundColor(theme.textPrimary)
+                if !unit.isEmpty { Text(unit).font(.caption).foregroundColor(theme.textSecondary) }
             }
-            Text(label).font(.system(size: 10, weight: .medium)).foregroundColor(theme.textSecondary)
+            Text(label).font(.caption).foregroundColor(theme.textSecondary)
         }
         .frame(maxWidth: .infinity)
     }

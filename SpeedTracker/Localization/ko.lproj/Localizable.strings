@@ -4,52 +4,52 @@
 */
 
 // MARK: - Onboarding
-"onboarding.skip" = "Skip";
-"onboarding.next" = "Next";
-"onboarding.back" = "Back";
-"onboarding.getStarted" = "Get Started";
+"onboarding.skip" = "건너뛰기";
+"onboarding.next" = "다음";
+"onboarding.back" = "뒤로";
+"onboarding.getStarted" = "시작하기";
 
-"onboarding.page1.title" = "Track Your Speed";
-"onboarding.page1.description" = "Real-time GPS speed tracking with precision accuracy. Monitor your speed in km/h, mph, m/s, or knots.";
+"onboarding.page1.title" = "속도를 추적하세요";
+"onboarding.page1.description" = "정확한 실시간 GPS 속도 추적. 속도를 km/h, mph, m/s 또는 노트로 확인하세요.";
 
-"onboarding.page2.title" = "Record Your Journeys";
-"onboarding.page2.description" = "Automatically save your trips with detailed statistics, routes, and achievements.";
+"onboarding.page2.title" = "주행 기록 저장";
+"onboarding.page2.description" = "상세 통계, 경로, 업적과 함께 주행 기록을 자동으로 저장합니다.";
 
-"onboarding.page3.title" = "Compete & Improve";
-"onboarding.page3.description" = "Set personal records, track your progress, and challenge yourself to go faster.";
+"onboarding.page3.title" = "기록을 넘어서기";
+"onboarding.page3.description" = "개인 기록을 세우고 진행 상황을 추적하며 더 빠르게 도전하세요.";
 
 // MARK: - Main Screen
-"main.speed" = "Speed";
-"main.maxSpeed" = "Max Speed";
-"main.avgSpeed" = "Avg Speed";
-"main.distance" = "Distance";
-"main.duration" = "Duration";
+"main.speed" = "속도";
+"main.maxSpeed" = "최고 속도";
+"main.avgSpeed" = "평균 속도";
+"main.distance" = "거리";
+"main.duration" = "시간";
 "main.startTracking" = "Start Tracking";
 "main.stopTracking" = "Stop Tracking";
 "main.pauseTracking" = "Pause";
 "main.resumeTracking" = "Resume";
 
 // MARK: - Settings
-"settings.title" = "Settings";
+"settings.title" = "설정";
 "settings.units" = "Units";
-"settings.language" = "Language";
+"settings.language" = "언어";
 "settings.haptics" = "Haptic Feedback";
 
 // MARK: - Units
 "unit.kmh" = "km/h";
 "unit.mph" = "mph";
 "unit.ms" = "m/s";
-"unit.knots" = "knots";
+"unit.knots" = "노트";
 
 // MARK: - Common
-"common.save" = "Save";
-"common.cancel" = "Cancel";
-"common.done" = "Done";
+"common.save" = "저장";
+"common.cancel" = "취소";
+"common.done" = "완료";
 
 
 // MARK: - Pedometer
 "pedometer.title" = "Pedometer";
-"pedometer.steps" = "Steps";
+"pedometer.steps" = "걸음 수";
 "pedometer.distance" = "Distance";
 "pedometer.calories" = "Calories";
 "pedometer.pace" = "Pace";
@@ -69,7 +69,7 @@
 "compass.coordinates" = "Coordinates";
 
 // MARK: - History
-"history.title" = "History";
+"history.title" = "기록";
 "history.noTrips" = "No Trips Yet";
 "history.noTripsDesc" = "Start tracking your speed to see your trip history here";
 "history.totalTrips" = "Total Trips";
@@ -78,71 +78,186 @@
 "history.upgradeDesc" = "Upgrade to unlock full history";
 
 // MARK: - Settings (new keys)
-"settings.account" = "Account";
-"settings.appearance" = "Appearance";
-"settings.tracking" = "Tracking";
-"settings.general" = "General";
-"settings.support" = "Support";
-"settings.data" = "Data";
-"settings.darkMode" = "Dark Mode";
-"settings.themeColor" = "Theme Color";
-"settings.mirrorMode" = "Mirror Mode (HUD)";
-"settings.maxSpeedLimit" = "Max Speed Limit";
-"settings.minSpeedThreshold" = "Min Speed Threshold";
-"settings.soundAlerts" = "Speed Alert Sounds";
-"settings.hapticFeedback" = "Haptic Feedback";
-"settings.rateApp" = "Rate App";
-"settings.contactUs" = "Contact Us";
-"settings.privacyPolicy" = "Privacy Policy";
-"settings.termsOfService" = "Terms of Service";
-"settings.about" = "About";
-"settings.resetAllData" = "Reset All Data";
-"settings.signOut" = "Sign Out";
-"settings.restorePurchases" = "Restore Purchases";
-"settings.iCloudSync" = "iCloud Sync";
-"settings.upgradePremium" = "Upgrade to Premium";
+"settings.account" = "계정";
+"settings.appearance" = "화면";
+"settings.tracking" = "추적";
+"settings.general" = "일반";
+"settings.support" = "지원";
+"settings.data" = "데이터";
+"settings.darkMode" = "다크 모드";
+"settings.themeColor" = "테마 색상";
+"settings.mirrorMode" = "미러 모드 (HUD)";
+"settings.maxSpeedLimit" = "최대 속도 제한";
+"settings.minSpeedThreshold" = "최소 속도 기준";
+"settings.soundAlerts" = "속도 경고음";
+"settings.hapticFeedback" = "햅틱 피드백";
+"settings.rateApp" = "앱 평가";
+"settings.contactUs" = "문의하기";
+"settings.privacyPolicy" = "개인정보 처리방침";
+"settings.termsOfService" = "이용 약관";
+"settings.about" = "정보";
+"settings.resetAllData" = "모든 데이터 재설정";
+"settings.signOut" = "로그아웃";
+"settings.restorePurchases" = "구매 복원";
+"settings.iCloudSync" = "iCloud 동기화";
+"settings.upgradePremium" = "프리미엄 업그레이드";
 
 // MARK: - HUD Mode
-"hud.title" = "HUD Mode";
-"hud.mirrorOn" = "Mirror ON";
-"hud.mirrorOff" = "Mirror OFF";
-"hud.overLimit" = "OVER LIMIT";
-"hud.mirrorInstruction" = "Place below windshield — speed reflects upward";
-"hud.directView" = "Direct view mode";
+"hud.title" = "HUD";
+"hud.mirrorOn" = "미러 켜짐";
+"hud.mirrorOff" = "미러 꺼짐";
+"hud.overLimit" = "제한 초과";
+"hud.mirrorInstruction" = "앞유리 아래에 두면 속도가 위로 반사됩니다";
+"hud.directView" = "직접 보기 모드";
 
 // MARK: - Paywall
-"paywall.unlockPremium" = "Unlock Premium";
-"paywall.fullExperience" = "Full speed tracking experience";
-"paywall.restorePurchases" = "Restore Purchases";
-"paywall.continueFree" = "Continue Free";
-"paywall.autoRenewable" = "Auto-renewable. Cancel anytime in App Store settings.";
-"paywall.startFreeTrial" = "Start Free Trial";
-"paywall.subscribeNow" = "Subscribe Now";
+"paywall.unlockPremium" = "프리미엄 잠금 해제";
+"paywall.fullExperience" = "완전한 속도 추적 경험";
+"paywall.restorePurchases" = "구매 복원";
+"paywall.continueFree" = "무료로 계속";
+"paywall.autoRenewable" = "자동 갱신됩니다. App Store 설정에서 언제든지 취소할 수 있습니다.";
+"paywall.startFreeTrial" = "무료 체험 시작";
+"paywall.subscribeNow" = "지금 구독";
 
 // MARK: - Permissions
-"permissions.title" = "Permissions Required";
-"permissions.desc" = "SpeedTracker needs access to track speed and activity";
-"permissions.location" = "Location Access";
-"permissions.motion" = "Motion & Fitness";
-"permissions.health" = "Health (Optional)";
-"permissions.notifications" = "Notifications";
-"permissions.grantLocation" = "Grant Location Access";
-"permissions.continue" = "Continue";
-"permissions.openSettings" = "Open Settings";
+"permissions.title" = "필수 권한";
+"permissions.desc" = "SpeedTracker가 속도와 활동을 추적하려면 접근 권한이 필요합니다";
+"permissions.location" = "위치 접근";
+"permissions.motion" = "동작 및 피트니스";
+"permissions.health" = "건강(선택)";
+"permissions.notifications" = "알림";
+"permissions.grantLocation" = "위치 권한 허용";
+"permissions.continue" = "계속";
+"permissions.openSettings" = "설정 열기";
 
 // MARK: - Alerts
-"alert.stopTrip.title" = "Stop Tracking?";
-"alert.stopTrip.message" = "Your trip will be saved to history.";
-"alert.stopTrip.save" = "Stop & Save";
-"alert.resetData.title" = "Reset All Data?";
-"alert.resetData.message" = "This will delete all trips and reset preferences. This cannot be undone.";
-"alert.resetData.confirm" = "Reset";
-"alert.signOut.title" = "Sign Out?";
-"alert.signOut.message" = "You can sign back in at any time to restore your data.";
-"alert.signOut.confirm" = "Sign Out";
-"alert.languageRestart.title" = "Restart Required";
-"alert.languageRestart.message" = "The app will need to restart to apply the new language.";
-"alert.languageRestart.apply" = "Apply & Restart";
-"alert.maxSpeed" = "Max Speed Exceeded!";
-"alert.minSpeed" = "Below Min Speed";
+"alert.stopTrip.title" = "추적을 중지할까요?";
+"alert.stopTrip.message" = "주행 기록이 저장됩니다.";
+"alert.stopTrip.save" = "중지 후 저장";
+"alert.resetData.title" = "모든 데이터를 재설정할까요?";
+"alert.resetData.message" = "모든 주행 기록과 설정이 삭제됩니다. 되돌릴 수 없습니다.";
+"alert.resetData.confirm" = "재설정";
+"alert.signOut.title" = "로그아웃할까요?";
+"alert.signOut.message" = "데이터를 복원하려면 언제든 다시 로그인할 수 있습니다.";
+"alert.signOut.confirm" = "로그아웃";
+"alert.languageRestart.title" = "재시작 필요";
+"alert.languageRestart.message" = "언어를 적용하려면 앱을 다시 시작해야 합니다.";
+"alert.languageRestart.apply" = "적용 후 재시작";
+"alert.maxSpeed" = "최대 속도를 초과했습니다!";
+"alert.minSpeed" = "최소 속도 이하";
 
+"common.continue" = "계속";
+"common.close" = "닫기";
+"common.never" = "없음";
+"common.premium" = "프리미엄";
+"main.startTrip" = "주행 시작";
+"main.tracking" = "추적 중...";
+"main.waiting" = "대기 중...";
+"main.ready" = "준비 완료";
+"main.noGPS" = "GPS 없음";
+"main.gps" = "GPS";
+"main.gpsStrong" = "GPS ★★★";
+"main.gpsMedium" = "GPS ★★";
+"main.gpsWeak" = "GPS ★";
+"main.startPromptTitle" = "주행을 시작해 실시간 통계를 확인하세요";
+"main.startPromptSubtitle" = "추적이 시작되면 속도, 거리, 고도, 방향이 표시됩니다";
+"main.livePerformance" = "실시간 퍼포먼스";
+"settings.speedUnit" = "속도 단위";
+"settings.defaultUser" = "SpeedTracker 사용자";
+"settings.appleSignIn" = "Apple 로그인";
+"settings.lastSyncPrefix" = "마지막:";
+"hud.live" = "실시간";
+"hud.readyTitle" = "주행 준비 완료";
+"hud.readySubtitle" = "여기서 주행을 시작하면 속도가 앞유리에 투영됩니다";
+"languageSelection.title" = "언어 선택";
+"languageSelection.subtitle" = "선호하는 언어를 선택하세요";
+"theme.blue" = "일렉트릭 블루";
+"theme.green" = "라임 그린";
+"theme.orange" = "네온 오렌지";
+"theme.purple" = "로열 퍼플";
+"theme.red" = "레이싱 레드";
+"theme.cyan" = "사이버 시안";
+"onboarding.page1.bullet1" = "실시간 GPS 정밀도";
+"onboarding.page1.bullet2" = "km/h · mph · m/s · 노트";
+"onboarding.page1.bullet3" = "실시간 속도 그래프";
+"onboarding.page2.bullet1" = "지도 전체 경로";
+"onboarding.page2.bullet2" = "속도 및 고도 데이터";
+"onboarding.page2.bullet3" = "시간과 거리";
+"onboarding.page3.bullet1" = "개인 최고 기록";
+"onboarding.page3.bullet2" = "만보계와 칼로리";
+"onboarding.page3.bullet3" = "커스텀 테마";
+"permissions.locationDesc" = "GPS 속도 추적에 필요";
+"permissions.motionDesc" = "만보계 추적에 필요";
+"permissions.healthDesc" = "칼로리 및 피트니스 데이터 동기화용";
+"permissions.notificationsDesc" = "속도 알림 및 주행 요약";
+"permissions.granted" = "허용됨";
+"permissions.denied" = "거부됨";
+"permissions.required" = "필수";
+"permissions.tapToGrant" = "탭하여 허용";
+"permissions.optional" = "선택";
+"preferences.colorTitle" = "색상 선택";
+"preferences.colorSubtitle" = "앱의 포인트 색상을 선택하세요";
+"preferences.appearanceTitle" = "화면 모드";
+"preferences.appearanceSubtitle" = "다크 또는 라이트 모드를 선택하세요";
+"preferences.speedUnitTitle" = "속도 단위";
+"preferences.speedUnitSubtitle" = "원하는 단위를 선택하세요";
+"preferences.speedLimitsTitle" = "속도 제한";
+"preferences.speedLimitsSubtitle" = "최대/최소 속도 알림을 설정하세요";
+"preferences.dark" = "다크";
+"preferences.light" = "라이트";
+"preferences.maxSpeedHint" = "이 속도를 넘으면 경고가 표시됩니다";
+"preferences.minSpeedHint" = "이 값 아래에서는 속도를 추적하지 않습니다";
+"main.stopMini" = "중지";
+"settings.off" = "끔";
+"settings.soundOn" = "사운드 켜짐";
+"settings.soundOff" = "사운드 꺼짐";
+"alert.bigMaxTitle" = "최대 제한 도달";
+"alert.bigMaxBody" = "지금 속도를 줄이세요. 안전 제한을 넘었습니다.";
+"alert.bigMinTitle" = "저속 경고";
+"alert.bigMinBody" = "속도가 안전한 최소 추적 수준 아래로 떨어졌습니다.";
+"hud.horizontal" = "가로";
+"hud.vertical" = "세로";
+"hud.skipStopSave" = "건너뛰기";
+"paywall.featureHud" = "앞유리 표시용 HUD 모드";
+"paywall.featurePedometer" = "칼로리 추적이 포함된 만보계";
+"paywall.featureHistory" = "지도와 함께 전체 주행 기록";
+"paywall.featureAlerts" = "큰 속도 경고와 큰 비프음";
+"paywall.featureThemes" = "테마 및 사용자화";
+"paywall.featureSync" = "기기 간 iCloud 동기화";
+"paywall.featureMirror" = "반사용 미러 모드";
+"paywall.termsButton" = "이용약관";
+"paywall.restoreTitle" = "구매 복원";
+"paywall.restoreSuccess" = "프리미엄이 복원되고 클라우드 동기화가 시작되었습니다.";
+"paywall.restoreNeedLogin" = "먼저 Apple로 로그인한 후 구매를 복원하세요.";
+"paywall.ribbon.bestValue" = "최고의 가치";
+"paywall.ribbon.popular" = "가장 인기";
+"paywall.plan.weekly" = "주간";
+"paywall.plan.monthly" = "월간";
+"paywall.plan.yearly" = "연간";
+"paywall.plan.lifetime" = "평생";
+"paywall.badge.flexible" = "유연함";
+"paywall.badge.popular" = "가장 인기";
+"paywall.badge.trial" = "3일 무료 체험";
+"paywall.badge.payOnce" = "한 번 결제";
+"paywall.period.week" = "/주";
+"paywall.period.month" = "/월";
+"paywall.period.year" = "/년";
+"history.showingTrips" = "총 %2$d개 중 %1$d개 주행 표시";
+"history.lockedTrips" = "추가 %d개 주행이 잠겨 있음 - 보려면 업그레이드";
+"history.maxShort" = "최고";
+"history.avgShort" = "평균";
+"history.distShort" = "거리";
+"pedometer.active" = "활성";
+"pedometer.goalStatus" = "목표의 %d%%";
+"pedometer.motionRequired" = "동작 및 피트니스 권한이 필요합니다. 설정에서 활성화하세요.";
+"pedometer.stepsCount" = "%d걸음";
+"auth.welcomeBack" = "다시 오신 것을 환영합니다";
+"auth.restoreDesc" = "구매를 복원하고\n데이터를 동기화하려면 로그인하세요";
+"auth.privateData" = "데이터는 비공개이며 iCloud에 저장됩니다";
+"tripDetail.title" = "주행 상세";
+"tripDetail.route" = "경로";
+"tripDetail.start" = "시작";
+"tripDetail.end" = "종료";
+"tripDetail.speedOverTime" = "시간별 속도";
+"tripDetail.noSpeedData" = "사용 가능한 속도 데이터가 없습니다";
+"common.settings" = "설정";

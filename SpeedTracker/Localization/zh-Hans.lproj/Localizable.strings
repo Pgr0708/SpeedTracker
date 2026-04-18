@@ -4,52 +4,52 @@
 */
 
 // MARK: - Onboarding
-"onboarding.skip" = "Skip";
-"onboarding.next" = "Next";
-"onboarding.back" = "Back";
-"onboarding.getStarted" = "Get Started";
+"onboarding.skip" = "跳过";
+"onboarding.next" = "下一步";
+"onboarding.back" = "返回";
+"onboarding.getStarted" = "开始使用";
 
-"onboarding.page1.title" = "Track Your Speed";
-"onboarding.page1.description" = "Real-time GPS speed tracking with precision accuracy. Monitor your speed in km/h, mph, m/s, or knots.";
+"onboarding.page1.title" = "追踪你的速度";
+"onboarding.page1.description" = "高精度实时 GPS 速度追踪。可用 km/h、mph、m/s 或节查看速度。";
 
-"onboarding.page2.title" = "Record Your Journeys";
-"onboarding.page2.description" = "Automatically save your trips with detailed statistics, routes, and achievements.";
+"onboarding.page2.title" = "记录你的行程";
+"onboarding.page2.description" = "自动保存行程，并提供详细统计、路线和成就。";
 
-"onboarding.page3.title" = "Compete & Improve";
-"onboarding.page3.description" = "Set personal records, track your progress, and challenge yourself to go faster.";
+"onboarding.page3.title" = "挑战并提升自己";
+"onboarding.page3.description" = "设定个人纪录，追踪进度，不断挑战更快速度。";
 
 // MARK: - Main Screen
-"main.speed" = "Speed";
-"main.maxSpeed" = "Max Speed";
-"main.avgSpeed" = "Avg Speed";
-"main.distance" = "Distance";
-"main.duration" = "Duration";
+"main.speed" = "速度";
+"main.maxSpeed" = "最高速度";
+"main.avgSpeed" = "平均速度";
+"main.distance" = "距离";
+"main.duration" = "时长";
 "main.startTracking" = "Start Tracking";
 "main.stopTracking" = "Stop Tracking";
 "main.pauseTracking" = "Pause";
 "main.resumeTracking" = "Resume";
 
 // MARK: - Settings
-"settings.title" = "Settings";
+"settings.title" = "设置";
 "settings.units" = "Units";
-"settings.language" = "Language";
+"settings.language" = "语言";
 "settings.haptics" = "Haptic Feedback";
 
 // MARK: - Units
 "unit.kmh" = "km/h";
 "unit.mph" = "mph";
 "unit.ms" = "m/s";
-"unit.knots" = "knots";
+"unit.knots" = "节";
 
 // MARK: - Common
-"common.save" = "Save";
-"common.cancel" = "Cancel";
-"common.done" = "Done";
+"common.save" = "保存";
+"common.cancel" = "取消";
+"common.done" = "完成";
 
 
 // MARK: - Pedometer
 "pedometer.title" = "Pedometer";
-"pedometer.steps" = "Steps";
+"pedometer.steps" = "步数";
 "pedometer.distance" = "Distance";
 "pedometer.calories" = "Calories";
 "pedometer.pace" = "Pace";
@@ -69,7 +69,7 @@
 "compass.coordinates" = "Coordinates";
 
 // MARK: - History
-"history.title" = "History";
+"history.title" = "历史";
 "history.noTrips" = "No Trips Yet";
 "history.noTripsDesc" = "Start tracking your speed to see your trip history here";
 "history.totalTrips" = "Total Trips";
@@ -78,71 +78,186 @@
 "history.upgradeDesc" = "Upgrade to unlock full history";
 
 // MARK: - Settings (new keys)
-"settings.account" = "Account";
-"settings.appearance" = "Appearance";
-"settings.tracking" = "Tracking";
-"settings.general" = "General";
-"settings.support" = "Support";
-"settings.data" = "Data";
-"settings.darkMode" = "Dark Mode";
-"settings.themeColor" = "Theme Color";
-"settings.mirrorMode" = "Mirror Mode (HUD)";
-"settings.maxSpeedLimit" = "Max Speed Limit";
-"settings.minSpeedThreshold" = "Min Speed Threshold";
-"settings.soundAlerts" = "Speed Alert Sounds";
-"settings.hapticFeedback" = "Haptic Feedback";
-"settings.rateApp" = "Rate App";
-"settings.contactUs" = "Contact Us";
-"settings.privacyPolicy" = "Privacy Policy";
-"settings.termsOfService" = "Terms of Service";
-"settings.about" = "About";
-"settings.resetAllData" = "Reset All Data";
-"settings.signOut" = "Sign Out";
-"settings.restorePurchases" = "Restore Purchases";
-"settings.iCloudSync" = "iCloud Sync";
-"settings.upgradePremium" = "Upgrade to Premium";
+"settings.account" = "账户";
+"settings.appearance" = "外观";
+"settings.tracking" = "跟踪";
+"settings.general" = "通用";
+"settings.support" = "支持";
+"settings.data" = "数据";
+"settings.darkMode" = "深色模式";
+"settings.themeColor" = "主题颜色";
+"settings.mirrorMode" = "镜像模式 (HUD)";
+"settings.maxSpeedLimit" = "最高速度限制";
+"settings.minSpeedThreshold" = "最低速度阈值";
+"settings.soundAlerts" = "速度警报声音";
+"settings.hapticFeedback" = "触感反馈";
+"settings.rateApp" = "评分";
+"settings.contactUs" = "联系我们";
+"settings.privacyPolicy" = "隐私政策";
+"settings.termsOfService" = "服务条款";
+"settings.about" = "关于";
+"settings.resetAllData" = "重置所有数据";
+"settings.signOut" = "退出登录";
+"settings.restorePurchases" = "恢复购买";
+"settings.iCloudSync" = "iCloud 同步";
+"settings.upgradePremium" = "升级到高级版";
 
 // MARK: - HUD Mode
-"hud.title" = "HUD Mode";
-"hud.mirrorOn" = "Mirror ON";
-"hud.mirrorOff" = "Mirror OFF";
-"hud.overLimit" = "OVER LIMIT";
-"hud.mirrorInstruction" = "Place below windshield — speed reflects upward";
-"hud.directView" = "Direct view mode";
+"hud.title" = "HUD";
+"hud.mirrorOn" = "镜像已开";
+"hud.mirrorOff" = "镜像已关";
+"hud.overLimit" = "超出限制";
+"hud.mirrorInstruction" = "放在挡风玻璃下方，速度会向上反射";
+"hud.directView" = "直接查看模式";
 
 // MARK: - Paywall
-"paywall.unlockPremium" = "Unlock Premium";
-"paywall.fullExperience" = "Full speed tracking experience";
-"paywall.restorePurchases" = "Restore Purchases";
-"paywall.continueFree" = "Continue Free";
-"paywall.autoRenewable" = "Auto-renewable. Cancel anytime in App Store settings.";
-"paywall.startFreeTrial" = "Start Free Trial";
-"paywall.subscribeNow" = "Subscribe Now";
+"paywall.unlockPremium" = "解锁 Premium";
+"paywall.fullExperience" = "完整的速度追踪体验";
+"paywall.restorePurchases" = "恢复购买";
+"paywall.continueFree" = "继续免费使用";
+"paywall.autoRenewable" = "自动续订。可随时在 App Store 设置中取消。";
+"paywall.startFreeTrial" = "开始免费试用";
+"paywall.subscribeNow" = "立即订阅";
 
 // MARK: - Permissions
-"permissions.title" = "Permissions Required";
-"permissions.desc" = "SpeedTracker needs access to track speed and activity";
-"permissions.location" = "Location Access";
-"permissions.motion" = "Motion & Fitness";
-"permissions.health" = "Health (Optional)";
-"permissions.notifications" = "Notifications";
-"permissions.grantLocation" = "Grant Location Access";
-"permissions.continue" = "Continue";
-"permissions.openSettings" = "Open Settings";
+"permissions.title" = "需要权限";
+"permissions.desc" = "SpeedTracker 需要访问权限来追踪速度和活动";
+"permissions.location" = "位置权限";
+"permissions.motion" = "运动与健身";
+"permissions.health" = "健康（可选）";
+"permissions.notifications" = "通知";
+"permissions.grantLocation" = "允许位置访问";
+"permissions.continue" = "继续";
+"permissions.openSettings" = "打开设置";
 
 // MARK: - Alerts
-"alert.stopTrip.title" = "Stop Tracking?";
-"alert.stopTrip.message" = "Your trip will be saved to history.";
-"alert.stopTrip.save" = "Stop & Save";
-"alert.resetData.title" = "Reset All Data?";
-"alert.resetData.message" = "This will delete all trips and reset preferences. This cannot be undone.";
-"alert.resetData.confirm" = "Reset";
-"alert.signOut.title" = "Sign Out?";
-"alert.signOut.message" = "You can sign back in at any time to restore your data.";
-"alert.signOut.confirm" = "Sign Out";
-"alert.languageRestart.title" = "Restart Required";
-"alert.languageRestart.message" = "The app will need to restart to apply the new language.";
-"alert.languageRestart.apply" = "Apply & Restart";
-"alert.maxSpeed" = "Max Speed Exceeded!";
-"alert.minSpeed" = "Below Min Speed";
+"alert.stopTrip.title" = "停止跟踪？";
+"alert.stopTrip.message" = "你的行程将保存到历史记录。";
+"alert.stopTrip.save" = "停止并保存";
+"alert.resetData.title" = "重置所有数据？";
+"alert.resetData.message" = "这将删除所有行程并重置偏好设置，无法撤销。";
+"alert.resetData.confirm" = "重置";
+"alert.signOut.title" = "退出登录？";
+"alert.signOut.message" = "你可以随时重新登录以恢复数据。";
+"alert.signOut.confirm" = "退出登录";
+"alert.languageRestart.title" = "需要重新启动";
+"alert.languageRestart.message" = "应用需要重新启动以应用新语言。";
+"alert.languageRestart.apply" = "应用并重启";
+"alert.maxSpeed" = "已超过最高速度！";
+"alert.minSpeed" = "低于最低速度";
 
+"common.continue" = "继续";
+"common.close" = "关闭";
+"common.never" = "从不";
+"common.premium" = "高级版";
+"main.startTrip" = "开始行程";
+"main.tracking" = "正在跟踪...";
+"main.waiting" = "等待中...";
+"main.ready" = "准备就绪";
+"main.noGPS" = "无 GPS";
+"main.gps" = "GPS";
+"main.gpsStrong" = "GPS ★★★";
+"main.gpsMedium" = "GPS ★★";
+"main.gpsWeak" = "GPS ★";
+"main.startPromptTitle" = "开始行程后显示实时骑行数据";
+"main.startPromptSubtitle" = "开始跟踪后会显示速度、距离、海拔和方向";
+"main.livePerformance" = "实时表现";
+"settings.speedUnit" = "速度单位";
+"settings.defaultUser" = "SpeedTracker 用户";
+"settings.appleSignIn" = "Apple 登录";
+"settings.lastSyncPrefix" = "上次:";
+"hud.live" = "实时";
+"hud.readyTitle" = "HUD 已准备好";
+"hud.readySubtitle" = "在此开始行程即可将速度投射到挡风玻璃上";
+"languageSelection.title" = "选择语言";
+"languageSelection.subtitle" = "选择你偏好的语言";
+"theme.blue" = "电光蓝";
+"theme.green" = "青柠绿";
+"theme.orange" = "霓虹橙";
+"theme.purple" = "皇家紫";
+"theme.red" = "竞速红";
+"theme.cyan" = "赛博青";
+"onboarding.page1.bullet1" = "实时 GPS 精准追踪";
+"onboarding.page1.bullet2" = "km/h · mph · m/s · 节";
+"onboarding.page1.bullet3" = "实时速度图表";
+"onboarding.page2.bullet1" = "地图完整路线";
+"onboarding.page2.bullet2" = "速度和海拔数据";
+"onboarding.page2.bullet3" = "时长和距离";
+"onboarding.page3.bullet1" = "个人纪录";
+"onboarding.page3.bullet2" = "计步和卡路里";
+"onboarding.page3.bullet3" = "自定义主题";
+"permissions.locationDesc" = "GPS 速度追踪所必需";
+"permissions.motionDesc" = "计步功能所必需";
+"permissions.healthDesc" = "用于同步卡路里和健身数据";
+"permissions.notificationsDesc" = "速度提醒和行程摘要";
+"permissions.granted" = "已允许";
+"permissions.denied" = "已拒绝";
+"permissions.required" = "必需";
+"permissions.tapToGrant" = "点按授权";
+"permissions.optional" = "可选";
+"preferences.colorTitle" = "选择你的颜色";
+"preferences.colorSubtitle" = "为应用选择强调色";
+"preferences.appearanceTitle" = "外观";
+"preferences.appearanceSubtitle" = "选择深色或浅色模式";
+"preferences.speedUnitTitle" = "速度单位";
+"preferences.speedUnitSubtitle" = "选择你偏好的单位";
+"preferences.speedLimitsTitle" = "速度限制";
+"preferences.speedLimitsSubtitle" = "设置最高和最低速度提醒";
+"preferences.dark" = "深色";
+"preferences.light" = "浅色";
+"preferences.maxSpeedHint" = "超过此速度时会发出提醒";
+"preferences.minSpeedHint" = "低于该值时将不再追踪";
+"main.stopMini" = "停止";
+"settings.off" = "关闭";
+"settings.soundOn" = "声音开启";
+"settings.soundOff" = "声音关闭";
+"alert.bigMaxTitle" = "达到最高限制";
+"alert.bigMaxBody" = "请立即减速。你已超过安全上限。";
+"alert.bigMinTitle" = "低速警告";
+"alert.bigMinBody" = "速度已低于安全追踪的最低水平。";
+"hud.horizontal" = "横向";
+"hud.vertical" = "纵向";
+"hud.skipStopSave" = "跳过";
+"paywall.featureHud" = "用于挡风玻璃显示的 HUD 模式";
+"paywall.featurePedometer" = "带卡路里追踪的计步器";
+"paywall.featureHistory" = "带地图的完整行程历史";
+"paywall.featureAlerts" = "大号速度警报和高音量蜂鸣";
+"paywall.featureThemes" = "主题和自定义";
+"paywall.featureSync" = "设备间 iCloud 同步";
+"paywall.featureMirror" = "用于反射的镜像模式";
+"paywall.termsButton" = "条款与条件";
+"paywall.restoreTitle" = "恢复购买";
+"paywall.restoreSuccess" = "已恢复 Premium，并开始云同步。";
+"paywall.restoreNeedLogin" = "请先使用 Apple 登录，再恢复购买。";
+"paywall.ribbon.bestValue" = "超值推荐";
+"paywall.ribbon.popular" = "最受欢迎";
+"paywall.plan.weekly" = "每周";
+"paywall.plan.monthly" = "每月";
+"paywall.plan.yearly" = "每年";
+"paywall.plan.lifetime" = "终身";
+"paywall.badge.flexible" = "灵活";
+"paywall.badge.popular" = "最受欢迎";
+"paywall.badge.trial" = "3 天免费试用";
+"paywall.badge.payOnce" = "一次付清";
+"paywall.period.week" = "/周";
+"paywall.period.month" = "/月";
+"paywall.period.year" = "/年";
+"history.showingTrips" = "显示 %d / %d 次行程";
+"history.lockedTrips" = "还有 %d 次行程已锁定，升级后可查看";
+"history.maxShort" = "最高";
+"history.avgShort" = "平均";
+"history.distShort" = "距离";
+"pedometer.active" = "进行中";
+"pedometer.goalStatus" = "已完成目标的 %d%%";
+"pedometer.motionRequired" = "需要“运动与健身”权限，请在设置中开启。";
+"pedometer.stepsCount" = "%d 步";
+"auth.welcomeBack" = "欢迎回来";
+"auth.restoreDesc" = "登录以恢复你的购买\n并同步数据";
+"auth.privateData" = "你的数据是私密的，并存储在 iCloud 中";
+"tripDetail.title" = "行程详情";
+"tripDetail.route" = "路线";
+"tripDetail.start" = "开始";
+"tripDetail.end" = "结束";
+"tripDetail.speedOverTime" = "速度变化";
+"tripDetail.noSpeedData" = "暂无速度数据";
+"common.settings" = "设置";

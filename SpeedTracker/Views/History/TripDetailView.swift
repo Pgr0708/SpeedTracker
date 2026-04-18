@@ -38,15 +38,15 @@ struct TripDetailView: View {
                 }
             }
         }
-        .navigationTitle("Trip Details")
+        .navigationTitle(L10n.text("tripDetail.title"))
         .navigationBarTitleDisplayMode(.inline)
     }
     
     // MARK: - Map
     var mapSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("ROUTE")
-                .font(.system(size: 12, weight: .bold))
+            Text(L10n.text("tripDetail.route"))
+                .font(.label)
                 .foregroundColor(theme.textSecondary)
                 .padding(.horizontal, 24)
             
@@ -62,7 +62,7 @@ struct TripDetailView: View {
                 }
 
                 // Start pin
-                Annotation("Start", coordinate: trip.startCoordinate) {
+                Annotation(L10n.string("tripDetail.start"), coordinate: trip.startCoordinate) {
                     Image(systemName: "flag.fill")
                         .font(.system(size: 16))
                         .foregroundColor(.white)
@@ -72,7 +72,7 @@ struct TripDetailView: View {
                 }
 
                 // End pin
-                Annotation("End", coordinate: trip.endCoordinate) {
+                Annotation(L10n.string("tripDetail.end"), coordinate: trip.endCoordinate) {
                     Image(systemName: "flag.checkered")
                         .font(.system(size: 16))
                         .foregroundColor(.white)
@@ -94,25 +94,25 @@ struct TripDetailView: View {
             spacing: 12
         ) {
             DetailStatCard(
-                title: "Max Speed",
+                title: L10n.string("main.maxSpeed"),
                 value: "\(Int(trip.maxSpeedConverted(speedUnit)))",
-                unit: speedUnit.rawValue,
+                unit: L10n.string(speedUnit.localizationKey),
                 icon: "arrow.up.circle.fill",
                 color: AppConstants.Colors.neonOrange,
                 theme: theme
             )
             
             DetailStatCard(
-                title: "Avg Speed",
+                title: L10n.string("main.avgSpeed"),
                 value: "\(Int(trip.avgSpeedConverted(speedUnit)))",
-                unit: speedUnit.rawValue,
+                unit: L10n.string(speedUnit.localizationKey),
                 icon: "chart.line.uptrend.xyaxis",
                 color: theme.primaryColor,
                 theme: theme
             )
             
             DetailStatCard(
-                title: "Distance",
+                title: L10n.string("main.distance"),
                 value: trip.distanceFormatted,
                 unit: "",
                 icon: "location.fill",
@@ -121,7 +121,7 @@ struct TripDetailView: View {
             )
             
             DetailStatCard(
-                title: "Duration",
+                title: L10n.string("main.duration"),
                 value: trip.durationFormatted,
                 unit: "",
                 icon: "clock.fill",
@@ -135,13 +135,13 @@ struct TripDetailView: View {
     // MARK: - Speed Graph
     var speedGraph: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("SPEED OVER TIME")
-                .font(.system(size: 12, weight: .bold))
+            Text(L10n.text("tripDetail.speedOverTime"))
+                .font(.label)
                 .foregroundColor(theme.textSecondary)
             
             if trip.speedHistory.isEmpty {
-                Text("No speed data available")
-                    .font(.system(size: 14))
+                Text(L10n.text("tripDetail.noSpeedData"))
+                    .font(.bodySmall)
                     .foregroundColor(theme.textTertiary)
                     .frame(height: 200)
                     .frame(maxWidth: .infinity)
@@ -170,7 +170,7 @@ struct TripDetailView: View {
                         )
                     }
                 }
-                .chartYAxisLabel(speedUnit.rawValue)
+                .chartYAxisLabel(L10n.string(speedUnit.localizationKey))
                 .chartXAxis(.hidden)
                 .chartYAxis {
                     AxisMarks(position: .leading) { value in
@@ -211,17 +211,17 @@ struct DetailStatCard: View {
                 .foregroundColor(color)
             
             Text(title)
-                .font(.system(size: 12, weight: .medium))
+                .font(.label)
                 .foregroundColor(theme.textSecondary)
             
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 Text(value)
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .font(.orbitron(22))
                     .foregroundColor(theme.textPrimary)
                 
                 if !unit.isEmpty {
                     Text(unit)
-                        .font(.system(size: 12))
+                        .font(.caption)
                         .foregroundColor(theme.textSecondary)
                 }
             }

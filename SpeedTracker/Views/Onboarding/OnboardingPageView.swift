@@ -28,134 +28,132 @@ struct OnboardingPageView: View {
     var bullets: [(String, String)] {
         switch page.iconName {
         case "speedometer":
-            return [("gauge.with.needle", "Real-time GPS precision"),
-                    ("arrow.up.right", "km/h · mph · m/s · knots"),
-                    ("waveform.path.ecg", "Live speed graph")]
+            return [("gauge.with.needle", L10n.string("onboarding.page1.bullet1")),
+                    ("arrow.up.right", L10n.string("onboarding.page1.bullet2")),
+                    ("waveform.path.ecg", L10n.string("onboarding.page1.bullet3"))]
         case "map.fill":
-            return [("mappin.and.ellipse", "Full route on map"),
-                    ("chart.line.uptrend.xyaxis", "Speed & altitude data"),
-                    ("clock.fill", "Duration & distance")]
+            return [("mappin.and.ellipse", L10n.string("onboarding.page2.bullet1")),
+                    ("chart.line.uptrend.xyaxis", L10n.string("onboarding.page2.bullet2")),
+                    ("clock.fill", L10n.string("onboarding.page2.bullet3"))]
         default:
-            return [("trophy.fill", "Personal records"),
-                    ("figure.run", "Pedometer & calories"),
-                    ("paintbrush.fill", "Custom themes")]
+            return [("trophy.fill", L10n.string("onboarding.page3.bullet1")),
+                    ("figure.run", L10n.string("onboarding.page3.bullet2")),
+                    ("paintbrush.fill", L10n.string("onboarding.page3.bullet3"))]
         }
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer()
+        GeometryReader { proxy in
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    Spacer(minLength: 12)
 
-            // ── Icon area ──────────────────────────────
-            ZStack {
-                // Outer glow
-                Circle()
-                    .fill(RadialGradient(
-                        colors: [accentColor.opacity(0.28), accentColor.opacity(0.05), .clear],
-                        center: .center, startRadius: 30, endRadius: 160
-                    ))
-                    .frame(width: 320, height: 320)
-                    .scaleEffect(glowPulse)
-                    .animation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true), value: glowPulse)
+                    ZStack {
+                        Circle()
+                            .fill(RadialGradient(
+                                colors: [accentColor.opacity(0.28), accentColor.opacity(0.05), .clear],
+                                center: .center, startRadius: 30, endRadius: 160
+                            ))
+                            .frame(width: 320, height: 320)
+                            .scaleEffect(glowPulse)
+                            .animation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true), value: glowPulse)
 
-                // Outer ring
-                Circle()
-                    .stroke(accentColor.opacity(0.15), lineWidth: 1.5)
-                    .frame(width: 220, height: 220)
-                    .scaleEffect(ring2Scale)
-                    .opacity(ring1Opacity)
+                        Circle()
+                            .stroke(accentColor.opacity(0.15), lineWidth: 1.5)
+                            .frame(width: 220, height: 220)
+                            .scaleEffect(ring2Scale)
+                            .opacity(ring1Opacity)
 
-                // Inner ring
-                Circle()
-                    .stroke(
-                        AngularGradient(colors: [accentColor.opacity(0.6), accentColor.opacity(0.05), accentColor.opacity(0.6)], center: .center),
-                        lineWidth: 2
-                    )
-                    .frame(width: 168, height: 168)
-                    .scaleEffect(ring1Scale)
-                    .opacity(ring1Opacity)
-                    .rotationEffect(.degrees(orbitAngle))
+                        Circle()
+                            .stroke(
+                                AngularGradient(colors: [accentColor.opacity(0.6), accentColor.opacity(0.05), accentColor.opacity(0.6)], center: .center),
+                                lineWidth: 2
+                            )
+                            .frame(width: 168, height: 168)
+                            .scaleEffect(ring1Scale)
+                            .opacity(ring1Opacity)
+                            .rotationEffect(.degrees(orbitAngle))
 
-                // Orbiting dot
-                Circle()
-                    .fill(accentColor)
-                    .frame(width: 8, height: 8)
-                    .shadow(color: accentColor.opacity(0.8), radius: 4)
-                    .offset(y: -84)
-                    .rotationEffect(.degrees(orbitAngle))
-                    .opacity(ring1Opacity)
+                        Circle()
+                            .fill(accentColor)
+                            .frame(width: 8, height: 8)
+                            .shadow(color: accentColor.opacity(0.8), radius: 4)
+                            .offset(y: -84)
+                            .rotationEffect(.degrees(orbitAngle))
+                            .opacity(ring1Opacity)
 
-                // Glass card behind icon
-                Circle()
-                    .fill(.ultraThinMaterial)
-                    .frame(width: 140, height: 140)
-                    .overlay(
-                        Circle().strokeBorder(
-                            LinearGradient(colors: [Color.white.opacity(0.35), accentColor.opacity(0.2)],
-                                           startPoint: .topLeading, endPoint: .bottomTrailing),
-                            lineWidth: 1.5
-                        )
-                    )
-                    .shadow(color: accentColor.opacity(0.25), radius: 20)
+                        Circle()
+                            .fill(.ultraThinMaterial)
+                            .frame(width: 140, height: 140)
+                            .overlay(
+                                Circle().strokeBorder(
+                                    LinearGradient(colors: [Color.white.opacity(0.35), accentColor.opacity(0.2)],
+                                                   startPoint: .topLeading, endPoint: .bottomTrailing),
+                                    lineWidth: 1.5
+                                )
+                            )
+                            .shadow(color: accentColor.opacity(0.25), radius: 20)
 
-                // Main icon
-                Image(systemName: page.iconName)
-                    .font(.system(size: 62, weight: .semibold))
-                    .foregroundStyle(LinearGradient(
-                        colors: [accentColor, accentColor.opacity(0.65)],
-                        startPoint: .topLeading, endPoint: .bottomTrailing
-                    ))
-                    .shadow(color: accentColor.opacity(0.6), radius: 14)
-                    .scaleEffect(iconScale)
-                    .opacity(iconOpacity)
-            }
-            .frame(height: 260)
-
-            Spacer().frame(height: 32)
-
-            // ── Text ──────────────────────────────────
-            VStack(spacing: 12) {
-                Text(page.title)
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
-                    .foregroundColor(theme.textPrimary)
-                    .multilineTextAlignment(.center)
-                    .opacity(titleOpacity)
-                    .offset(y: titleOffset)
-
-                Text(page.description)
-                    .font(.system(size: 15, weight: .regular))
-                    .foregroundColor(theme.textSecondary)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(5)
-                    .padding(.horizontal, 32)
-                    .opacity(descOpacity)
-                    .offset(y: descOffset)
-            }
-
-            Spacer().frame(height: 28)
-
-            // ── Feature bullets ───────────────────────
-            VStack(spacing: 10) {
-                ForEach(Array(bullets.enumerated()), id: \.offset) { i, b in
-                    HStack(spacing: 12) {
-                        ZStack {
-                            Circle().fill(accentColor.opacity(0.15)).frame(width: 32, height: 32)
-                            Image(systemName: b.0)
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(accentColor)
-                        }
-                        Text(b.1)
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(theme.textPrimary)
-                        Spacer()
+                        Image(systemName: page.iconName)
+                            .font(.system(size: 62, weight: .semibold))
+                            .foregroundStyle(LinearGradient(
+                                colors: [accentColor, accentColor.opacity(0.65)],
+                                startPoint: .topLeading, endPoint: .bottomTrailing
+                            ))
+                            .shadow(color: accentColor.opacity(0.6), radius: 14)
+                            .scaleEffect(iconScale)
+                            .opacity(iconOpacity)
                     }
-                    .padding(.horizontal, 36)
-                    .opacity([bullet1Opacity, bullet2Opacity, bullet3Opacity][i])
-                    .offset(x: [bullet1Opacity, bullet2Opacity, bullet3Opacity][i] == 0 ? -16 : 0)
+                    .frame(height: min(max(proxy.size.height * 0.34, 220), 260))
+
+                    Spacer().frame(height: 24)
+
+                    VStack(spacing: 12) {
+                        Text(L10n.text(page.titleKey))
+                            .font(.headingMedium)
+                            .foregroundColor(theme.textPrimary)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .opacity(titleOpacity)
+                            .offset(y: titleOffset)
+
+                        Text(L10n.text(page.descriptionKey))
+                            .font(.bodySmall)
+                            .foregroundColor(theme.textSecondary)
+                            .multilineTextAlignment(.center)
+                            .lineSpacing(5)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.horizontal, 32)
+                            .opacity(descOpacity)
+                            .offset(y: descOffset)
+                    }
+
+                    Spacer().frame(height: 22)
+
+                    VStack(spacing: 10) {
+                        ForEach(Array(bullets.enumerated()), id: \.offset) { i, b in
+                            HStack(spacing: 12) {
+                                ZStack {
+                                    Circle().fill(accentColor.opacity(0.15)).frame(width: 32, height: 32)
+                                    Image(systemName: b.0)
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .foregroundColor(accentColor)
+                                }
+                                Text(b.1)
+                                    .font(.bodySmall)
+                                    .foregroundColor(theme.textPrimary)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Spacer()
+                            }
+                            .padding(.horizontal, 36)
+                            .opacity([bullet1Opacity, bullet2Opacity, bullet3Opacity][i])
+                            .offset(x: [bullet1Opacity, bullet2Opacity, bullet3Opacity][i] == 0 ? -16 : 0)
+                        }
+                    }
+
+                    Spacer(minLength: 24)
                 }
             }
-
-            Spacer()
         }
         .onAppear { runEntrance() }
         .onDisappear { resetAll() }

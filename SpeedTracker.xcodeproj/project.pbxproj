@@ -10,9 +10,22 @@
 		588EB6E72F8662AC00A25E2C /* SpeedTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5845360E2F9162070063CEFD /* Exceptions for "SpeedTracker" folder in "SpeedTracker" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 588EB6E62F8662AC00A25E2C /* SpeedTracker */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		588EB6E92F8662AC00A25E2C /* SpeedTracker */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5845360E2F9162070063CEFD /* Exceptions for "SpeedTracker" folder in "SpeedTracker" target */,
+			);
 			path = SpeedTracker;
 			sourceTree = "<group>";
 		};
@@ -268,7 +281,9 @@
 				DEVELOPMENT_TEAM = QH39X8R3UD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "SpeedTracker reads step count and calorie data to enhance your fitness tracking.";
+				INFOPLIST_FILE = SpeedTracker/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app uses health data to track speed and activity.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "SpeedTracker writes workout and activity data to the Health app to save and track your driving sessions.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SpeedTracker needs your location to track your speed, distance, and route even when the app is in the background.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "SpeedTracker needs your location to track your speed, distance, and route even when the app is in the background.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SpeedTracker needs your location to track your speed, distance, and route in real-time using GPS.";
@@ -277,7 +292,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,7 +321,9 @@
 				DEVELOPMENT_TEAM = QH39X8R3UD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "SpeedTracker reads step count and calorie data to enhance your fitness tracking.";
+				INFOPLIST_FILE = SpeedTracker/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app uses health data to track speed and activity.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "SpeedTracker writes workout and activity data to the Health app to save and track your driving sessions.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SpeedTracker needs your location to track your speed, distance, and route even when the app is in the background.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "SpeedTracker needs your location to track your speed, distance, and route even when the app is in the background.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SpeedTracker needs your location to track your speed, distance, and route in real-time using GPS.";
@@ -315,7 +332,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

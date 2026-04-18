@@ -40,11 +40,11 @@ struct PreferencesSetupView: View {
                 // Title area
                 VStack(spacing: 8) {
                     Text(stepTitle)
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .font(.headingMedium)
                         .foregroundColor(theme.textPrimary)
                     
                     Text(stepSubtitle)
-                        .font(.system(size: 15))
+                        .font(.bodySmall)
                         .foregroundColor(theme.textSecondary)
                         .multilineTextAlignment(.center)
                 }
@@ -73,7 +73,7 @@ struct PreferencesSetupView: View {
                 // Navigation
                 VStack(spacing: 16) {
                     AnimatedButton(
-                        currentStep == 3 ? "Done" : "Continue",
+                        currentStep == 3 ? L10n.string("common.done") : L10n.string("common.continue"),
                         icon: currentStep == 3 ? "checkmark.circle.fill" : "arrow.right",
                         variant: .primary
                     ) {
@@ -87,12 +87,12 @@ struct PreferencesSetupView: View {
                     }
                     
                     if currentStep > 0 {
-                        Button("Back") {
+                        Button(L10n.string("onboarding.back")) {
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                                 currentStep -= 1
                             }
                         }
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.bodyMedium)
                         .foregroundColor(theme.textSecondary)
                     }
                 }
@@ -110,20 +110,20 @@ struct PreferencesSetupView: View {
     // MARK: - Step Titles
     var stepTitle: String {
         switch currentStep {
-        case 0: return "Choose Your Color"
-        case 1: return "Appearance"
-        case 2: return "Speed Unit"
-        case 3: return "Speed Limits"
+        case 0: return L10n.string("preferences.colorTitle")
+        case 1: return L10n.string("preferences.appearanceTitle")
+        case 2: return L10n.string("preferences.speedUnitTitle")
+        case 3: return L10n.string("preferences.speedLimitsTitle")
         default: return ""
         }
     }
     
     var stepSubtitle: String {
         switch currentStep {
-        case 0: return "Pick an accent color for the app"
-        case 1: return "Choose dark or light mode"
-        case 2: return "Select your preferred unit"
-        case 3: return "Set your max and min speed alerts"
+        case 0: return L10n.string("preferences.colorSubtitle")
+        case 1: return L10n.string("preferences.appearanceSubtitle")
+        case 2: return L10n.string("preferences.speedUnitSubtitle")
+        case 3: return L10n.string("preferences.speedLimitsSubtitle")
         default: return ""
         }
     }
@@ -150,8 +150,8 @@ struct PreferencesSetupView: View {
                             .shadow(color: color.primaryColor.opacity(selectedColor == color ? 0.5 : 0), radius: 12)
                             .scaleEffect(selectedColor == color ? 1.1 : 1.0)
                         
-                        Text(color.displayName)
-                            .font(.system(size: 12, weight: .medium))
+                        Text(L10n.string(color.displayNameKey))
+                            .font(.caption)
                             .foregroundColor(selectedColor == color ? theme.textPrimary : theme.textSecondary)
                     }
                 }
@@ -164,7 +164,7 @@ struct PreferencesSetupView: View {
     var darkModeStep: some View {
         HStack(spacing: 20) {
             ModeCard(
-                title: "Dark",
+                title: L10n.string("preferences.dark"),
                 icon: "moon.fill",
                 isSelected: isDarkMode,
                 colors: [Color(hex: "0A1128"), Color(hex: "1E2749")],
@@ -178,7 +178,7 @@ struct PreferencesSetupView: View {
             }
             
             ModeCard(
-                title: "Light",
+                title: L10n.string("preferences.light"),
                 icon: "sun.max.fill",
                 isSelected: !isDarkMode,
                 colors: [Color(hex: "F5F7FA"), Color(hex: "FFFFFF")],
@@ -206,7 +206,7 @@ struct PreferencesSetupView: View {
                 } label: {
                     HStack {
                         Text(unit.rawValue)
-                            .font(.system(size: 20, weight: .bold))
+                            .font(.orbitron(20))
                             .foregroundColor(selectedUnit == unit ? .white : theme.textPrimary)
                         
                         Spacer()
@@ -241,20 +241,20 @@ struct PreferencesSetupView: View {
             // Max Speed
             VStack(spacing: 12) {
                 HStack {
-                    Text("Max Speed Limit")
-                        .font(.system(size: 16, weight: .semibold))
+                    Text(L10n.text("settings.maxSpeedLimit"))
+                        .font(.bodyMedium)
                         .foregroundColor(theme.textPrimary)
                     Spacer()
-                    Text("\(Int(maxSpeedLimit)) \(selectedUnit.rawValue)")
-                        .font(.system(size: 18, weight: .bold))
+                    Text("\(Int(maxSpeedLimit)) \(L10n.string(selectedUnit.localizationKey))")
+                        .font(.orbitron(18))
                         .foregroundColor(AppConstants.Colors.neonOrange)
                 }
                 
                 Slider(value: $maxSpeedLimit, in: 20...300, step: 5)
                     .tint(AppConstants.Colors.neonOrange)
                 
-                Text("You'll get alerted when exceeding this speed")
-                    .font(.system(size: 12))
+                Text(L10n.text("preferences.maxSpeedHint"))
+                    .font(.caption)
                     .foregroundColor(theme.textTertiary)
             }
             .padding(20)
@@ -266,20 +266,20 @@ struct PreferencesSetupView: View {
             // Min Speed
             VStack(spacing: 12) {
                 HStack {
-                    Text("Min Speed Threshold")
-                        .font(.system(size: 16, weight: .semibold))
+                    Text(L10n.text("settings.minSpeedThreshold"))
+                        .font(.bodyMedium)
                         .foregroundColor(theme.textPrimary)
                     Spacer()
-                    Text("\(Int(minSpeedLimit)) \(selectedUnit.rawValue)")
-                        .font(.system(size: 18, weight: .bold))
+                    Text("\(Int(minSpeedLimit)) \(L10n.string(selectedUnit.localizationKey))")
+                        .font(.orbitron(18))
                         .foregroundColor(AppConstants.Colors.limeGreen)
                 }
                 
                 Slider(value: $minSpeedLimit, in: 0...50, step: 1)
                     .tint(AppConstants.Colors.limeGreen)
                 
-                Text("Speed below this value won't be tracked")
-                    .font(.system(size: 12))
+                Text(L10n.text("preferences.minSpeedHint"))
+                    .font(.caption)
                     .foregroundColor(theme.textTertiary)
             }
             .padding(20)
@@ -335,7 +335,7 @@ struct ModeCard: View {
                     )
                 
                 Text(title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.bodyMedium)
                     .foregroundColor(isSelected ? theme.primaryColor : theme.textSecondary)
             }
         }

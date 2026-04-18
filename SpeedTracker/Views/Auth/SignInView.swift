@@ -31,11 +31,11 @@ struct SignInView: View {
                 .opacity(appeared ? 1 : 0)
 
                 VStack(spacing: 12) {
-                    Text("Welcome Back")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                    Text(L10n.text("auth.welcomeBack"))
+                        .font(.headingMedium)
                         .foregroundColor(theme.textPrimary)
-                    Text("Sign in to restore your purchases\nand sync your data")
-                        .font(.system(size: 16))
+                    Text(L10n.text("auth.restoreDesc"))
+                        .font(.bodySmall)
                         .foregroundColor(theme.textSecondary)
                         .multilineTextAlignment(.center)
                 }
@@ -60,8 +60,8 @@ struct SignInView: View {
                     .cornerRadius(14)
                     .padding(.horizontal, 32)
 
-                    Text("Your data is private and stored in iCloud")
-                        .font(.system(size: 13))
+                    Text(L10n.text("auth.privateData"))
+                        .font(.caption)
                         .foregroundColor(theme.textTertiary)
                 }
                 .opacity(appeared ? 1 : 0)

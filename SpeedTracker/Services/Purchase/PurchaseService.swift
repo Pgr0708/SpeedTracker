@@ -21,6 +21,7 @@ class PurchaseService: ObservableObject {
     @Published var errorMessage: String?
     @Published var showError = false
     @Published var showRestoreSuccess = false
+    @Published var restoreMessage = ""
 
     // Plan display info (populated from RevenueCat packages in production)
     struct PlanInfo: Identifiable {
@@ -73,6 +74,13 @@ class PurchaseService: ObservableObject {
         // isPremium = info.entitlements[AppConstants.Purchase.entitlementID]?.isActive == true
 
         try? await Task.sleep(nanoseconds: 1_000_000_000)
+        if AuthService.shared.isAuthenticated {
+            isPremium = true
+            CloudKitService.shared.syncAll(tripStore: TripStore.shared, pedometerService: PedometerService.shared)
+            restoreMessage = L10n.string("paywall.restoreSuccess")
+        } else {
+            restoreMessage = L10n.string("paywall.restoreNeedLogin")
+        }
         showRestoreSuccess = true
         HapticManager.shared.notification(type: .success)
     }
@@ -80,5 +88,16 @@ class PurchaseService: ObservableObject {
     func checkPremiumStatus() async {
         // let info = try? await Purchases.shared.customerInfo()
         // isPremium = info?.entitlements[AppConstants.Purchase.entitlementID]?.isActive == true
+    }
+
+    func resetToFreeMode() {
+        isPremium = false
+        UserDefaults.standard.set(false, forKey: AppConstants.UserDefaultsKeys.isMirrorModeEnabled)
+        UserDefaults.standard.set(AppConstants.SpeedUnit.kmh.rawValue, forKey: AppConstants.UserDefaultsKeys.preferredSpeedUnit)
+        UserDefaults.standard.set(AppConstants.ThemeColor.blue.rawValue, forKey: AppConstants.UserDefaultsKeys.themeColor)
+        UserDefaults.standard.set(120.0, forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit)
+        UserDefaults.standard.set(0.0, forKey: AppConstants.UserDefaultsKeys.minSpeedLimit)
+        UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled)
+        UserDefaults.standard.set(0.0, forKey: AppConstants.UserDefaultsKeys.lastCloudKitSync)
     }
 }

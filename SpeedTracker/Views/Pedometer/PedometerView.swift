@@ -43,17 +43,17 @@ struct PedometerView: View {
                 }
             }
         }
-        .alert("Stop Workout?", isPresented: $showStopConfirm) {
-            Button("Stop & Save", role: .destructive) { stopAndSave() }
-            Button("Cancel", role: .cancel) {}
-        } message: { Text("Your session will be saved to history.") }
+        .alert(L10n.string("pedometer.stopConfirm.title"), isPresented: $showStopConfirm) {
+            Button(L10n.string("pedometer.stopAndSave"), role: .destructive) { stopAndSave() }
+            Button(L10n.string("common.cancel"), role: .cancel) {}
+        } message: { Text(L10n.string("pedometer.stopConfirm.message")) }
     }
 
     // MARK: - Header
     var headerView: some View {
         HStack {
-            Text("PEDOMETER")
-                .font(Font.custom(AppConstants.Typography.orbitronBold, size: 28))
+            Text(L10n.text("pedometer.title"))
+                .font(.headingMedium)
                 .foregroundColor(theme.textPrimary)
             Spacer()
             if pedometerService.isTracking {
@@ -61,8 +61,8 @@ struct PedometerView: View {
                     Circle().fill(AppConstants.Colors.limeGreen).frame(width: 8, height: 8)
                         .scaleEffect(animateRing ? 1.4 : 1.0)
                         .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: animateRing)
-                    Text("ACTIVE")
-                        .font(Font.custom(AppConstants.Typography.rajdhaniMedium, size: 13))
+                    Text(L10n.text("pedometer.active"))
+                        .font(.label)
                         .foregroundColor(AppConstants.Colors.limeGreen)
                 }
                 .onAppear { animateRing = true }
@@ -101,10 +101,10 @@ struct PedometerView: View {
                     .foregroundColor(theme.textPrimary)
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)
-                Text("STEPS")
+                Text(L10n.text("pedometer.steps"))
                     .font(Font.custom(AppConstants.Typography.rajdhaniMedium, size: 14))
                     .foregroundColor(theme.textSecondary)
-                Text("\(Int(pedometerService.goalProgress * 100))% of goal")
+                Text(L10n.string("pedometer.goalStatus", Int(pedometerService.goalProgress * 100)))
                     .font(Font.custom(AppConstants.Typography.rajdhaniMedium, size: 12))
                     .foregroundColor(AppConstants.Colors.limeGreen)
             }
@@ -115,10 +115,10 @@ struct PedometerView: View {
     // MARK: - Stats Grid
     var statsGridView: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: AppConstants.Design.paddingM) {
-            PedometerStatCard(icon: "ruler", title: "Distance", value: distanceFormatted, color: theme.primaryColor, theme: theme)
-            PedometerStatCard(icon: "flame.fill", title: "Calories", value: String(format: "%.0f kcal", pedometerService.calories), color: AppConstants.Colors.neonOrange, theme: theme)
-            PedometerStatCard(icon: "timer", title: "Elapsed", value: elapsedFormatted, color: theme.primaryColor, theme: theme)
-            PedometerStatCard(icon: "hare.fill", title: "Pace", value: paceFormatted + "/km", color: theme.primaryColor, theme: theme)
+            PedometerStatCard(icon: "ruler", title: L10n.string("pedometer.distance"), value: distanceFormatted, color: theme.primaryColor, theme: theme)
+            PedometerStatCard(icon: "flame.fill", title: L10n.string("pedometer.calories"), value: String(format: "%.0f kcal", pedometerService.calories), color: AppConstants.Colors.neonOrange, theme: theme)
+            PedometerStatCard(icon: "timer", title: L10n.string("pedometer.elapsed"), value: elapsedFormatted, color: theme.primaryColor, theme: theme)
+            PedometerStatCard(icon: "hare.fill", title: L10n.string("pedometer.pace"), value: paceFormatted + "/km", color: theme.primaryColor, theme: theme)
         }
         .padding(.horizontal, AppConstants.Design.paddingL)
     }
@@ -127,7 +127,7 @@ struct PedometerView: View {
     var controlButton: some View {
         VStack(spacing: 10) {
             AnimatedButton(
-                pedometerService.isTracking ? "Stop Workout" : "Start Workout",
+                pedometerService.isTracking ? L10n.string("pedometer.stopWorkout") : L10n.string("pedometer.startWorkout"),
                 icon: pedometerService.isTracking ? "stop.fill" : "figure.walk",
                 variant: pedometerService.isTracking ? .secondary : .primary
             ) {
@@ -149,13 +149,13 @@ struct PedometerView: View {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .font(.system(size: 13))
                         .foregroundColor(AppConstants.Colors.neonOrange)
-                    Text("Motion & Fitness permission required. Enable in Settings.")
-                        .font(.system(size: 12))
+                    Text(L10n.text("pedometer.motionRequired"))
+                        .font(.caption)
                         .foregroundColor(theme.textSecondary)
-                    Button("Settings") {
+                    Button(L10n.string("common.settings")) {
                         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                     }
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.caption)
                     .foregroundColor(theme.primaryColor)
                 }
                 .padding(.horizontal, 8)
@@ -168,8 +168,8 @@ struct PedometerView: View {
     // MARK: - Session History
     var sessionHistoryView: some View {
         VStack(alignment: .leading, spacing: AppConstants.Design.paddingM) {
-            Text("RECENT SESSIONS")
-                .font(.system(size: 12, weight: .bold))
+            Text(L10n.text("pedometer.recentSessions"))
+                .font(.label)
                 .foregroundColor(theme.textSecondary)
                 .padding(.leading, AppConstants.Design.paddingS)
 
@@ -253,8 +253,8 @@ struct PedometerSessionRow: View {
                     .font(.system(size: 18)).foregroundColor(theme.primaryColor)
             }
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(session.steps) steps")
-                    .font(.system(size: 15, weight: .semibold)).foregroundColor(theme.textPrimary)
+                Text(L10n.string("pedometer.stepsCount", session.steps))
+                    .font(.bodyMedium).foregroundColor(theme.textPrimary)
                 Text(dateFormatted)
                     .font(.system(size: 12)).foregroundColor(theme.textSecondary)
             }

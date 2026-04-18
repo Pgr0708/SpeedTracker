@@ -7,8 +7,8 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var purchaseService: PurchaseService
+    @EnvironmentObject var localizationManager: LocalizationManager
     @StateObject private var authService = AuthService.shared
-    @StateObject private var cloudKitService = CloudKitService.shared
 
     @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw: String = AppConstants.SpeedUnit.kmh.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.isHapticEnabled) private var isHapticsEnabled = true
@@ -19,7 +19,6 @@ struct SettingsView: View {
     @AppStorage(AppConstants.UserDefaultsKeys.isSoundMuted) private var isSoundMuted = false
     @AppStorage(AppConstants.UserDefaultsKeys.isMirrorModeEnabled) private var isMirrorModeEnabled = false
     @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
-    @AppStorage(AppConstants.UserDefaultsKeys.didLogOut) private var didLogOut = false
     @AppStorage(AppConstants.UserDefaultsKeys.lastCloudKitSync) private var lastCloudKitSync: Double = 0
 
     @State private var showSpeedUnitPicker = false
@@ -27,14 +26,14 @@ struct SettingsView: View {
     @State private var showLanguagePicker = false
     @State private var showResetAlert = false
     @State private var showLogoutAlert = false
-    @State private var showLanguageRestartAlert = false
-    @State private var pendingLanguage: AppConstants.SupportedLanguage?
+    @State private var showPaywall = false
 
     var speedUnit: AppConstants.SpeedUnit { AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh }
     var currentLanguage: AppConstants.SupportedLanguage { AppConstants.SupportedLanguage(rawValue: preferredLanguage) ?? .english }
+    var localizedThemeName: String { L10n.string(theme.themeColor.displayNameKey) }
 
     var lastSyncText: String {
-        guard lastCloudKitSync > 0 else { return "Never" }
+        guard lastCloudKitSync > 0 else { return L10n.string("common.never") }
         let date = Date(timeIntervalSince1970: lastCloudKitSync)
         let f = RelativeDateTimeFormatter(); f.unitsStyle = .abbreviated
         return f.localizedString(for: date, relativeTo: Date())
@@ -62,39 +61,27 @@ struct SettingsView: View {
         .sheet(isPresented: $showSpeedUnitPicker) { speedUnitPickerSheet }
         .sheet(isPresented: $showColorPicker) { colorPickerSheet }
         .sheet(isPresented: $showLanguagePicker) { languagePickerSheet }
-        .alert("Reset All Data?", isPresented: $showResetAlert) {
-            Button("Reset", role: .destructive) {
+        .sheet(isPresented: $showPaywall) { PaywallView().environmentObject(theme).environmentObject(purchaseService) }
+        .alert(L10n.string("alert.resetData.title"), isPresented: $showResetAlert) {
+            Button(L10n.string("alert.resetData.confirm"), role: .destructive) {
                 let domain = Bundle.main.bundleIdentifier ?? "com.centillion.SpeedTracker"
                 UserDefaults.standard.removePersistentDomain(forName: domain)
             }
-            Button("Cancel", role: .cancel) {}
-        } message: { Text("This will delete all trips and reset preferences. This cannot be undone.") }
-        .alert("Sign Out?", isPresented: $showLogoutAlert) {
-            Button("Sign Out", role: .destructive) {
+            Button(L10n.string("common.cancel"), role: .cancel) {}
+        } message: { Text(L10n.string("alert.resetData.message")) }
+        .alert(L10n.string("alert.signOut.title"), isPresented: $showLogoutAlert) {
+            Button(L10n.string("alert.signOut.confirm"), role: .destructive) {
                 authService.signOut()
-                didLogOut = true
             }
-            Button("Cancel", role: .cancel) {}
-        } message: { Text("You can sign back in at any time to restore your data.") }
-        .alert("Restart Required", isPresented: $showLanguageRestartAlert) {
-            Button("Apply & Restart") {
-                if let lang = pendingLanguage {
-                    preferredLanguage = lang.rawValue
-                    UserDefaults.standard.set([lang.rawValue], forKey: "AppleLanguages")
-                    UserDefaults.standard.synchronize()
-                    // Exit so iOS relaunches with new language bundle
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { exit(0) }
-                }
-            }
-            Button("Cancel", role: .cancel) { pendingLanguage = nil }
-        } message: { Text("The app will need to restart to apply the new language.") }
+            Button(L10n.string("common.cancel"), role: .cancel) {}
+        } message: { Text(L10n.string("alert.signOut.message")) }
     }
 
     // MARK: - Header
     var headerView: some View {
         HStack {
-            Text("SETTINGS")
-                .font(Font.custom(AppConstants.Typography.orbitronBold, size: 28))
+            Text(L10n.text("settings.title"))
+                .font(.headingMedium)
                 .foregroundColor(theme.textPrimary)
             Spacer()
         }
@@ -104,144 +91,186 @@ struct SettingsView: View {
 
     // MARK: - Account Section
     var accountSection: some View {
-        SettingsSection(title: "ACCOUNT", theme: theme) {
-            // Profile display
-            HStack(spacing: AppConstants.Design.paddingM) {
-                ZStack {
-                    Circle()
-                        .fill(theme.primaryColor.opacity(0.2))
-                        .frame(width: 44, height: 44)
-                    Image(systemName: "person.fill")
-                        .font(.system(size: 20))
-                        .foregroundColor(theme.primaryColor)
+        SettingsSection(title: L10n.string("settings.account").uppercased(), theme: theme) {
+            Button {
+                if !authService.isAuthenticated {
+                    authService.signIn { }
                 }
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(authService.displayName.isEmpty ? "SpeedTracker User" : authService.displayName)
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(theme.textPrimary)
-                    Text(authService.email.isEmpty ? "Apple Sign In" : authService.email)
-                        .font(.system(size: 12))
-                        .foregroundColor(theme.textSecondary)
+            } label: {
+                HStack(spacing: AppConstants.Design.paddingM) {
+                    ZStack {
+                        Circle()
+                            .fill(theme.primaryColor.opacity(0.2))
+                            .frame(width: 44, height: 44)
+                        Image(systemName: authService.isAuthenticated ? "person.fill" : "apple.logo")
+                            .font(.system(size: 20))
+                            .foregroundColor(theme.primaryColor)
+                    }
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(authService.isAuthenticated ? (authService.displayName.isEmpty ? L10n.string("settings.defaultUser") : authService.displayName) : L10n.string("settings.appleSignIn"))
+                            .font(.bodyMedium)
+                            .foregroundColor(theme.textPrimary)
+                        Text(authService.isAuthenticated ? (authService.email.isEmpty ? L10n.string("settings.appleSignIn") : authService.email) : L10n.string("auth.privateData"))
+                            .font(.caption)
+                            .foregroundColor(theme.textSecondary)
+                    }
+                    Spacer()
+                    if isPremium && authService.isAuthenticated {
+                        Label(L10n.string("common.premium"), systemImage: "crown.fill")
+                            .font(.caption)
+                            .foregroundColor(theme.primaryColor)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(theme.primaryColor.opacity(0.12))
+                            .cornerRadius(8)
+                    } else if !authService.isAuthenticated {
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 12))
+                            .foregroundColor(theme.textTertiary)
+                    }
                 }
-                Spacer()
-                if isPremium {
-                    Label("Premium", systemImage: "crown.fill")
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundColor(Color(hex: "FFD700"))
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color(hex: "FFD700").opacity(0.15))
-                        .cornerRadius(8)
-                }
+                .padding(.horizontal, AppConstants.Design.paddingM)
+                .padding(.vertical, AppConstants.Design.paddingM)
             }
-            .padding(.horizontal, AppConstants.Design.paddingM)
-            .padding(.vertical, AppConstants.Design.paddingM)
+            .buttonStyle(.plain)
 
             Divider().background(theme.textTertiary.opacity(0.3))
 
             if !isPremium {
-                SettingRow(icon: "crown.fill", title: "Upgrade to Premium", color: Color(hex: "FFD700"), theme: theme) { }
+                SettingRow(icon: "crown.fill", title: L10n.string("settings.upgradePremium"), color: theme.primaryColor, theme: theme) {
+                    showPaywall = true
+                }
                 Divider().background(theme.textTertiary.opacity(0.3))
             }
 
-            SettingRow(icon: "arrow.clockwise", title: "Restore Purchases", color: theme.primaryColor, theme: theme) {
-                Task { await purchaseService.restore() }
+            if authService.isAuthenticated {
+                SettingRow(icon: "arrow.clockwise", title: L10n.string("settings.restorePurchases"), color: theme.primaryColor, theme: theme) {
+                    Task { await purchaseService.restore() }
+                }
+            } else {
+                SettingRow(icon: "apple.logo", title: L10n.string("settings.appleSignIn"), color: theme.primaryColor, theme: theme) {
+                    authService.signIn { }
+                }
             }
 
             Divider().background(theme.textTertiary.opacity(0.3))
 
             if isPremium {
-                SettingRow(icon: "icloud.fill", title: "iCloud Sync", value: "Last: \(lastSyncText)", color: Color(hex: "00D9FF"), theme: theme) {
+                SettingRow(icon: "icloud.fill", title: L10n.string("settings.iCloudSync"), value: L10n.string("settings.lastSyncPrefix") + " \(lastSyncText)", color: theme.primaryColor, theme: theme) {
                     Task {
                         CloudKitService.shared.syncAll(tripStore: TripStore.shared, pedometerService: PedometerService.shared)
                         lastCloudKitSync = Date().timeIntervalSince1970
                     }
                 }
                 Divider().background(theme.textTertiary.opacity(0.3))
+            } else {
+                SettingRow(icon: "icloud.slash.fill", title: L10n.string("settings.iCloudSync"), value: L10n.string("settings.off"), color: theme.textTertiary, showChevron: false, theme: theme) {}
+                Divider().background(theme.textTertiary.opacity(0.3))
             }
 
-            SettingRow(icon: "rectangle.portrait.and.arrow.right", title: "Sign Out", color: Color(hex: "FF3B5C"), showChevron: false, theme: theme) {
-                showLogoutAlert = true
+            if authService.isAuthenticated {
+                SettingRow(icon: "rectangle.portrait.and.arrow.right", title: L10n.string("settings.signOut"), color: Color(hex: "FF3B5C"), showChevron: false, theme: theme) {
+                    showLogoutAlert = true
+                }
             }
         }
     }
 
     // MARK: - Appearance Section
     var appearanceSection: some View {
-        SettingsSection(title: "APPEARANCE", theme: theme) {
+        SettingsSection(title: L10n.string("settings.appearance").uppercased(), theme: theme) {
             SettingToggle(
                 icon: isDarkMode ? "moon.fill" : "sun.max.fill",
-                title: "Dark Mode",
+                title: L10n.string("settings.darkMode"),
                 color: theme.primaryColor,
                 isOn: Binding(get: { isDarkMode }, set: { isDarkMode = $0; theme.isDarkMode = $0 }),
                 theme: theme
             )
             Divider().background(theme.textTertiary.opacity(0.3))
-            SettingRow(icon: "paintpalette.fill", title: "Theme Color", value: theme.themeColor.displayName, color: theme.primaryColor, theme: theme) {
-                showColorPicker = true
+            if isPremium {
+                SettingRow(icon: "paintpalette.fill", title: L10n.string("settings.themeColor"), value: localizedThemeName, color: theme.primaryColor, theme: theme) {
+                    showColorPicker = true
+                }
+            } else {
+                lockedPremiumRow(icon: "paintpalette.fill", title: L10n.string("settings.themeColor"))
             }
             Divider().background(theme.textTertiary.opacity(0.3))
-            SettingToggle(icon: "arrow.left.arrow.right", title: "Mirror Mode (HUD)", color: Color(hex: "FF3B5C"), isOn: $isMirrorModeEnabled, theme: theme)
+            SettingToggle(icon: "arrow.left.arrow.right", title: L10n.string("settings.mirrorMode"), color: theme.primaryColor, isOn: $isMirrorModeEnabled, theme: theme)
         }
     }
 
     // MARK: - Tracking Section
     var trackingSection: some View {
-        SettingsSection(title: "TRACKING", theme: theme) {
-            SettingRow(icon: "gauge", title: "Speed Unit", value: speedUnit.rawValue, color: theme.primaryColor, theme: theme) {
+        SettingsSection(title: L10n.string("settings.tracking").uppercased(), theme: theme) {
+            SettingRow(icon: "gauge", title: L10n.string("settings.speedUnit"), value: L10n.string(speedUnit.localizationKey), color: theme.primaryColor, theme: theme) {
                 showSpeedUnitPicker = true
             }
             Divider().background(theme.textTertiary.opacity(0.3))
 
-            VStack(spacing: 8) {
-                HStack(spacing: AppConstants.Design.paddingM) {
-                    Image(systemName: "exclamationmark.triangle.fill").font(.title3)
-                        .foregroundColor(AppConstants.Colors.neonOrange).frame(width: 32)
-                    Text("Max Speed Limit").font(.system(size: 15, weight: .medium)).foregroundColor(theme.textPrimary)
-                    Spacer()
-                    Text("\(Int(maxSpeedLimit)) \(speedUnit.rawValue)").font(.system(size: 14, weight: .bold))
-                        .foregroundColor(AppConstants.Colors.neonOrange)
+            if isPremium {
+                VStack(spacing: 8) {
+                    HStack(spacing: AppConstants.Design.paddingM) {
+                        Image(systemName: "exclamationmark.triangle.fill").font(.title3)
+                            .foregroundColor(theme.primaryColor).frame(width: 32)
+                        Text(L10n.text("settings.maxSpeedLimit")).font(.bodyMedium).foregroundColor(theme.textPrimary)
+                        Spacer()
+                        Text("\(Int(maxSpeedLimit)) \(L10n.string(speedUnit.localizationKey))").font(.bodySmall)
+                            .foregroundColor(theme.primaryColor)
+                    }
+                    Slider(value: $maxSpeedLimit, in: 20...300, step: 5).tint(theme.primaryColor)
                 }
-                Slider(value: $maxSpeedLimit, in: 20...300, step: 5).tint(AppConstants.Colors.neonOrange)
+                .padding(.horizontal, AppConstants.Design.paddingM)
+                .padding(.vertical, AppConstants.Design.paddingM)
+            } else {
+                lockedPremiumRow(icon: "exclamationmark.triangle.fill", title: L10n.string("settings.maxSpeedLimit"))
             }
-            .padding(.horizontal, AppConstants.Design.paddingM)
-            .padding(.vertical, AppConstants.Design.paddingM)
 
             Divider().background(theme.textTertiary.opacity(0.3))
 
-            VStack(spacing: 8) {
-                HStack(spacing: AppConstants.Design.paddingM) {
-                    Image(systemName: "tortoise.fill").font(.title3)
-                        .foregroundColor(AppConstants.Colors.limeGreen).frame(width: 32)
-                    Text("Min Speed Threshold").font(.system(size: 15, weight: .medium)).foregroundColor(theme.textPrimary)
-                    Spacer()
-                    Text("\(Int(minSpeedLimit)) \(speedUnit.rawValue)").font(.system(size: 14, weight: .bold))
-                        .foregroundColor(AppConstants.Colors.limeGreen)
+            if isPremium {
+                VStack(spacing: 8) {
+                    HStack(spacing: AppConstants.Design.paddingM) {
+                        Image(systemName: "tortoise.fill").font(.title3)
+                            .foregroundColor(theme.primaryColor).frame(width: 32)
+                        Text(L10n.text("settings.minSpeedThreshold")).font(.bodyMedium).foregroundColor(theme.textPrimary)
+                        Spacer()
+                        Text("\(Int(minSpeedLimit)) \(L10n.string(speedUnit.localizationKey))").font(.bodySmall)
+                            .foregroundColor(theme.primaryColor)
+                    }
+                    Slider(value: $minSpeedLimit, in: 0...50, step: 1).tint(theme.primaryColor)
                 }
-                Slider(value: $minSpeedLimit, in: 0...50, step: 1).tint(AppConstants.Colors.limeGreen)
+                .padding(.horizontal, AppConstants.Design.paddingM)
+                .padding(.vertical, AppConstants.Design.paddingM)
+            } else {
+                lockedPremiumRow(icon: "tortoise.fill", title: L10n.string("settings.minSpeedThreshold"))
             }
-            .padding(.horizontal, AppConstants.Design.paddingM)
-            .padding(.vertical, AppConstants.Design.paddingM)
 
             Divider().background(theme.textTertiary.opacity(0.3))
 
             SettingToggle(icon: isSoundMuted ? "speaker.slash.fill" : "speaker.wave.2.fill",
-                          title: "Speed Alert Sounds",
-                          color: AppConstants.Colors.neonOrange,
+                          title: L10n.string("settings.soundAlerts"),
+                          color: theme.primaryColor,
                           isOn: Binding(get: { !isSoundMuted }, set: { isSoundMuted = !$0 }),
                           theme: theme)
 
             Divider().background(theme.textTertiary.opacity(0.3))
 
-            SettingToggle(icon: "waveform", title: "Haptic Feedback", color: theme.primaryColor, isOn: $isHapticsEnabled, theme: theme)
+            SettingToggle(icon: "waveform", title: L10n.string("settings.hapticFeedback"), color: theme.primaryColor, isOn: $isHapticsEnabled, theme: theme)
+        }
+    }
+
+    @ViewBuilder
+    func lockedPremiumRow(icon: String, title: String) -> some View {
+        SettingRow(icon: icon, title: title, value: L10n.string("common.premium"), color: Color(hex: "FFD700"), theme: theme) {
+            showPaywall = true
         }
     }
 
     // MARK: - General Section
     var generalSection: some View {
-        SettingsSection(title: "GENERAL", theme: theme) {
-            SettingRow(icon: "globe", title: "Language", value: currentLanguage.displayName,
-                       color: AppConstants.Colors.limeGreen, theme: theme) {
+        SettingsSection(title: L10n.string("settings.general").uppercased(), theme: theme) {
+            SettingRow(icon: "globe", title: L10n.string("settings.language"), value: currentLanguage.displayName,
+                       color: theme.primaryColor, theme: theme) {
                 showLanguagePicker = true
             }
         }
@@ -249,32 +278,32 @@ struct SettingsView: View {
 
     // MARK: - Support Section
     var supportSection: some View {
-        SettingsSection(title: "SUPPORT", theme: theme) {
-            SettingRow(icon: "star.fill", title: "Rate App", color: Color(hex: "FFD700"), theme: theme) {
+        SettingsSection(title: L10n.string("settings.support").uppercased(), theme: theme) {
+            SettingRow(icon: "star.fill", title: L10n.string("settings.rateApp"), color: theme.primaryColor, theme: theme) {
                 if let url = URL(string: AppConstants.URLs.rateApp) { UIApplication.shared.open(url) }
             }
             Divider().background(theme.textTertiary.opacity(0.3))
-            SettingRow(icon: "questionmark.circle.fill", title: "Contact Us", color: theme.primaryColor, theme: theme) {
+            SettingRow(icon: "questionmark.circle.fill", title: L10n.string("settings.contactUs"), color: theme.primaryColor, theme: theme) {
                 if let url = URL(string: AppConstants.URLs.contactUs) { UIApplication.shared.open(url) }
             }
             Divider().background(theme.textTertiary.opacity(0.3))
-            SettingRow(icon: "doc.text.fill", title: "Privacy Policy", color: theme.primaryColor, theme: theme) {
+            SettingRow(icon: "doc.text.fill", title: L10n.string("settings.privacyPolicy"), color: theme.primaryColor, theme: theme) {
                 if let url = URL(string: AppConstants.URLs.privacyPolicy) { UIApplication.shared.open(url) }
             }
             Divider().background(theme.textTertiary.opacity(0.3))
-            SettingRow(icon: "doc.plaintext.fill", title: "Terms of Service", color: theme.primaryColor, theme: theme) {
+            SettingRow(icon: "doc.plaintext.fill", title: L10n.string("settings.termsOfService"), color: theme.primaryColor, theme: theme) {
                 if let url = URL(string: AppConstants.URLs.termsOfService) { UIApplication.shared.open(url) }
             }
             Divider().background(theme.textTertiary.opacity(0.3))
-            SettingRow(icon: "info.circle.fill", title: "About", value: "v\(AppConstants.App.version)",
+            SettingRow(icon: "info.circle.fill", title: L10n.string("settings.about"), value: "v\(AppConstants.App.version)",
                        color: theme.primaryColor, showChevron: false, theme: theme) {}
         }
     }
 
     // MARK: - Data Section
     var dataSection: some View {
-        SettingsSection(title: "DATA", theme: theme) {
-            SettingRow(icon: "trash.fill", title: "Reset All Data", color: Color(hex: "FF3B5C"), theme: theme) {
+        SettingsSection(title: L10n.string("settings.data").uppercased(), theme: theme) {
+            SettingRow(icon: "trash.fill", title: L10n.string("settings.resetAllData"), color: Color(hex: "FF3B5C"), theme: theme) {
                 showResetAlert = true
             }
         }
@@ -282,7 +311,7 @@ struct SettingsView: View {
 
     // MARK: - Picker Sheets
     var speedUnitPickerSheet: some View {
-        PickerSheet(title: "Speed Unit", theme: theme) {
+        PickerSheet(title: L10n.string("settings.speedUnit"), theme: theme) {
             ForEach(AppConstants.SpeedUnit.allCases, id: \.rawValue) { unit in
                 Button {
                     speedUnitRaw = unit.rawValue
@@ -290,7 +319,7 @@ struct SettingsView: View {
                     HapticManager.shared.selection()
                 } label: {
                     HStack {
-                        Text(unit.rawValue).font(.system(size: 18, weight: .semibold)).foregroundColor(theme.textPrimary)
+                        Text(L10n.string(unit.localizationKey)).font(.bodyLarge).foregroundColor(theme.textPrimary)
                         Spacer()
                         if speedUnit == unit { Image(systemName: "checkmark.circle.fill").foregroundColor(theme.primaryColor) }
                     }
@@ -301,7 +330,7 @@ struct SettingsView: View {
     }
 
     var colorPickerSheet: some View {
-        PickerSheet(title: "Theme Color", theme: theme) {
+        PickerSheet(title: L10n.string("settings.themeColor"), theme: theme) {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
                 ForEach(AppConstants.ThemeColor.allCases, id: \.rawValue) { color in
                     Button {
@@ -311,7 +340,7 @@ struct SettingsView: View {
                             Circle().fill(color.gradient).frame(width: 50, height: 50)
                                 .overlay(Circle().strokeBorder(Color.white, lineWidth: theme.themeColor == color ? 3 : 0))
                                 .shadow(color: color.primaryColor.opacity(theme.themeColor == color ? 0.5 : 0), radius: 8)
-                            Text(color.displayName).font(.system(size: 11, weight: .medium)).foregroundColor(theme.textSecondary)
+                            Text(L10n.string(color.displayNameKey)).font(.caption).foregroundColor(theme.textSecondary)
                         }
                     }
                 }
@@ -321,19 +350,19 @@ struct SettingsView: View {
     }
 
     var languagePickerSheet: some View {
-        PickerSheet(title: "Language", theme: theme) {
+        PickerSheet(title: L10n.string("settings.language"), theme: theme) {
             ForEach(AppConstants.SupportedLanguage.allCases, id: \.rawValue) { lang in
                 Button {
                     showLanguagePicker = false
                     if lang.rawValue != preferredLanguage {
-                        pendingLanguage = lang
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { showLanguageRestartAlert = true }
+                        preferredLanguage = lang.rawValue
+                        localizationManager.currentLanguage = lang
                     }
                     HapticManager.shared.selection()
                 } label: {
                     HStack(spacing: 12) {
                         Text(lang.flagEmoji).font(.system(size: 20))
-                        Text(lang.displayName).font(.system(size: 16)).foregroundColor(theme.textPrimary)
+                        Text(lang.displayName).font(.bodyMedium).foregroundColor(theme.textPrimary)
                         Spacer()
                         if currentLanguage == lang { Image(systemName: "checkmark.circle.fill").foregroundColor(theme.primaryColor) }
                     }
@@ -356,7 +385,7 @@ struct SettingsSection<Content: View>: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: AppConstants.Design.paddingS) {
-            Text(title).font(.system(size: 12, weight: .bold)).foregroundColor(theme.textSecondary)
+            Text(title).font(.label).foregroundColor(theme.textSecondary)
                 .padding(.leading, AppConstants.Design.paddingS)
             GlassMorphismCard(padding: 0) { VStack(spacing: 0) { content } }
         }
@@ -381,9 +410,9 @@ struct SettingRow: View {
         Button(action: action) {
             HStack(spacing: AppConstants.Design.paddingM) {
                 Image(systemName: icon).font(.title3).foregroundColor(color).frame(width: 32)
-                Text(title).font(.system(size: 15, weight: .medium)).foregroundColor(theme.textPrimary)
+                Text(title).font(.bodyMedium).foregroundColor(theme.textPrimary)
                 Spacer()
-                if !value.isEmpty { Text(value).font(.system(size: 13)).foregroundColor(theme.textSecondary) }
+                if !value.isEmpty { Text(value).font(.caption).foregroundColor(theme.textSecondary) }
                 if showChevron { Image(systemName: "chevron.right").font(.system(size: 12)).foregroundColor(theme.textTertiary) }
             }
             .padding(.horizontal, AppConstants.Design.paddingM)
@@ -402,7 +431,7 @@ struct SettingToggle: View {
     var body: some View {
         HStack(spacing: AppConstants.Design.paddingM) {
             Image(systemName: icon).font(.title3).foregroundColor(color).frame(width: 32)
-            Text(title).font(.system(size: 15, weight: .medium)).foregroundColor(theme.textPrimary)
+            Text(title).font(.bodyMedium).foregroundColor(theme.textPrimary)
             Spacer()
             Toggle("", isOn: $isOn).labelsHidden().tint(theme.primaryColor)
         }

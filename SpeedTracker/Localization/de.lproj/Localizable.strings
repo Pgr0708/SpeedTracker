@@ -4,52 +4,52 @@
 */
 
 // MARK: - Onboarding
-"onboarding.skip" = "Skip";
-"onboarding.next" = "Next";
-"onboarding.back" = "Back";
-"onboarding.getStarted" = "Get Started";
+"onboarding.skip" = "Überspringen";
+"onboarding.next" = "Weiter";
+"onboarding.back" = "Zurück";
+"onboarding.getStarted" = "Loslegen";
 
-"onboarding.page1.title" = "Track Your Speed";
-"onboarding.page1.description" = "Real-time GPS speed tracking with precision accuracy. Monitor your speed in km/h, mph, m/s, or knots.";
+"onboarding.page1.title" = "Geschwindigkeit verfolgen";
+"onboarding.page1.description" = "GPS-Geschwindigkeit in Echtzeit mit hoher Präzision. Verfolge dein Tempo in km/h, mph, m/s oder Knoten.";
 
-"onboarding.page2.title" = "Record Your Journeys";
-"onboarding.page2.description" = "Automatically save your trips with detailed statistics, routes, and achievements.";
+"onboarding.page2.title" = "Fahrten aufzeichnen";
+"onboarding.page2.description" = "Speichere deine Fahrten automatisch mit detaillierten Statistiken, Routen und Erfolgen.";
 
-"onboarding.page3.title" = "Compete & Improve";
-"onboarding.page3.description" = "Set personal records, track your progress, and challenge yourself to go faster.";
+"onboarding.page3.title" = "Messen und verbessern";
+"onboarding.page3.description" = "Setze persönliche Rekorde, verfolge deinen Fortschritt und fordere dich selbst heraus.";
 
 // MARK: - Main Screen
-"main.speed" = "Speed";
-"main.maxSpeed" = "Max Speed";
-"main.avgSpeed" = "Avg Speed";
-"main.distance" = "Distance";
-"main.duration" = "Duration";
+"main.speed" = "Geschwindigkeit";
+"main.maxSpeed" = "Max. Geschwindigkeit";
+"main.avgSpeed" = "Ø-Geschwindigkeit";
+"main.distance" = "Distanz";
+"main.duration" = "Dauer";
 "main.startTracking" = "Start Tracking";
 "main.stopTracking" = "Stop Tracking";
 "main.pauseTracking" = "Pause";
 "main.resumeTracking" = "Resume";
 
 // MARK: - Settings
-"settings.title" = "Settings";
+"settings.title" = "Einstellungen";
 "settings.units" = "Units";
-"settings.language" = "Language";
+"settings.language" = "Sprache";
 "settings.haptics" = "Haptic Feedback";
 
 // MARK: - Units
 "unit.kmh" = "km/h";
 "unit.mph" = "mph";
 "unit.ms" = "m/s";
-"unit.knots" = "knots";
+"unit.knots" = "Knoten";
 
 // MARK: - Common
-"common.save" = "Save";
-"common.cancel" = "Cancel";
-"common.done" = "Done";
+"common.save" = "Speichern";
+"common.cancel" = "Abbrechen";
+"common.done" = "Fertig";
 
 
 // MARK: - Pedometer
 "pedometer.title" = "Pedometer";
-"pedometer.steps" = "Steps";
+"pedometer.steps" = "Schritte";
 "pedometer.distance" = "Distance";
 "pedometer.calories" = "Calories";
 "pedometer.pace" = "Pace";
@@ -69,7 +69,7 @@
 "compass.coordinates" = "Coordinates";
 
 // MARK: - History
-"history.title" = "History";
+"history.title" = "Verlauf";
 "history.noTrips" = "No Trips Yet";
 "history.noTripsDesc" = "Start tracking your speed to see your trip history here";
 "history.totalTrips" = "Total Trips";
@@ -78,71 +78,186 @@
 "history.upgradeDesc" = "Upgrade to unlock full history";
 
 // MARK: - Settings (new keys)
-"settings.account" = "Account";
-"settings.appearance" = "Appearance";
+"settings.account" = "Konto";
+"settings.appearance" = "Darstellung";
 "settings.tracking" = "Tracking";
-"settings.general" = "General";
+"settings.general" = "Allgemein";
 "settings.support" = "Support";
-"settings.data" = "Data";
-"settings.darkMode" = "Dark Mode";
-"settings.themeColor" = "Theme Color";
-"settings.mirrorMode" = "Mirror Mode (HUD)";
-"settings.maxSpeedLimit" = "Max Speed Limit";
-"settings.minSpeedThreshold" = "Min Speed Threshold";
-"settings.soundAlerts" = "Speed Alert Sounds";
-"settings.hapticFeedback" = "Haptic Feedback";
-"settings.rateApp" = "Rate App";
-"settings.contactUs" = "Contact Us";
-"settings.privacyPolicy" = "Privacy Policy";
-"settings.termsOfService" = "Terms of Service";
-"settings.about" = "About";
-"settings.resetAllData" = "Reset All Data";
-"settings.signOut" = "Sign Out";
-"settings.restorePurchases" = "Restore Purchases";
-"settings.iCloudSync" = "iCloud Sync";
-"settings.upgradePremium" = "Upgrade to Premium";
+"settings.data" = "Daten";
+"settings.darkMode" = "Dunkelmodus";
+"settings.themeColor" = "Themenfarbe";
+"settings.mirrorMode" = "Spiegelmodus (HUD)";
+"settings.maxSpeedLimit" = "Maximales Tempolimit";
+"settings.minSpeedThreshold" = "Minimale Geschwindigkeitsschwelle";
+"settings.soundAlerts" = "Geschwindigkeitswarnungen";
+"settings.hapticFeedback" = "Haptisches Feedback";
+"settings.rateApp" = "App bewerten";
+"settings.contactUs" = "Kontakt";
+"settings.privacyPolicy" = "Datenschutz";
+"settings.termsOfService" = "Nutzungsbedingungen";
+"settings.about" = "Info";
+"settings.resetAllData" = "Alle Daten zurücksetzen";
+"settings.signOut" = "Abmelden";
+"settings.restorePurchases" = "Käufe wiederherstellen";
+"settings.iCloudSync" = "iCloud-Sync";
+"settings.upgradePremium" = "Auf Premium upgraden";
 
 // MARK: - HUD Mode
-"hud.title" = "HUD Mode";
-"hud.mirrorOn" = "Mirror ON";
-"hud.mirrorOff" = "Mirror OFF";
-"hud.overLimit" = "OVER LIMIT";
-"hud.mirrorInstruction" = "Place below windshield — speed reflects upward";
-"hud.directView" = "Direct view mode";
+"hud.title" = "HUD";
+"hud.mirrorOn" = "Spiegel EIN";
+"hud.mirrorOff" = "Spiegel AUS";
+"hud.overLimit" = "ÜBER LIMIT";
+"hud.mirrorInstruction" = "Unter die Windschutzscheibe legen - Geschwindigkeit wird nach oben gespiegelt";
+"hud.directView" = "Direktansicht";
 
 // MARK: - Paywall
-"paywall.unlockPremium" = "Unlock Premium";
-"paywall.fullExperience" = "Full speed tracking experience";
-"paywall.restorePurchases" = "Restore Purchases";
-"paywall.continueFree" = "Continue Free";
-"paywall.autoRenewable" = "Auto-renewable. Cancel anytime in App Store settings.";
-"paywall.startFreeTrial" = "Start Free Trial";
-"paywall.subscribeNow" = "Subscribe Now";
+"paywall.unlockPremium" = "Premium freischalten";
+"paywall.fullExperience" = "Das komplette Geschwindigkeitserlebnis";
+"paywall.restorePurchases" = "Käufe wiederherstellen";
+"paywall.continueFree" = "Kostenlos fortfahren";
+"paywall.autoRenewable" = "Automatisch verlängerbar. Jederzeit in den App-Store-Einstellungen kündbar.";
+"paywall.startFreeTrial" = "Gratis testen";
+"paywall.subscribeNow" = "Jetzt abonnieren";
 
 // MARK: - Permissions
-"permissions.title" = "Permissions Required";
-"permissions.desc" = "SpeedTracker needs access to track speed and activity";
-"permissions.location" = "Location Access";
-"permissions.motion" = "Motion & Fitness";
-"permissions.health" = "Health (Optional)";
-"permissions.notifications" = "Notifications";
-"permissions.grantLocation" = "Grant Location Access";
-"permissions.continue" = "Continue";
-"permissions.openSettings" = "Open Settings";
+"permissions.title" = "Berechtigungen erforderlich";
+"permissions.desc" = "SpeedTracker benötigt Zugriff, um Geschwindigkeit und Aktivität zu verfolgen";
+"permissions.location" = "Standortzugriff";
+"permissions.motion" = "Bewegung & Fitness";
+"permissions.health" = "Health (optional)";
+"permissions.notifications" = "Benachrichtigungen";
+"permissions.grantLocation" = "Standortzugriff erlauben";
+"permissions.continue" = "Weiter";
+"permissions.openSettings" = "Einstellungen öffnen";
 
 // MARK: - Alerts
-"alert.stopTrip.title" = "Stop Tracking?";
-"alert.stopTrip.message" = "Your trip will be saved to history.";
-"alert.stopTrip.save" = "Stop & Save";
-"alert.resetData.title" = "Reset All Data?";
-"alert.resetData.message" = "This will delete all trips and reset preferences. This cannot be undone.";
-"alert.resetData.confirm" = "Reset";
-"alert.signOut.title" = "Sign Out?";
-"alert.signOut.message" = "You can sign back in at any time to restore your data.";
-"alert.signOut.confirm" = "Sign Out";
-"alert.languageRestart.title" = "Restart Required";
-"alert.languageRestart.message" = "The app will need to restart to apply the new language.";
-"alert.languageRestart.apply" = "Apply & Restart";
-"alert.maxSpeed" = "Max Speed Exceeded!";
-"alert.minSpeed" = "Below Min Speed";
+"alert.stopTrip.title" = "Tracking stoppen?";
+"alert.stopTrip.message" = "Deine Fahrt wird im Verlauf gespeichert.";
+"alert.stopTrip.save" = "Stoppen und speichern";
+"alert.resetData.title" = "Alle Daten zurücksetzen?";
+"alert.resetData.message" = "Dadurch werden alle Fahrten gelöscht und Einstellungen zurückgesetzt. Dies kann nicht rückgängig gemacht werden.";
+"alert.resetData.confirm" = "Zurücksetzen";
+"alert.signOut.title" = "Abmelden?";
+"alert.signOut.message" = "Du kannst dich jederzeit wieder anmelden, um deine Daten wiederherzustellen.";
+"alert.signOut.confirm" = "Abmelden";
+"alert.languageRestart.title" = "Neustart erforderlich";
+"alert.languageRestart.message" = "Die App muss neu gestartet werden, um die Sprache anzuwenden.";
+"alert.languageRestart.apply" = "Anwenden und neu starten";
+"alert.maxSpeed" = "Höchstgeschwindigkeit überschritten!";
+"alert.minSpeed" = "Unter Mindestgeschwindigkeit";
 
+"common.continue" = "Weiter";
+"common.close" = "Schließen";
+"common.never" = "Nie";
+"common.premium" = "Premium";
+"main.startTrip" = "Fahrt starten";
+"main.tracking" = "Tracking...";
+"main.waiting" = "Warten...";
+"main.ready" = "Bereit";
+"main.noGPS" = "Kein GPS";
+"main.gps" = "GPS";
+"main.gpsStrong" = "GPS ★★★";
+"main.gpsMedium" = "GPS ★★";
+"main.gpsWeak" = "GPS ★";
+"main.startPromptTitle" = "Fahrt starten, um Live-Statistiken zu sehen";
+"main.startPromptSubtitle" = "Geschwindigkeit, Distanz, Höhe und Richtung erscheinen nach Start des Trackings";
+"main.livePerformance" = "Live-Leistung";
+"settings.speedUnit" = "Geschwindigkeitseinheit";
+"settings.defaultUser" = "SpeedTracker-Benutzer";
+"settings.appleSignIn" = "Mit Apple anmelden";
+"settings.lastSyncPrefix" = "Zuletzt:";
+"hud.live" = "LIVE";
+"hud.readyTitle" = "HUD bereit für Fahrt";
+"hud.readySubtitle" = "Starte die Fahrt hier, um Geschwindigkeit auf die Scheibe zu projizieren";
+"languageSelection.title" = "Sprache wählen";
+"languageSelection.subtitle" = "Wähle deine bevorzugte Sprache";
+"theme.blue" = "Elektrisches Blau";
+"theme.green" = "Limettengrün";
+"theme.orange" = "Neonorange";
+"theme.purple" = "Königslila";
+"theme.red" = "Rennrot";
+"theme.cyan" = "Cyber-Cyan";
+"onboarding.page1.bullet1" = "GPS-Präzision in Echtzeit";
+"onboarding.page1.bullet2" = "km/h · mph · m/s · Knoten";
+"onboarding.page1.bullet3" = "Live-Geschwindigkeitsgrafik";
+"onboarding.page2.bullet1" = "Komplette Route auf der Karte";
+"onboarding.page2.bullet2" = "Geschwindigkeits- und Höhendaten";
+"onboarding.page2.bullet3" = "Dauer und Distanz";
+"onboarding.page3.bullet1" = "Persönliche Rekorde";
+"onboarding.page3.bullet2" = "Schrittzähler und Kalorien";
+"onboarding.page3.bullet3" = "Individuelle Themen";
+"permissions.locationDesc" = "Erforderlich für GPS-Geschwindigkeitsmessung";
+"permissions.motionDesc" = "Erforderlich für Schrittzähler";
+"permissions.healthDesc" = "Für Kalorien- und Fitnessdaten-Sync";
+"permissions.notificationsDesc" = "Geschwindigkeitswarnungen und Fahrtzusammenfassungen";
+"permissions.granted" = "Erlaubt";
+"permissions.denied" = "Verweigert";
+"permissions.required" = "Erforderlich";
+"permissions.tapToGrant" = "Tippen zum Erteilen";
+"permissions.optional" = "Optional";
+"preferences.colorTitle" = "Farbe wählen";
+"preferences.colorSubtitle" = "Wähle eine Akzentfarbe für die App";
+"preferences.appearanceTitle" = "Darstellung";
+"preferences.appearanceSubtitle" = "Wähle Dunkel- oder Hellmodus";
+"preferences.speedUnitTitle" = "Geschwindigkeitseinheit";
+"preferences.speedUnitSubtitle" = "Bevorzugte Einheit wählen";
+"preferences.speedLimitsTitle" = "Geschwindigkeitslimits";
+"preferences.speedLimitsSubtitle" = "Max.- und Min.-Warnungen festlegen";
+"preferences.dark" = "Dunkel";
+"preferences.light" = "Hell";
+"preferences.maxSpeedHint" = "Warnung bei Überschreitung dieser Geschwindigkeit";
+"preferences.minSpeedHint" = "Unter diesem Wert wird nicht getrackt";
+"main.stopMini" = "Stoppen";
+"settings.off" = "Aus";
+"settings.soundOn" = "Ton an";
+"settings.soundOff" = "Ton aus";
+"alert.bigMaxTitle" = "MAXIMALES LIMIT ERREICHT";
+"alert.bigMaxBody" = "Jetzt langsamer fahren. Du liegst über deinem sicheren Limit.";
+"alert.bigMinTitle" = "WARNUNG: NIEDRIGE GESCHWINDIGKEIT";
+"alert.bigMinBody" = "Geschwindigkeit ist unter das minimale sichere Tracking-Niveau gefallen.";
+"hud.horizontal" = "Horizontal";
+"hud.vertical" = "Vertikal";
+"hud.skipStopSave" = "Überspringen";
+"paywall.featureHud" = "HUD-Modus für die Windschutzscheibe";
+"paywall.featurePedometer" = "Schrittzähler mit Kalorien-Tracking";
+"paywall.featureHistory" = "Vollständiger Fahrtenverlauf mit Karten";
+"paywall.featureAlerts" = "Große Geschwindigkeitswarnungen mit lauten Signalen";
+"paywall.featureThemes" = "Themen und Anpassung";
+"paywall.featureSync" = "iCloud-Sync auf allen Geräten";
+"paywall.featureMirror" = "Spiegelmodus für Reflexionen";
+"paywall.termsButton" = "AGB";
+"paywall.restoreTitle" = "Käufe wiederherstellen";
+"paywall.restoreSuccess" = "Premium wiederhergestellt und Cloud-Sync gestartet.";
+"paywall.restoreNeedLogin" = "Melde dich zuerst mit Apple an und stelle dann Käufe wieder her.";
+"paywall.ribbon.bestValue" = "BESTER WERT";
+"paywall.ribbon.popular" = "AM BELIEBTESTEN";
+"paywall.plan.weekly" = "Wöchentlich";
+"paywall.plan.monthly" = "Monatlich";
+"paywall.plan.yearly" = "Jährlich";
+"paywall.plan.lifetime" = "Lebenslang";
+"paywall.badge.flexible" = "Flexibel";
+"paywall.badge.popular" = "Am beliebtesten";
+"paywall.badge.trial" = "3 Tage kostenlos testen";
+"paywall.badge.payOnce" = "Einmal zahlen";
+"paywall.period.week" = "/Woche";
+"paywall.period.month" = "/Monat";
+"paywall.period.year" = "/Jahr";
+"history.showingTrips" = "%d von %d Fahrten werden angezeigt";
+"history.lockedTrips" = "%d weitere Fahrten gesperrt – Upgrade zum Anzeigen";
+"history.maxShort" = "MAX";
+"history.avgShort" = "Ø";
+"history.distShort" = "DIST";
+"pedometer.active" = "AKTIV";
+"pedometer.goalStatus" = "%d%% des Ziels";
+"pedometer.motionRequired" = "Bewegung & Fitness ist erforderlich. Bitte in den Einstellungen aktivieren.";
+"pedometer.stepsCount" = "%d Schritte";
+"auth.welcomeBack" = "Willkommen zurück";
+"auth.restoreDesc" = "Melde dich an, um deine Käufe wiederherzustellen\nund deine Daten zu synchronisieren";
+"auth.privateData" = "Deine Daten sind privat und in iCloud gespeichert";
+"tripDetail.title" = "Fahrtdetails";
+"tripDetail.route" = "Route";
+"tripDetail.start" = "Start";
+"tripDetail.end" = "Ende";
+"tripDetail.speedOverTime" = "Geschwindigkeit im Verlauf";
+"tripDetail.noSpeedData" = "Keine Geschwindigkeitsdaten verfügbar";
+"common.settings" = "Einstellungen";

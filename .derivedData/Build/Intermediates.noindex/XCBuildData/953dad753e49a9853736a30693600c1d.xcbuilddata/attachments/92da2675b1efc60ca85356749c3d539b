@@ -1,0 +1,419 @@
+{
+  "" : {
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTracker-primary.dia",
+    "emit-module-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTracker-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTracker-primary-emit-module.dia",
+    "pch" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTracker-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTracker-primary.swiftdeps"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/ContentView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Extensions/Font+Extensions.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Font+Extensions.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Font+Extensions.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Font+Extensions.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Font+Extensions.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Font+Extensions.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Font+Extensions.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Font+Extensions.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Font+Extensions~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Extensions/View+Extensions.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/View+Extensions.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/View+Extensions.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/View+Extensions.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/View+Extensions.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/View+Extensions.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/View+Extensions.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/View+Extensions.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/View+Extensions~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Models/OnboardingPage.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPage.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPage.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPage.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPage.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPage.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPage.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPage.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPage~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Models/PedometerSession.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerSession.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerSession.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerSession.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerSession.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerSession.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerSession.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerSession.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerSession~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Models/TripRecord.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripRecord.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripRecord.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripRecord.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripRecord.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripRecord.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripRecord.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripRecord.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripRecord~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Models/UserProfile.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/UserProfile.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/UserProfile.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/UserProfile.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/UserProfile.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/UserProfile.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/UserProfile.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/UserProfile.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/UserProfile~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/Audio/AudioService.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AudioService.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AudioService.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AudioService.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AudioService.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AudioService.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AudioService.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AudioService.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AudioService~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/Auth/AuthService.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AuthService.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AuthService.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AuthService.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AuthService.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AuthService.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AuthService.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AuthService.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AuthService~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/CloudKit/CloudKitService.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CloudKitService.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CloudKitService.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CloudKitService.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CloudKitService.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CloudKitService.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CloudKitService.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CloudKitService.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CloudKitService~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/Location/LocationManager.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocationManager.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocationManager.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocationManager.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocationManager.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocationManager.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocationManager.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocationManager.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocationManager~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/NotificationManager.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/NotificationManager.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/NotificationManager.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/NotificationManager.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/NotificationManager.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/NotificationManager.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/NotificationManager.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/NotificationManager.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/NotificationManager~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/Pedometer/PedometerService.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerService.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerService.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerService.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerService.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerService.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerService.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerService.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerService~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/Purchase/PurchaseService.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PurchaseService.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PurchaseService.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PurchaseService.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PurchaseService.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PurchaseService.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PurchaseService.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PurchaseService.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PurchaseService~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/Storage/TripStore.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripStore.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripStore.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripStore.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripStore.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripStore.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripStore.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripStore.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripStore~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Services/Weather/WeatherService.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/WeatherService.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/WeatherService.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/WeatherService.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/WeatherService.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/WeatherService.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/WeatherService.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/WeatherService.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/WeatherService~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/SpeedTrackerApp.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerApp.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerApp.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerApp.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerApp.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerApp.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerApp.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerApp.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerApp~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Utilities/Constants.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Constants.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Constants.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Constants.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Constants.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Constants.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Constants.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Constants.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Constants~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Utilities/Haptics.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Haptics.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Haptics.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Haptics.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Haptics.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Haptics.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Haptics.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Haptics.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/Haptics~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Utilities/LocalizationManager.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocalizationManager.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocalizationManager.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocalizationManager.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocalizationManager.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocalizationManager.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocalizationManager.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocalizationManager.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LocalizationManager~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Utilities/ThemeManager.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ThemeManager.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ThemeManager.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ThemeManager.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ThemeManager.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ThemeManager.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ThemeManager.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ThemeManager.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/ThemeManager~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/ViewModels/OnboardingViewModel.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingViewModel.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingViewModel.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingViewModel.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingViewModel.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingViewModel.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingViewModel.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingViewModel.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingViewModel~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Auth/SignInView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SignInView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SignInView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SignInView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SignInView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SignInView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SignInView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SignInView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SignInView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Compass/CompassView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CompassView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CompassView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CompassView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CompassView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CompassView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CompassView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CompassView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/CompassView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Components/AnimatedButton.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AnimatedButton.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AnimatedButton.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AnimatedButton.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AnimatedButton.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AnimatedButton.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AnimatedButton.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AnimatedButton.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/AnimatedButton~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Components/GlassMorphismCard.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GlassMorphismCard.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GlassMorphismCard.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GlassMorphismCard.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GlassMorphismCard.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GlassMorphismCard.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GlassMorphismCard.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GlassMorphismCard.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/GlassMorphismCard~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/History/HistoryView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HistoryView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HistoryView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HistoryView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HistoryView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HistoryView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HistoryView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HistoryView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HistoryView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/History/TripDetailView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripDetailView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripDetailView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripDetailView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripDetailView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripDetailView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripDetailView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripDetailView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/TripDetailView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Main/HUDModeView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HUDModeView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HUDModeView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HUDModeView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HUDModeView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HUDModeView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HUDModeView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HUDModeView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/HUDModeView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Main/MainTabView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/MainTabView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/MainTabView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/MainTabView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/MainTabView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/MainTabView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/MainTabView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/MainTabView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/MainTabView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Main/SpeedTrackerView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SpeedTrackerView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Onboarding/LanguageSelectionView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LanguageSelectionView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LanguageSelectionView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LanguageSelectionView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LanguageSelectionView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LanguageSelectionView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LanguageSelectionView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LanguageSelectionView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/LanguageSelectionView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Onboarding/OnboardingContainerView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingContainerView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingContainerView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingContainerView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingContainerView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingContainerView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingContainerView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingContainerView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingContainerView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Onboarding/OnboardingPageView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPageView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPageView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPageView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPageView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPageView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPageView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPageView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/OnboardingPageView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Onboarding/PaywallView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PaywallView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PaywallView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PaywallView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PaywallView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PaywallView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PaywallView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PaywallView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PaywallView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Onboarding/PermissionsView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PermissionsView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PermissionsView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PermissionsView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PermissionsView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PermissionsView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PermissionsView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PermissionsView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PermissionsView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Onboarding/PreferencesSetupView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PreferencesSetupView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PreferencesSetupView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PreferencesSetupView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PreferencesSetupView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PreferencesSetupView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PreferencesSetupView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PreferencesSetupView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PreferencesSetupView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Onboarding/SplashView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SplashView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SplashView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SplashView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SplashView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SplashView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SplashView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SplashView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SplashView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Pedometer/PedometerView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/PedometerView~partial.swiftmodule"
+  },
+  "/Users/minaxi/Desktop/parth demo/SpeedTracker/SpeedTracker/Views/Settings/SettingsView.swift" : {
+    "const-values" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SettingsView.d",
+    "diagnostics" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SettingsView.dia",
+    "index-unit-output-path" : "/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SettingsView.o",
+    "swift-dependencies" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SettingsView.swiftdeps",
+    "swiftmodule" : "/Users/minaxi/Desktop/parth demo/SpeedTracker/.derivedData/Build/Intermediates.noindex/SpeedTracker.build/Debug-iphoneos/SpeedTracker.build/Objects-normal/arm64/SettingsView~partial.swiftmodule"
+  }
+}

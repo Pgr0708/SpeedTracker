@@ -18,6 +18,7 @@ class AuthService: NSObject, ObservableObject {
     @Published var isLoading = false
 
     @AppStorage(AppConstants.UserDefaultsKeys.didLogOut) private var didLogOut = false
+    @AppStorage(AppConstants.UserDefaultsKeys.lastCloudKitSync) private var lastCloudKitSync: Double = 0
 
     private var signInCompletion: (() -> Void)?
 
@@ -66,11 +67,14 @@ class AuthService: NSObject, ObservableObject {
     // MARK: - Sign Out
     func signOut() {
         isAuthenticated = false
-        didLogOut = true
+        didLogOut = false
         userID = ""
         displayName = ""
         email = ""
         KeychainHelper.shared.delete(key: "appleUserID")
+        UserProfile.default.save()
+        PurchaseService.shared.resetToFreeMode()
+        lastCloudKitSync = 0
     }
 
     private func loadProfile() {

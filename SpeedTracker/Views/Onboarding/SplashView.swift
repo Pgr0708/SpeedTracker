@@ -127,7 +127,7 @@ struct SplashView: View {
                             .fill(theme.primaryColor.opacity(0.5))
                             .frame(width: 30, height: 1)
                         Text("v\(AppConstants.App.version)")
-                            .font(Font.custom(AppConstants.Typography.rajdhaniMedium, size: 14))
+                            .font(.label)
                             .foregroundColor(theme.textTertiary)
                         Rectangle()
                             .fill(theme.primaryColor.opacity(0.5))

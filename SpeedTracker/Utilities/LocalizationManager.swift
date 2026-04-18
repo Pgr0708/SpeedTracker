@@ -28,6 +28,10 @@ class LocalizationManager: ObservableObject {
             currentLanguage = detectSystemLanguage()
         }
     }
+
+    var currentLocale: Locale {
+        Locale(identifier: currentLanguage.rawValue)
+    }
     
     private func detectSystemLanguage() -> AppConstants.SupportedLanguage {
         let preferredLanguage = Locale.preferredLanguages.first ?? "en"
@@ -42,14 +46,28 @@ class LocalizationManager: ObservableObject {
     }
     
     func localized(_ key: String) -> String {
-        // For now, return key. Actual localization will use .strings files
-        return NSLocalizedString(key, comment: "")
+        bundle(for: currentLanguage).localizedString(forKey: key, value: key, table: nil)
+    }
+
+    private func bundle(for language: AppConstants.SupportedLanguage) -> Bundle {
+        if let path = Bundle.main.path(forResource: language.rawValue, ofType: "lproj"),
+           let bundle = Bundle(path: path) {
+            return bundle
+        }
+        return .main
     }
 }
 
-// View extension for easy localization access
-extension View {
-    func localized(_ key: String) -> String {
+enum L10n {
+    static func text(_ key: String) -> LocalizedStringKey {
+        LocalizedStringKey(key)
+    }
+
+    static func string(_ key: String) -> String {
         LocalizationManager.shared.localized(key)
+    }
+
+    static func string(_ key: String, _ arguments: CVarArg...) -> String {
+        String(format: string(key), locale: Locale.current, arguments: arguments)
     }
 }

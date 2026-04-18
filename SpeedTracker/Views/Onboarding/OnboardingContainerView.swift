@@ -28,8 +28,8 @@ struct OnboardingContainerView: View {
                     Button(action: {
                         viewModel.skip()
                     }) {
-                        Text("Skip")
-                            .font(.system(size: 16, weight: .medium))
+                        Text(L10n.text("onboarding.skip"))
+                            .font(.bodyMedium)
                             .foregroundColor(theme.textSecondary)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
@@ -73,7 +73,7 @@ struct OnboardingContainerView: View {
                 // Bottom action button
                 VStack(spacing: 16) {
                     AnimatedButton(
-                        viewModel.isLastPage ? "Get Started" : "Next",
+                        viewModel.isLastPage ? L10n.string("onboarding.getStarted") : L10n.string("onboarding.next"),
                         icon: viewModel.isLastPage ? "checkmark.circle.fill" : "arrow.right",
                         variant: .primary
                     ) {
@@ -88,8 +88,8 @@ struct OnboardingContainerView: View {
                         Button(action: {
                             viewModel.previousPage()
                         }) {
-                            Text("Back")
-                                .font(.system(size: 16, weight: .medium))
+                            Text(L10n.text("onboarding.back"))
+                                .font(.bodyMedium)
                                 .foregroundColor(theme.textSecondary)
                                 .padding(.vertical, 12)
                         }

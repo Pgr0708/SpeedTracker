@@ -4,52 +4,52 @@
 */
 
 // MARK: - Onboarding
-"onboarding.skip" = "Skip";
-"onboarding.next" = "Next";
-"onboarding.back" = "Back";
-"onboarding.getStarted" = "Get Started";
+"onboarding.skip" = "Geç";
+"onboarding.next" = "İleri";
+"onboarding.back" = "Geri";
+"onboarding.getStarted" = "Başla";
 
-"onboarding.page1.title" = "Track Your Speed";
-"onboarding.page1.description" = "Real-time GPS speed tracking with precision accuracy. Monitor your speed in km/h, mph, m/s, or knots.";
+"onboarding.page1.title" = "Hızını takip et";
+"onboarding.page1.description" = "Yüksek hassasiyetli gerçek zamanlı GPS hız takibi. Hızını km/s, mph, m/s veya knot olarak izle.";
 
-"onboarding.page2.title" = "Record Your Journeys";
-"onboarding.page2.description" = "Automatically save your trips with detailed statistics, routes, and achievements.";
+"onboarding.page2.title" = "Sürüşlerini kaydet";
+"onboarding.page2.description" = "Sürüşlerini ayrıntılı istatistikler, rotalar ve başarılarla otomatik olarak kaydet.";
 
-"onboarding.page3.title" = "Compete & Improve";
-"onboarding.page3.description" = "Set personal records, track your progress, and challenge yourself to go faster.";
+"onboarding.page3.title" = "Rekabet et ve geliş";
+"onboarding.page3.description" = "Kişisel rekorlar belirle, ilerlemeni takip et ve daha hızlı gitmek için kendine meydan oku.";
 
 // MARK: - Main Screen
-"main.speed" = "Speed";
-"main.maxSpeed" = "Max Speed";
-"main.avgSpeed" = "Avg Speed";
-"main.distance" = "Distance";
-"main.duration" = "Duration";
+"main.speed" = "Hız";
+"main.maxSpeed" = "Maks Hız";
+"main.avgSpeed" = "Ort Hız";
+"main.distance" = "Mesafe";
+"main.duration" = "Süre";
 "main.startTracking" = "Start Tracking";
 "main.stopTracking" = "Stop Tracking";
 "main.pauseTracking" = "Pause";
 "main.resumeTracking" = "Resume";
 
 // MARK: - Settings
-"settings.title" = "Settings";
+"settings.title" = "Ayarlar";
 "settings.units" = "Units";
-"settings.language" = "Language";
+"settings.language" = "Dil";
 "settings.haptics" = "Haptic Feedback";
 
 // MARK: - Units
 "unit.kmh" = "km/h";
 "unit.mph" = "mph";
 "unit.ms" = "m/s";
-"unit.knots" = "knots";
+"unit.knots" = "knot";
 
 // MARK: - Common
-"common.save" = "Save";
-"common.cancel" = "Cancel";
-"common.done" = "Done";
+"common.save" = "Kaydet";
+"common.cancel" = "İptal";
+"common.done" = "Bitti";
 
 
 // MARK: - Pedometer
 "pedometer.title" = "Pedometer";
-"pedometer.steps" = "Steps";
+"pedometer.steps" = "Adımlar";
 "pedometer.distance" = "Distance";
 "pedometer.calories" = "Calories";
 "pedometer.pace" = "Pace";
@@ -69,7 +69,7 @@
 "compass.coordinates" = "Coordinates";
 
 // MARK: - History
-"history.title" = "History";
+"history.title" = "Geçmiş";
 "history.noTrips" = "No Trips Yet";
 "history.noTripsDesc" = "Start tracking your speed to see your trip history here";
 "history.totalTrips" = "Total Trips";
@@ -78,71 +78,186 @@
 "history.upgradeDesc" = "Upgrade to unlock full history";
 
 // MARK: - Settings (new keys)
-"settings.account" = "Account";
-"settings.appearance" = "Appearance";
-"settings.tracking" = "Tracking";
-"settings.general" = "General";
-"settings.support" = "Support";
-"settings.data" = "Data";
-"settings.darkMode" = "Dark Mode";
-"settings.themeColor" = "Theme Color";
-"settings.mirrorMode" = "Mirror Mode (HUD)";
-"settings.maxSpeedLimit" = "Max Speed Limit";
-"settings.minSpeedThreshold" = "Min Speed Threshold";
-"settings.soundAlerts" = "Speed Alert Sounds";
-"settings.hapticFeedback" = "Haptic Feedback";
-"settings.rateApp" = "Rate App";
-"settings.contactUs" = "Contact Us";
-"settings.privacyPolicy" = "Privacy Policy";
-"settings.termsOfService" = "Terms of Service";
-"settings.about" = "About";
-"settings.resetAllData" = "Reset All Data";
-"settings.signOut" = "Sign Out";
-"settings.restorePurchases" = "Restore Purchases";
-"settings.iCloudSync" = "iCloud Sync";
-"settings.upgradePremium" = "Upgrade to Premium";
+"settings.account" = "Hesap";
+"settings.appearance" = "Görünüm";
+"settings.tracking" = "Takip";
+"settings.general" = "Genel";
+"settings.support" = "Destek";
+"settings.data" = "Veri";
+"settings.darkMode" = "Karanlık Mod";
+"settings.themeColor" = "Tema Rengi";
+"settings.mirrorMode" = "Ayna Modu (HUD)";
+"settings.maxSpeedLimit" = "Maksimum Hız Sınırı";
+"settings.minSpeedThreshold" = "Minimum Hız Eşiği";
+"settings.soundAlerts" = "Hız Uyarı Sesleri";
+"settings.hapticFeedback" = "Dokunsal Geri Bildirim";
+"settings.rateApp" = "Uygulamayı Puanla";
+"settings.contactUs" = "Bize Ulaşın";
+"settings.privacyPolicy" = "Gizlilik Politikası";
+"settings.termsOfService" = "Hizmet Koşulları";
+"settings.about" = "Hakkında";
+"settings.resetAllData" = "Tüm Verileri Sıfırla";
+"settings.signOut" = "Çıkış Yap";
+"settings.restorePurchases" = "Satın Alımları Geri Yükle";
+"settings.iCloudSync" = "iCloud Eşitleme";
+"settings.upgradePremium" = "Premium’a Geç";
 
 // MARK: - HUD Mode
-"hud.title" = "HUD Mode";
-"hud.mirrorOn" = "Mirror ON";
-"hud.mirrorOff" = "Mirror OFF";
-"hud.overLimit" = "OVER LIMIT";
-"hud.mirrorInstruction" = "Place below windshield — speed reflects upward";
-"hud.directView" = "Direct view mode";
+"hud.title" = "HUD";
+"hud.mirrorOn" = "Ayna AÇIK";
+"hud.mirrorOff" = "Ayna KAPALI";
+"hud.overLimit" = "LİMİT ÜSTÜ";
+"hud.mirrorInstruction" = "Ön camın altına yerleştir - hız yukarı yansır";
+"hud.directView" = "Doğrudan görünüm modu";
 
 // MARK: - Paywall
-"paywall.unlockPremium" = "Unlock Premium";
-"paywall.fullExperience" = "Full speed tracking experience";
-"paywall.restorePurchases" = "Restore Purchases";
-"paywall.continueFree" = "Continue Free";
-"paywall.autoRenewable" = "Auto-renewable. Cancel anytime in App Store settings.";
-"paywall.startFreeTrial" = "Start Free Trial";
-"paywall.subscribeNow" = "Subscribe Now";
+"paywall.unlockPremium" = "Premium kilidini aç";
+"paywall.fullExperience" = "Tam hız takip deneyimi";
+"paywall.restorePurchases" = "Satın alımları geri yükle";
+"paywall.continueFree" = "Ücretsiz devam et";
+"paywall.autoRenewable" = "Otomatik yenilenir. App Store ayarlarından istediğin zaman iptal edebilirsin.";
+"paywall.startFreeTrial" = "Ücretsiz denemeyi başlat";
+"paywall.subscribeNow" = "Şimdi abone ol";
 
 // MARK: - Permissions
-"permissions.title" = "Permissions Required";
-"permissions.desc" = "SpeedTracker needs access to track speed and activity";
-"permissions.location" = "Location Access";
-"permissions.motion" = "Motion & Fitness";
-"permissions.health" = "Health (Optional)";
-"permissions.notifications" = "Notifications";
-"permissions.grantLocation" = "Grant Location Access";
-"permissions.continue" = "Continue";
-"permissions.openSettings" = "Open Settings";
+"permissions.title" = "Gerekli izinler";
+"permissions.desc" = "SpeedTracker, hız ve aktiviteyi takip etmek için erişime ihtiyaç duyar";
+"permissions.location" = "Konum erişimi";
+"permissions.motion" = "Hareket ve Fitness";
+"permissions.health" = "Sağlık (isteğe bağlı)";
+"permissions.notifications" = "Bildirimler";
+"permissions.grantLocation" = "Konum izni ver";
+"permissions.continue" = "Devam";
+"permissions.openSettings" = "Ayarları aç";
 
 // MARK: - Alerts
-"alert.stopTrip.title" = "Stop Tracking?";
-"alert.stopTrip.message" = "Your trip will be saved to history.";
-"alert.stopTrip.save" = "Stop & Save";
-"alert.resetData.title" = "Reset All Data?";
-"alert.resetData.message" = "This will delete all trips and reset preferences. This cannot be undone.";
-"alert.resetData.confirm" = "Reset";
-"alert.signOut.title" = "Sign Out?";
-"alert.signOut.message" = "You can sign back in at any time to restore your data.";
-"alert.signOut.confirm" = "Sign Out";
-"alert.languageRestart.title" = "Restart Required";
-"alert.languageRestart.message" = "The app will need to restart to apply the new language.";
-"alert.languageRestart.apply" = "Apply & Restart";
-"alert.maxSpeed" = "Max Speed Exceeded!";
-"alert.minSpeed" = "Below Min Speed";
+"alert.stopTrip.title" = "Takip durdurulsun mu?";
+"alert.stopTrip.message" = "Sürüşünüz geçmişe kaydedilecek.";
+"alert.stopTrip.save" = "Durdur ve Kaydet";
+"alert.resetData.title" = "Tüm veriler sıfırlansın mı?";
+"alert.resetData.message" = "Bu işlem tüm sürüşleri siler ve tercihleri sıfırlar. Geri alınamaz.";
+"alert.resetData.confirm" = "Sıfırla";
+"alert.signOut.title" = "Çıkış yapılsın mı?";
+"alert.signOut.message" = "Verilerinizi geri yüklemek için istediğiniz zaman yeniden giriş yapabilirsiniz.";
+"alert.signOut.confirm" = "Çıkış Yap";
+"alert.languageRestart.title" = "Yeniden başlatma gerekli";
+"alert.languageRestart.message" = "Dili uygulamak için uygulama yeniden başlatılmalı.";
+"alert.languageRestart.apply" = "Uygula ve Yeniden Başlat";
+"alert.maxSpeed" = "Maksimum hız aşıldı!";
+"alert.minSpeed" = "Minimum hızın altında";
 
+"common.continue" = "Devam";
+"common.close" = "Kapat";
+"common.never" = "Asla";
+"common.premium" = "Premium";
+"main.startTrip" = "Sürüşü Başlat";
+"main.tracking" = "İzleniyor...";
+"main.waiting" = "Bekleniyor...";
+"main.ready" = "Hazır";
+"main.noGPS" = "GPS Yok";
+"main.gps" = "GPS";
+"main.gpsStrong" = "GPS ★★★";
+"main.gpsMedium" = "GPS ★★";
+"main.gpsWeak" = "GPS ★";
+"main.startPromptTitle" = "Canlı istatistikler için sürüşü başlat";
+"main.startPromptSubtitle" = "Takip başlayınca hız, mesafe, irtifa ve yön görünür";
+"main.livePerformance" = "Canlı Performans";
+"settings.speedUnit" = "Hız Birimi";
+"settings.defaultUser" = "SpeedTracker Kullanıcısı";
+"settings.appleSignIn" = "Apple ile Giriş";
+"settings.lastSyncPrefix" = "Son:";
+"hud.live" = "CANLI";
+"hud.readyTitle" = "Sürüş için HUD hazır";
+"hud.readySubtitle" = "Hızı ön cama yansıtmak için sürüşü burada başlat";
+"languageSelection.title" = "Dil Seç";
+"languageSelection.subtitle" = "Tercih ettiğiniz dili seçin";
+"theme.blue" = "Elektrik Mavisi";
+"theme.green" = "Limon Yeşili";
+"theme.orange" = "Neon Turuncu";
+"theme.purple" = "Kraliyet Moru";
+"theme.red" = "Yarış Kırmızısı";
+"theme.cyan" = "Siber Camgöbeği";
+"onboarding.page1.bullet1" = "Gerçek zamanlı GPS hassasiyeti";
+"onboarding.page1.bullet2" = "km/h · mph · m/s · knot";
+"onboarding.page1.bullet3" = "Canlı hız grafiği";
+"onboarding.page2.bullet1" = "Haritada tam rota";
+"onboarding.page2.bullet2" = "Hız ve irtifa verileri";
+"onboarding.page2.bullet3" = "Süre ve mesafe";
+"onboarding.page3.bullet1" = "Kişisel rekorlar";
+"onboarding.page3.bullet2" = "Adımsayar ve kalori";
+"onboarding.page3.bullet3" = "Özel temalar";
+"permissions.locationDesc" = "GPS hız takibi için gerekli";
+"permissions.motionDesc" = "Adımsayar takibi için gerekli";
+"permissions.healthDesc" = "Kalori ve fitness verisi senkronu için";
+"permissions.notificationsDesc" = "Hız uyarıları ve sürüş özetleri";
+"permissions.granted" = "Verildi";
+"permissions.denied" = "Reddedildi";
+"permissions.required" = "Gerekli";
+"permissions.tapToGrant" = "İzin vermek için dokun";
+"permissions.optional" = "İsteğe bağlı";
+"preferences.colorTitle" = "Rengini seç";
+"preferences.colorSubtitle" = "Uygulama için vurgu rengi seç";
+"preferences.appearanceTitle" = "Görünüm";
+"preferences.appearanceSubtitle" = "Koyu veya açık modu seç";
+"preferences.speedUnitTitle" = "Hız birimi";
+"preferences.speedUnitSubtitle" = "Tercih ettiğin birimi seç";
+"preferences.speedLimitsTitle" = "Hız limitleri";
+"preferences.speedLimitsSubtitle" = "Maksimum ve minimum hız uyarılarını ayarla";
+"preferences.dark" = "Koyu";
+"preferences.light" = "Açık";
+"preferences.maxSpeedHint" = "Bu hızı aştığında uyarı alırsın";
+"preferences.minSpeedHint" = "Bu değerin altındaki hız takip edilmez";
+"main.stopMini" = "Durdur";
+"settings.off" = "Kapalı";
+"settings.soundOn" = "Ses açık";
+"settings.soundOff" = "Ses kapalı";
+"alert.bigMaxTitle" = "MAKSİMUM LİMİTE ULAŞILDI";
+"alert.bigMaxBody" = "Hemen yavaşla. Güvenli limitinin üzerindesin.";
+"alert.bigMinTitle" = "DÜŞÜK HIZ UYARISI";
+"alert.bigMinBody" = "Hız güvenli minimum takip seviyesinin altına düştü.";
+"hud.horizontal" = "Yatay";
+"hud.vertical" = "Dikey";
+"hud.skipStopSave" = "Geç";
+"paywall.featureHud" = "Ön cam gösterimi için HUD modu";
+"paywall.featurePedometer" = "Kalori takibi olan adımsayar";
+"paywall.featureHistory" = "Haritalı tam sürüş geçmişi";
+"paywall.featureAlerts" = "Yüksek sesli büyük hız uyarıları";
+"paywall.featureThemes" = "Temalar ve özelleştirme";
+"paywall.featureSync" = "Cihazlar arası iCloud senkronizasyonu";
+"paywall.featureMirror" = "Yansımalar için ayna modu";
+"paywall.termsButton" = "Şartlar ve Koşullar";
+"paywall.restoreTitle" = "Satın alımları geri yükle";
+"paywall.restoreSuccess" = "Premium geri yüklendi ve bulut senkronu başladı.";
+"paywall.restoreNeedLogin" = "Önce Apple ile giriş yap, sonra satın alımları geri yükle.";
+"paywall.ribbon.bestValue" = "EN İYİ DEĞER";
+"paywall.ribbon.popular" = "EN POPÜLER";
+"paywall.plan.weekly" = "Haftalık";
+"paywall.plan.monthly" = "Aylık";
+"paywall.plan.yearly" = "Yıllık";
+"paywall.plan.lifetime" = "Ömür boyu";
+"paywall.badge.flexible" = "Esnek";
+"paywall.badge.popular" = "En popüler";
+"paywall.badge.trial" = "3 Gün Ücretsiz Deneme";
+"paywall.badge.payOnce" = "Tek sefer öde";
+"paywall.period.week" = "/hafta";
+"paywall.period.month" = "/ay";
+"paywall.period.year" = "/yıl";
+"history.showingTrips" = "%d / %d sürüş gösteriliyor";
+"history.lockedTrips" = "%d sürüş daha kilitli - görmek için yükselt";
+"history.maxShort" = "MAKS";
+"history.avgShort" = "ORT";
+"history.distShort" = "MES";
+"pedometer.active" = "AKTİF";
+"pedometer.goalStatus" = "Hedefin %d%%'si";
+"pedometer.motionRequired" = "Hareket ve Fitness izni gerekli. Ayarlardan etkinleştir.";
+"pedometer.stepsCount" = "%d adım";
+"auth.welcomeBack" = "Tekrar hoş geldin";
+"auth.restoreDesc" = "Satın alımlarını geri yüklemek\nve verilerini senkronize etmek için giriş yap";
+"auth.privateData" = "Verilerin özeldir ve iCloud'da saklanır";
+"tripDetail.title" = "Sürüş ayrıntıları";
+"tripDetail.route" = "Rota";
+"tripDetail.start" = "Başlangıç";
+"tripDetail.end" = "Bitiş";
+"tripDetail.speedOverTime" = "Zamana göre hız";
+"tripDetail.noSpeedData" = "Hız verisi yok";
+"common.settings" = "Ayarlar";

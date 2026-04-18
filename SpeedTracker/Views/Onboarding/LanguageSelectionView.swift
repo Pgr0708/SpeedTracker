@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LanguageSelectionView: View {
     @EnvironmentObject var theme: ThemeManager
+    @EnvironmentObject var localizationManager: LocalizationManager
     @AppStorage(AppConstants.UserDefaultsKeys.hasSelectedLanguage) private var hasSelectedLanguage = false
     @AppStorage(AppConstants.UserDefaultsKeys.preferredLanguage) private var preferredLanguage = "en"
     @State private var selectedLanguage: AppConstants.SupportedLanguage = .english
@@ -33,12 +34,12 @@ struct LanguageSelectionView: View {
                         .foregroundStyle(theme.primaryGradient)
                         .padding(.top, 60)
                     
-                    Text("Choose Language")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                    Text(L10n.text("languageSelection.title"))
+                        .font(.headingMedium)
                         .foregroundColor(theme.textPrimary)
                     
-                    Text("Select your preferred language")
-                        .font(.system(size: 16))
+                    Text(L10n.text("languageSelection.subtitle"))
+                        .font(.bodySmall)
                         .foregroundColor(theme.textSecondary)
                 }
                 .opacity(appeared ? 1 : 0)
@@ -69,11 +70,9 @@ struct LanguageSelectionView: View {
                 Spacer()
                 
                 // Continue button
-                AnimatedButton("Continue", icon: "arrow.right", variant: .primary) {
+                AnimatedButton(L10n.string("common.continue"), icon: "arrow.right", variant: .primary) {
                     preferredLanguage = selectedLanguage.rawValue
-                    // Wire iOS bundle localization — takes effect on next launch
-                    UserDefaults.standard.set([selectedLanguage.rawValue], forKey: "AppleLanguages")
-                    UserDefaults.standard.synchronize()
+                    localizationManager.currentLanguage = selectedLanguage
                     withAnimation(.easeInOut(duration: 0.3)) {
                         hasSelectedLanguage = true
                     }
@@ -114,7 +113,7 @@ struct LanguageCard: View {
                     .font(.system(size: 24))
                 
                 Text(language.displayName)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.rajdhaniMedium(14))
                     .foregroundColor(isSelected ? .white : theme.textPrimary)
                     .lineLimit(1)
                 
@@ -148,4 +147,5 @@ struct LanguageCard: View {
 #Preview {
     LanguageSelectionView()
         .environmentObject(ThemeManager.shared)
+        .environmentObject(LocalizationManager.shared)
 }

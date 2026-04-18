@@ -42,11 +42,11 @@ struct AnimatedButton: View {
             HStack(spacing: 12) {
                 if let icon = icon {
                     Image(systemName: icon)
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(.rajdhaniMedium(16))
                 }
                 
                 Text(title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.button)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 18)

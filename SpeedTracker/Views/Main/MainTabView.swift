@@ -52,27 +52,32 @@ struct CustomTabBar: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            TabBarButton(icon: "speedometer", title: "Speed", isSelected: selectedTab == 0, theme: theme) {
+            TabBarButton(icon: "speedometer", title: L10n.string("main.speed"), isSelected: selectedTab == 0, theme: theme) {
                 selectedTab = 0; HapticManager.shared.selection()
             }
             Spacer()
-            TabBarButton(icon: "clock.fill", title: "History", isSelected: selectedTab == 1, theme: theme) {
-                selectedTab = 1; HapticManager.shared.selection()
+            TabBarButton(icon: "clock.fill", title: L10n.string("history.title"), isSelected: selectedTab == 1, isPremiumLocked: !isPremium, theme: theme) {
+                HapticManager.shared.selection()
+                if isPremium {
+                    selectedTab = 1
+                } else {
+                    showPaywall = true
+                }
             }
             Spacer()
             // HUD — premium
-            TabBarButton(icon: "car.windshield.front", title: "HUD", isSelected: false, isPremiumLocked: !isPremium, theme: theme) {
+            TabBarButton(icon: "car.windshield.front", title: L10n.string("hud.title"), isSelected: false, isPremiumLocked: !isPremium, theme: theme) {
                 HapticManager.shared.selection()
                 if isPremium { showHUDMode = true } else { showPaywall = true }
             }
             Spacer()
             // Pedometer — premium
-            TabBarButton(icon: "figure.walk", title: "Steps", isSelected: selectedTab == 2, isPremiumLocked: !isPremium, theme: theme) {
+            TabBarButton(icon: "figure.walk", title: L10n.string("pedometer.steps"), isSelected: selectedTab == 2, isPremiumLocked: !isPremium, theme: theme) {
                 HapticManager.shared.selection()
                 if isPremium { selectedTab = 2 } else { showPaywall = true }
             }
             Spacer()
-            TabBarButton(icon: "gearshape.fill", title: "Settings", isSelected: selectedTab == 3, theme: theme) {
+            TabBarButton(icon: "gearshape.fill", title: L10n.string("settings.title"), isSelected: selectedTab == 3, theme: theme) {
                 selectedTab = 3; HapticManager.shared.selection()
             }
         }
@@ -140,7 +145,7 @@ struct TabBarButton: View {
                     }
                 }
                 Text(title)
-                    .font(Font.custom(AppConstants.Typography.rajdhaniMedium, size: 11))
+                    .font(.rajdhaniMedium(11))
                     .foregroundColor(isSelected ? theme.primaryColor : theme.textSecondary)
             }
             .frame(maxWidth: .infinity)
