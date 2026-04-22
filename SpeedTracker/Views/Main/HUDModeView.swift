@@ -88,6 +88,7 @@ struct HUDModeView: View {
         if displaySpeed > maxSpeedLimit * 0.8 { return AppConstants.Colors.neonOrange }
         return theme.primaryColor
     }
+    var isReversedHUDDisplay: Bool { !isMirrorMode }
 
     var body: some View {
         ZStack {
@@ -147,7 +148,7 @@ struct HUDModeView: View {
         HStack(alignment: .top, spacing: 10) {
             TimelineView(.periodic(from: .now, by: 1)) { context in
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(L10n.text("hud.title"))
+                    Text(isMirrorMode ? "Mirror" : "HUD")
                         .font(.rajdhaniMedium(14))
                         .foregroundColor(.white.opacity(0.55))
                     Text(timeString(for: context.date))
@@ -160,6 +161,12 @@ struct HUDModeView: View {
             Spacer(minLength: 12)
 
             HStack(spacing: 8) {
+                hudCapsuleButton(
+                    icon: "arrow.left.and.right.righttriangle.left.righttriangle.right",
+                    title: isMirrorMode ? "Direct HUD" : "Mirror"
+                ) {
+                    isMirrorMode.toggle()
+                }
                 hudCapsuleButton(
                     icon: locationManager.isTracking ? "stop.fill" : "rectangle.portrait.and.arrow.right",
                     title: locationManager.isTracking ? L10n.string("main.stopMini") : L10n.string("common.close")
@@ -236,7 +243,7 @@ struct HUDModeView: View {
                 theme: theme,
                 maxValue: maxGaugeValue,
                 diameter: gaugeSize,
-                mirrored: isMirrorMode
+                mirrored: isReversedHUDDisplay
             )
             .rotationEffect(.degrees(tiltManager.deviceRotation))
         }
@@ -266,7 +273,7 @@ struct HUDModeView: View {
                 theme: theme,
                 maxValue: maxGaugeValue,
                 diameter: gaugeSize,
-                mirrored: false
+                mirrored: isReversedHUDDisplay
             )
 
             VStack(spacing: 8) {

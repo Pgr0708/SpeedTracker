@@ -28,6 +28,9 @@ struct SettingsView: View {
     @State private var showResetAlert = false
     @State private var showLogoutAlert = false
     @State private var showPaywall = false
+    @State private var showMirrorModeAlert = false
+    @State private var mirrorModeAlertTitle = ""
+    @State private var mirrorModeAlertMessage = ""
 
     var speedUnit: AppConstants.SpeedUnit { AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh }
     var currentLanguage: AppConstants.SupportedLanguage { AppConstants.SupportedLanguage(rawValue: preferredLanguage) ?? .english }
@@ -63,6 +66,13 @@ struct SettingsView: View {
         .sheet(isPresented: $showColorPicker) { colorPickerSheet }
         .sheet(isPresented: $showLanguagePicker) { languagePickerSheet }
         .sheet(isPresented: $showPaywall) { PaywallView().environmentObject(theme).environmentObject(purchaseService) }
+        .onChange(of: isMirrorModeEnabled) { _, isEnabled in
+            mirrorModeAlertTitle = isEnabled ? "Mirror mode enabled" : "Direct HUD enabled"
+            mirrorModeAlertMessage = isEnabled
+                ? "The home Mirror screen will now show mirrored windshield text. You can switch it there too."
+                : "The home Mirror screen will now show normal HUD text. You can switch it there too."
+            showMirrorModeAlert = true
+        }
         .alert(L10n.string("alert.resetData.title"), isPresented: $showResetAlert) {
             Button(L10n.string("alert.resetData.confirm"), role: .destructive) {
                 let domain = Bundle.main.bundleIdentifier ?? "com.centillion.SpeedTracker"
@@ -70,6 +80,11 @@ struct SettingsView: View {
             }
             Button(L10n.string("common.cancel"), role: .cancel) {}
         } message: { Text(L10n.string("alert.resetData.message")) }
+        .alert(mirrorModeAlertTitle, isPresented: $showMirrorModeAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(mirrorModeAlertMessage)
+        }
         .alert(L10n.string("alert.signOut.title"), isPresented: $showLogoutAlert) {
             Button(L10n.string("alert.signOut.confirm"), role: .destructive) {
                 authService.signOut()

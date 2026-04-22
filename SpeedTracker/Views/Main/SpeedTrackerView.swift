@@ -14,10 +14,10 @@ enum HomeMode: Int, CaseIterable {
     case normal = 0
     case hud = 1
 
-    var title: String {
+    func title(isMirrorMode: Bool) -> String {
         switch self {
         case .normal: return L10n.string("main.tracking")
-        case .hud: return "HUD"
+        case .hud: return isMirrorMode ? "Mirror" : "HUD"
         }
     }
 
@@ -45,6 +45,9 @@ struct SpeedTrackerView: View {
     @AppStorage(AppConstants.UserDefaultsKeys.isMirrorModeEnabled) private var isMirrorMode = false
     @AppStorage(AppConstants.UserDefaultsKeys.hasSeenHUDMirrorTip) private var hasSeenMirrorTip = false
     @State private var showMirrorTip = false
+    @State private var mirrorTipDismissTask: DispatchWorkItem?
+    @State private var showHUDControls = true
+    @State private var hudControlsDismissTask: DispatchWorkItem?
 
     @State private var selectedMode: HomeMode = .normal
     @State private var animateGlow = false
@@ -85,6 +88,7 @@ struct SpeedTrackerView: View {
         if displaySpeed > maxSpeedLimit * 0.8 { return AppConstants.Colors.neonOrange }
         return theme.primaryColor
     }
+    var isReversedHUDDisplay: Bool { !isMirrorMode }
 
     var body: some View {
         ZStack {
@@ -113,6 +117,8 @@ struct SpeedTrackerView: View {
             }
         }
         .preference(key: HUDActiveKey.self, value: selectedMode == .hud)
+        .statusBar(hidden: selectedMode == .hud)
+        .persistentSystemOverlays(selectedMode == .hud ? .hidden : .visible)
         .onAppear { animateGlow = true }
         .onChange(of: selectedMode) { _, newMode in
             if newMode == .hud && !isPremium {
@@ -123,8 +129,27 @@ struct SpeedTrackerView: View {
             if newMode == .hud {
                 tiltManager.isTrackingActive = true  // always active in HUD
                 tiltManager.start()
+                showHUDControls = !locationManager.isTracking
+                scheduleHUDControlsAutoHideIfNeeded()
+                presentMirrorTipIfNeeded()
             } else {
                 tiltManager.stop()
+                hideMirrorTip()
+                hideHUDControls(cancelOnly: true)
+            }
+        }
+        .onChange(of: isMirrorMode) { _, isEnabled in
+            guard selectedMode == .hud else { return }
+            presentMirrorTip(force: true, autoDismiss: false, mirrorEnabled: isEnabled)
+        }
+        .onChange(of: locationManager.isTracking) { _, isTracking in
+            guard selectedMode == .hud else { return }
+            if isTracking {
+                showHUDControls = false
+                scheduleHUDControlsAutoHideIfNeeded()
+            } else {
+                showHUDControls = true
+                hideHUDControls(cancelOnly: true)
             }
         }
         .onChange(of: displaySpeed) { _, newSpeed in
@@ -206,90 +231,122 @@ struct SpeedTrackerView: View {
                         theme: theme,
                         maxValue: maxGaugeValue,
                         diameter: gaugeSize,
-                        mirrored: isMirrorMode
+                        mirrored: isReversedHUDDisplay
                     )
                     .rotationEffect(.degrees(tiltManager.deviceRotation))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        guard locationManager.isTracking else { return }
+                        toggleHUDControls()
+                    }
 
                     // Top controls — horizontal row
-                    HStack(spacing: 12) {
-                        // X → back to normal
-                        Button {
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                selectedMode = .normal
-                            }
-                        } label: {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.white.opacity(0.9))
-                                .frame(width: 38, height: 38)
-                                .background(Circle().fill(.white.opacity(0.12)))
-                        }
-
-                        // Start / Stop
-                        if locationManager.isTracking {
-                            Button { showStopConfirm = true } label: {
-                                Text(L10n.text("main.stopMini"))
-                                    .font(.label)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 8)
-                                    .background(Capsule().fill(Color(hex: "FF3B5C")))
-                            }
-                        } else {
-                            Button { locationManager.startTracking() } label: {
-                                Image(systemName: "play.fill")
+                    if showHUDControls || !locationManager.isTracking {
+                        HStack(spacing: 12) {
+                            // X → back to normal
+                            Button {
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                    selectedMode = .normal
+                                }
+                            } label: {
+                                Image(systemName: "xmark")
                                     .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.white.opacity(0.9))
                                     .frame(width: 38, height: 38)
-                                    .background(Circle().fill(theme.primaryColor))
+                                    .background(Circle().fill(.white.opacity(0.12)))
+                            }
+
+                            // Start / Stop
+                            if locationManager.isTracking {
+                                Button { showStopConfirm = true } label: {
+                                    Text(L10n.text("main.stopMini"))
+                                        .font(.label)
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 8)
+                                        .background(Capsule().fill(Color(hex: "FF3B5C")))
+                                }
+                            } else {
+                                Button { locationManager.startTracking() } label: {
+                                    Image(systemName: "play.fill")
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundColor(.black)
+                                        .frame(width: 38, height: 38)
+                                        .background(Circle().fill(theme.primaryColor))
+                                }
                             }
                         }
+                        .rotationEffect(.degrees(isHorizontal ? 90 : 0))
+                        .padding(.top, proxy.safeAreaInsets.top + 16)
+                        .padding(.trailing, 20)
+                        .transition(.opacity)
                     }
-                    .rotationEffect(.degrees(isHorizontal ? 90 : 0))
-                    .padding(.top, proxy.safeAreaInsets.top + 16)
-                    .padding(.trailing, 20)
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
 
-            // Mirror mode tip (first time only)
+            // Mirror mode switch prompt
             if showMirrorTip {
                 VStack {
                     Spacer()
-                    HStack(spacing: 12) {
-                        Image(systemName: "arrow.left.and.right.righttriangle.left.righttriangle.right")
-                            .font(.system(size: 24))
-                            .foregroundColor(theme.primaryColor)
-                        VStack(alignment: .leading, spacing: 3) {
-                            Text(isMirrorMode ? "Mirror Mode ON" : "Mirror Mode OFF")
-                                .font(.rajdhaniMedium(14))
-                                .foregroundColor(.white)
-                            Text("Toggle windshield reflection in Settings")
-                                .font(.caption)
-                                .foregroundColor(.white.opacity(0.65))
+                    VStack(alignment: .leading, spacing: 14) {
+                        HStack(spacing: 12) {
+                            Image(systemName: "arrow.left.and.right.righttriangle.left.righttriangle.right")
+                                .font(.system(size: 22, weight: .semibold))
+                                .foregroundColor(theme.primaryColor)
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(isMirrorMode ? "Mirror mode is active" : "Mirror mode is off")
+                                    .font(.rajdhaniMedium(15))
+                                    .foregroundColor(.white)
+                                Text(isMirrorMode ? "Switch back to direct HUD view here or in Settings." : "Switch this screen to mirrored windshield view here or in Settings.")
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.7))
+                            }
+                            Spacer()
                         }
-                        Spacer()
+
+                        HStack(spacing: 10) {
+                            Button {
+                                HapticManager.shared.selection()
+                                withAnimation(.spring(response: 0.28, dampingFraction: 0.82)) {
+                                    isMirrorMode.toggle()
+                                }
+                            } label: {
+                                Text(isMirrorMode ? "Use Direct HUD" : "Switch to Mirror")
+                                    .font(.rajdhaniMedium(14))
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 10)
+                                    .background(Capsule().fill(theme.primaryColor))
+                            }
+
+                            Button {
+                                hideMirrorTip()
+                            } label: {
+                                Text("Close")
+                                    .font(.rajdhaniMedium(14))
+                                    .foregroundColor(.white.opacity(0.88))
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 10)
+                                    .background(Capsule().fill(Color.white.opacity(0.08)))
+                            }
+                        }
                     }
-                    .padding(.horizontal, 20).padding(.vertical, 14)
-                    .background(RoundedRectangle(cornerRadius: 16).fill(.ultraThinMaterial)
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(theme.primaryColor.opacity(0.3), lineWidth: 1)))
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 18)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 18)
+                                    .stroke(theme.primaryColor.opacity(0.3), lineWidth: 1)
+                            )
+                    )
                     .padding(.horizontal, 24)
                     .padding(.bottom, 110)
                 }
                 .transition(.opacity.combined(with: .move(edge: .bottom)))
-                .onTapGesture { withAnimation { showMirrorTip = false } }
-            }
-        }
-        .onAppear {
-            if !hasSeenMirrorTip {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    withAnimation(.easeInOut(duration: 0.4)) { showMirrorTip = true }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                        withAnimation(.easeInOut(duration: 0.3)) { showMirrorTip = false }
-                        hasSeenMirrorTip = true
-                    }
-                }
             }
         }
     }
@@ -400,7 +457,7 @@ struct SpeedTrackerView: View {
                     HStack(spacing: 6) {
                         Image(systemName: mode.icon)
                             .font(.system(size: 13, weight: .semibold))
-                        Text(mode.title)
+                        Text(mode.title(isMirrorMode: isMirrorMode))
                             .font(.rajdhaniMedium(13))
                     }
                     .foregroundColor(selectedMode == mode ? .white : theme.textSecondary)
@@ -507,6 +564,72 @@ struct SpeedTrackerView: View {
         isOverMaxVisible = false
         isBelowMinVisible = false
         audioService.resetAlertCooldowns()
+    }
+
+    private func presentMirrorTipIfNeeded() {
+        if !hasSeenMirrorTip {
+            presentMirrorTip(force: true, autoDismiss: true, mirrorEnabled: isMirrorMode)
+            hasSeenMirrorTip = true
+            return
+        }
+        presentMirrorTip(force: false, autoDismiss: false, mirrorEnabled: isMirrorMode)
+    }
+
+    private func presentMirrorTip(force: Bool, autoDismiss: Bool, mirrorEnabled: Bool) {
+        mirrorTipDismissTask?.cancel()
+        guard force || selectedMode == .hud else { return }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            guard selectedMode == .hud, isMirrorMode == mirrorEnabled else { return }
+            withAnimation(.easeInOut(duration: 0.25)) {
+                showMirrorTip = true
+            }
+        }
+
+        guard autoDismiss else { return }
+
+        let dismissTask = DispatchWorkItem {
+            hideMirrorTip()
+        }
+        mirrorTipDismissTask = dismissTask
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: dismissTask)
+    }
+
+    private func hideMirrorTip() {
+        mirrorTipDismissTask?.cancel()
+        mirrorTipDismissTask = nil
+        withAnimation(.easeInOut(duration: 0.2)) {
+            showMirrorTip = false
+        }
+    }
+
+    private func toggleHUDControls() {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            showHUDControls.toggle()
+        }
+        scheduleHUDControlsAutoHideIfNeeded()
+    }
+
+    private func scheduleHUDControlsAutoHideIfNeeded() {
+        hudControlsDismissTask?.cancel()
+        guard selectedMode == .hud, locationManager.isTracking, showHUDControls else { return }
+
+        let dismissTask = DispatchWorkItem {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                showHUDControls = false
+            }
+        }
+        hudControlsDismissTask = dismissTask
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: dismissTask)
+    }
+
+    private func hideHUDControls(cancelOnly: Bool = false) {
+        hudControlsDismissTask?.cancel()
+        hudControlsDismissTask = nil
+        guard !cancelOnly else { return }
+        withAnimation(.easeInOut(duration: 0.2)) {
+            showHUDControls = false
+        }
     }
 }
 
