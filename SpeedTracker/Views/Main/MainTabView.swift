@@ -2,14 +2,15 @@
 //  MainTabView.swift
 //  SpeedTracker
 //
+
 import SwiftUI
 
 struct MainTabView: View {
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var purchaseService: PurchaseService
     @State private var selectedTab = 0
-    @State private var showHUDMode = false
     @State private var showPaywall = false
+    @State private var isHUDActive = false
     @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
 
     var body: some View {
@@ -17,18 +18,25 @@ struct MainTabView: View {
             tabContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             // Glow behind tab bar so liquid glass material has contrast to blur
-            RadialGradient(
-                colors: [theme.primaryColor.opacity(0.28), theme.primaryColor.opacity(0.08), .clear],
-                center: .center, startRadius: 0, endRadius: 180
-            )
-            .frame(height: 130)
-            .blur(radius: 20)
-            .allowsHitTesting(false)
-            CustomTabBar(selectedTab: $selectedTab, showHUDMode: $showHUDMode, showPaywall: $showPaywall, isPremium: isPremium)
-                .padding(.horizontal, AppConstants.Design.paddingL)
-                .padding(.bottom, AppConstants.Design.paddingS)
+            if !isHUDActive {
+                RadialGradient(
+                    colors: [theme.primaryColor.opacity(0.28), theme.primaryColor.opacity(0.08), .clear],
+                    center: .center, startRadius: 0, endRadius: 180
+                )
+                .frame(height: 130)
+                .blur(radius: 20)
+                .allowsHitTesting(false)
+            }
+            if !isHUDActive {
+                CustomTabBar(selectedTab: $selectedTab, showPaywall: $showPaywall, isPremium: isPremium)
+                    .padding(.horizontal, AppConstants.Design.paddingL)
+                    .padding(.bottom, AppConstants.Design.paddingS)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
-        .fullScreenCover(isPresented: $showHUDMode) { HUDModeView().environmentObject(theme) }
+        .onPreferenceChange(HUDActiveKey.self) { active in
+            withAnimation(.easeInOut(duration: 0.25)) { isHUDActive = active }
+        }
         .sheet(isPresented: $showPaywall) { PaywallView().environmentObject(theme).environmentObject(purchaseService) }
     }
 
@@ -37,7 +45,8 @@ struct MainTabView: View {
         case 0: SpeedTrackerView()
         case 1: HistoryView()
         case 2: PedometerView()
-        case 3: SettingsView()
+        case 3: CompassView()
+        case 4: SettingsView()
         default: SpeedTrackerView()
         }
     }
@@ -46,7 +55,6 @@ struct MainTabView: View {
 struct CustomTabBar: View {
     @EnvironmentObject var theme: ThemeManager
     @Binding var selectedTab: Int
-    @Binding var showHUDMode: Bool
     @Binding var showPaywall: Bool
     let isPremium: Bool
 
@@ -65,20 +73,19 @@ struct CustomTabBar: View {
                 }
             }
             Spacer()
-            // HUD — premium
-            TabBarButton(icon: "car.windshield.front", title: L10n.string("hud.title"), isSelected: false, isPremiumLocked: !isPremium, theme: theme) {
-                HapticManager.shared.selection()
-                if isPremium { showHUDMode = true } else { showPaywall = true }
-            }
-            Spacer()
             // Pedometer — premium
             TabBarButton(icon: "figure.walk", title: L10n.string("pedometer.steps"), isSelected: selectedTab == 2, isPremiumLocked: !isPremium, theme: theme) {
                 HapticManager.shared.selection()
                 if isPremium { selectedTab = 2 } else { showPaywall = true }
             }
             Spacer()
-            TabBarButton(icon: "gearshape.fill", title: L10n.string("settings.title"), isSelected: selectedTab == 3, theme: theme) {
-                selectedTab = 3; HapticManager.shared.selection()
+            TabBarButton(icon: "safari", title: L10n.string("compass.title"), isSelected: selectedTab == 3, isPremiumLocked: !isPremium, theme: theme) {
+                HapticManager.shared.selection()
+                if isPremium { selectedTab = 3 } else { showPaywall = true }
+            }
+            Spacer()
+            TabBarButton(icon: "gearshape.fill", title: L10n.string("settings.title"), isSelected: selectedTab == 4, theme: theme) {
+                selectedTab = 4; HapticManager.shared.selection()
             }
         }
         .padding(.horizontal, AppConstants.Design.paddingM)
@@ -154,5 +161,3 @@ struct TabBarButton: View {
         }
     }
 }
-
-#Preview { MainTabView().environmentObject(ThemeManager.shared).environmentObject(PurchaseService.shared) }

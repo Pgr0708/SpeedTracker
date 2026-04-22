@@ -127,4 +127,9 @@ class PedometerService: ObservableObject {
         sessions.removeAll { $0.id == session.id }
         persistSessions()
     }
+
+    func clearAllSessions() {
+        sessions.removeAll()
+        persistSessions()
+    }
 }

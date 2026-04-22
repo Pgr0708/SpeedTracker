@@ -78,6 +78,15 @@ class PurchaseService: NSObject, ObservableObject {
             handle(customerInfo: result.customerInfo)
             HapticManager.shared.notification(type: .success)
         } catch {
+            #if DEBUG
+            // In debug/simulator: if offerings aren't set up yet, unlock directly
+            let msg = error.localizedDescription.lowercased()
+            if msg.contains("configuration") || msg.contains("offering") || msg.contains("fetched") {
+                isPremium = true
+                HapticManager.shared.notification(type: .success)
+                return
+            }
+            #endif
             presentError(error)
         }
     }

@@ -82,13 +82,18 @@ struct SpeedTrackerApp: App {
                 if hasCompletedPreferences && LocationManager.shared.hasLocationPermission {
                     hasGrantedPermissions = true
                 }
+                // Auto sign in with Apple on first launch (no manual login required)
+                if hasCompletedPreferences && !authService.isAuthenticated {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        authService.autoSignIn()
+                    }
+                }
             }
         }
     }
 
     private func setDefaults() {
         let ud = UserDefaults.standard
-        didLogOut = false
         if ud.object(forKey: AppConstants.UserDefaultsKeys.isHapticEnabled) == nil { ud.set(true, forKey: AppConstants.UserDefaultsKeys.isHapticEnabled) }
         if ud.object(forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled) == nil { ud.set(true, forKey: AppConstants.UserDefaultsKeys.isDarkModeEnabled) }
         if ud.object(forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) == nil { ud.set(120.0, forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) }

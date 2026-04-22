@@ -88,6 +88,12 @@ struct PaywallView: View {
             Button(L10n.string("common.done")) {}
         } message: { Text(purchaseService.restoreMessage) }
         .onAppear { withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.1)) { appeared = true } }
+        .onChange(of: purchaseService.isPremium) { _, premium in
+            if premium {
+                hasCompletedPaywall = true
+                dismiss()
+            }
+        }
     }
 
     private var paywallBottomBar: some View {
@@ -97,15 +103,17 @@ struct PaywallView: View {
             } else {
                 let plan = purchaseService.plans[selectedPlanIndex]
                 AnimatedButton(plan.hasTrial ? L10n.string("paywall.startFreeTrial") : L10n.string("paywall.subscribeNow"), icon: plan.hasTrial ? "gift.fill" : "sparkles", variant: .primary) {
-                    Task {
-                        await purchaseService.purchase(planID: plan.id)
-                        if isPremium {
-                            hasCompletedPaywall = true
-                            dismiss()
-                        }
-                    }
+                    Task { await purchaseService.purchase(planID: plan.id) }
                 }
             }
+
+            #if DEBUG
+            Button("⚡ DEV: Unlock Premium") {
+                purchaseService.isPremium = true
+            }
+            .font(.caption)
+            .foregroundColor(.orange)
+            #endif
 
             HStack {
                 Button(L10n.string("settings.appleSignIn")) {
@@ -119,13 +127,7 @@ struct PaywallView: View {
                 Spacer()
 
                 Button(L10n.string("paywall.restorePurchases")) {
-                    Task {
-                        await purchaseService.restore()
-                        if isPremium {
-                            hasCompletedPaywall = true
-                            dismiss()
-                        }
-                    }
+                    Task { await purchaseService.restore() }
                 }
                 .font(.caption)
                 .foregroundColor(theme.textSecondary)

@@ -28,6 +28,11 @@ class TripStore: ObservableObject {
     func deleteTrip(_ trip: TripRecord) { trips.removeAll { $0.id == trip.id }; persist() }
     func deleteTrips(at offsets: IndexSet) { trips.remove(atOffsets: offsets); persist() }
 
+    func clearAllTrips() {
+        trips.removeAll()
+        persist()
+    }
+
     var totalTrips: Int { trips.count }
     var totalDistance: Double { trips.reduce(0) { $0 + $1.distance } }
     var totalDuration: TimeInterval { trips.reduce(0) { $0 + $1.duration } }

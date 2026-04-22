@@ -1,0 +1,97 @@
+{
+  "identifier" : "318311cd-25b5-47d9-979b-0d9b3c6faf6f",
+  "nonConsumableProducts" : [
+    {
+      "displayPrice" : "99.99",
+      "familyShareable" : false,
+      "internalID" : "8e67d739-98c5-4d90-a086-12c03d0b975a",
+      "localizations" : [
+        {
+          "description" : "Lifetime access to all SpeedTracker premium features",
+          "displayName" : "SpeedTracker Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "speedtracker_lifetime",
+      "referenceName" : "Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "autoRenewableSubscriptionGroups" : [
+    {
+      "id" : "6c328426-e292-4df3-bc1f-9ed5d09fc298",
+      "localizations" : [
+        {
+          "locale" : "en_US",
+          "name" : "SpeedTracker Premium"
+        }
+      ],
+      "referenceName" : "SpeedTracker Premium",
+      "subscriptions" : [
+        {
+          "adHocOfferCodes" : [],
+          "displayPrice" : "1.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "c3f4161d-f3f9-4436-bf73-438dc1cb3dcb",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Full access to all premium features, billed weekly",
+              "displayName" : "SpeedTracker Weekly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "speedtracker_weekly",
+          "referenceName" : "Weekly",
+          "recurringSubscriptionPeriod" : "P1W",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOfferCodes" : [],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "4a068025-8339-4dac-9155-c3b2759b1bd0",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Full access to all premium features, billed monthly",
+              "displayName" : "SpeedTracker Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "speedtracker_monthly",
+          "referenceName" : "Monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOfferCodes" : [],
+          "displayPrice" : "19.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "803f79b6-c2c5-4046-9bc6-a9de183c7094",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Full access to all premium features, billed yearly",
+              "displayName" : "SpeedTracker Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "speedtracker_yearly",
+          "referenceName" : "Yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "consumableProducts" : [],
+  "nonRenewingSubscriptionProducts" : [],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

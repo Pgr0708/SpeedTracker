@@ -2,6 +2,7 @@
 //  SettingsView.swift
 //  SpeedTracker
 //
+
 import SwiftUI
 
 struct SettingsView: View {
@@ -92,47 +93,46 @@ struct SettingsView: View {
     // MARK: - Account Section
     var accountSection: some View {
         SettingsSection(title: L10n.string("settings.account").uppercased(), theme: theme) {
-            Button {
-                if !authService.isAuthenticated {
-                    authService.signIn { }
+            // Profile row
+            HStack(spacing: AppConstants.Design.paddingM) {
+                ZStack {
+                    Circle()
+                        .fill(theme.primaryColor.opacity(0.2))
+                        .frame(width: 44, height: 44)
+                    Image(systemName: authService.isAuthenticated ? "person.fill" : "person.crop.circle.badge.questionmark")
+                        .font(.system(size: 20))
+                        .foregroundColor(theme.primaryColor)
                 }
-            } label: {
-                HStack(spacing: AppConstants.Design.paddingM) {
-                    ZStack {
-                        Circle()
-                            .fill(theme.primaryColor.opacity(0.2))
-                            .frame(width: 44, height: 44)
-                        Image(systemName: authService.isAuthenticated ? "person.fill" : "apple.logo")
-                            .font(.system(size: 20))
-                            .foregroundColor(theme.primaryColor)
-                    }
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(authService.isAuthenticated ? (authService.displayName.isEmpty ? L10n.string("settings.defaultUser") : authService.displayName) : L10n.string("settings.appleSignIn"))
+                VStack(alignment: .leading, spacing: 2) {
+                    if authService.isAuthenticated {
+                        Text(authService.displayName.isEmpty ? L10n.string("settings.defaultUser") : authService.displayName)
                             .font(.bodyMedium)
                             .foregroundColor(theme.textPrimary)
-                        Text(authService.isAuthenticated ? (authService.email.isEmpty ? L10n.string("settings.appleSignIn") : authService.email) : L10n.string("auth.privateData"))
+                        Text(authService.email.isEmpty ? L10n.string("settings.appleSignIn") : authService.email)
                             .font(.caption)
                             .foregroundColor(theme.textSecondary)
-                    }
-                    Spacer()
-                    if isPremium && authService.isAuthenticated {
-                        Label(L10n.string("common.premium"), systemImage: "crown.fill")
+                    } else {
+                        Text(L10n.string("settings.defaultUser"))
+                            .font(.bodyMedium)
+                            .foregroundColor(theme.textPrimary)
+                        Text("Free Plan")
                             .font(.caption)
-                            .foregroundColor(theme.primaryColor)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(theme.primaryColor.opacity(0.12))
-                            .cornerRadius(8)
-                    } else if !authService.isAuthenticated {
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 12))
                             .foregroundColor(theme.textTertiary)
                     }
                 }
-                .padding(.horizontal, AppConstants.Design.paddingM)
-                .padding(.vertical, AppConstants.Design.paddingM)
+                Spacer()
+                if isPremium && authService.isAuthenticated {
+                    Label(L10n.string("common.premium"), systemImage: "crown.fill")
+                        .font(.caption)
+                        .foregroundColor(theme.primaryColor)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(theme.primaryColor.opacity(0.12))
+                        .cornerRadius(8)
+                }
             }
-            .buttonStyle(.plain)
+            .padding(.horizontal, AppConstants.Design.paddingM)
+            .padding(.vertical, AppConstants.Design.paddingM)
 
             Divider().background(theme.textTertiary.opacity(0.3))
 
@@ -143,34 +143,36 @@ struct SettingsView: View {
                 Divider().background(theme.textTertiary.opacity(0.3))
             }
 
+            // Restore Purchases — always show when authenticated
             if authService.isAuthenticated {
                 SettingRow(icon: "arrow.clockwise", title: L10n.string("settings.restorePurchases"), color: theme.primaryColor, theme: theme) {
                     Task { await purchaseService.restore() }
                 }
-            } else {
-                SettingRow(icon: "apple.logo", title: L10n.string("settings.appleSignIn"), color: theme.primaryColor, theme: theme) {
-                    authService.signIn { }
-                }
+                Divider().background(theme.textTertiary.opacity(0.3))
             }
 
-            Divider().background(theme.textTertiary.opacity(0.3))
-
-            if isPremium {
+            // iCloud Sync status
+            if authService.isAuthenticated && isPremium {
                 SettingRow(icon: "icloud.fill", title: L10n.string("settings.iCloudSync"), value: L10n.string("settings.lastSyncPrefix") + " \(lastSyncText)", color: theme.primaryColor, theme: theme) {
                     Task {
                         CloudKitService.shared.syncAll(tripStore: TripStore.shared, pedometerService: PedometerService.shared)
                         lastCloudKitSync = Date().timeIntervalSince1970
                     }
                 }
-                Divider().background(theme.textTertiary.opacity(0.3))
             } else {
                 SettingRow(icon: "icloud.slash.fill", title: L10n.string("settings.iCloudSync"), value: L10n.string("settings.off"), color: theme.textTertiary, showChevron: false, theme: theme) {}
-                Divider().background(theme.textTertiary.opacity(0.3))
             }
 
+            Divider().background(theme.textTertiary.opacity(0.3))
+
+            // Sign In / Sign Out
             if authService.isAuthenticated {
                 SettingRow(icon: "rectangle.portrait.and.arrow.right", title: L10n.string("settings.signOut"), color: Color(hex: "FF3B5C"), showChevron: false, theme: theme) {
                     showLogoutAlert = true
+                }
+            } else {
+                SettingRow(icon: "apple.logo", title: L10n.string("settings.appleSignIn"), color: theme.primaryColor, theme: theme) {
+                    authService.signIn { }
                 }
             }
         }
@@ -377,17 +379,20 @@ struct SettingsView: View {
 struct SettingsSection<Content: View>: View {
     let title: String
     let theme: ThemeManager
-    let content: Content
-
-    init(title: String, theme: ThemeManager, @ViewBuilder content: () -> Content) {
-        self.title = title; self.theme = theme; self.content = content()
-    }
+    @ViewBuilder let content: Content
 
     var body: some View {
-        VStack(alignment: .leading, spacing: AppConstants.Design.paddingS) {
-            Text(title).font(.label).foregroundColor(theme.textSecondary)
-                .padding(.leading, AppConstants.Design.paddingS)
-            GlassMorphismCard(padding: 0) { VStack(spacing: 0) { content } }
+        VStack(alignment: .leading, spacing: 0) {
+            Text(title)
+                .font(.label)
+                .foregroundColor(theme.textTertiary)
+                .padding(.horizontal, AppConstants.Design.paddingM)
+                .padding(.bottom, 8)
+            GlassMorphismCard(padding: 0) {
+                VStack(spacing: 0) {
+                    content
+                }
+            }
         }
     }
 }
@@ -401,23 +406,23 @@ struct SettingRow: View {
     let theme: ThemeManager
     let action: () -> Void
 
-    init(icon: String, title: String, value: String = "", color: Color, showChevron: Bool = true, theme: ThemeManager, action: @escaping () -> Void = {}) {
-        self.icon = icon; self.title = title; self.value = value
-        self.color = color; self.showChevron = showChevron; self.theme = theme; self.action = action
-    }
-
     var body: some View {
         Button(action: action) {
             HStack(spacing: AppConstants.Design.paddingM) {
                 Image(systemName: icon).font(.title3).foregroundColor(color).frame(width: 32)
                 Text(title).font(.bodyMedium).foregroundColor(theme.textPrimary)
                 Spacer()
-                if !value.isEmpty { Text(value).font(.caption).foregroundColor(theme.textSecondary) }
-                if showChevron { Image(systemName: "chevron.right").font(.system(size: 12)).foregroundColor(theme.textTertiary) }
+                if !value.isEmpty {
+                    Text(value).font(.bodySmall).foregroundColor(theme.textSecondary)
+                }
+                if showChevron {
+                    Image(systemName: "chevron.right").font(.system(size: 12)).foregroundColor(theme.textTertiary)
+                }
             }
             .padding(.horizontal, AppConstants.Design.paddingM)
             .padding(.vertical, AppConstants.Design.paddingM)
         }
+        .buttonStyle(.plain)
     }
 }
 
@@ -433,7 +438,7 @@ struct SettingToggle: View {
             Image(systemName: icon).font(.title3).foregroundColor(color).frame(width: 32)
             Text(title).font(.bodyMedium).foregroundColor(theme.textPrimary)
             Spacer()
-            Toggle("", isOn: $isOn).labelsHidden().tint(theme.primaryColor)
+            Toggle("", isOn: $isOn).tint(theme.primaryColor).labelsHidden()
         }
         .padding(.horizontal, AppConstants.Design.paddingM)
         .padding(.vertical, AppConstants.Design.paddingM)
@@ -443,22 +448,20 @@ struct SettingToggle: View {
 struct PickerSheet<Content: View>: View {
     let title: String
     let theme: ThemeManager
-    let content: Content
-
-    init(title: String, theme: ThemeManager, @ViewBuilder content: () -> Content) {
-        self.title = title; self.theme = theme; self.content = content()
-    }
+    @ViewBuilder let content: Content
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 theme.backgroundGradient.ignoresSafeArea()
-                ScrollView { VStack(spacing: 0) { content }.padding(.top, 20) }
+                ScrollView {
+                    VStack(spacing: 0) {
+                        content
+                    }
+                }
             }
-            .navigationTitle(title).navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .presentationDetents([.medium])
     }
 }
-
-#Preview { SettingsView().environmentObject(ThemeManager.shared).environmentObject(PurchaseService.shared) }

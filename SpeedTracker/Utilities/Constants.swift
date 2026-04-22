@@ -219,6 +219,7 @@ enum AppConstants {
         static let hasShownSplash = "hasShownSplash"
         static let pedometerSessions = "pedometerSessions"
         static let hasSeenHUDTiltTip = "hasSeenHUDTiltTip"
+        static let hasSeenHUDMirrorTip = "hasSeenHUDMirrorTip"
         static let lastCloudKitSync = "lastCloudKitSync"
         static let pendingCloudKitUploads = "pendingCloudKitUploads"
     }
@@ -236,11 +237,10 @@ enum AppConstants {
 
     // MARK: - URLs
     enum URLs {
-        // IMPORTANT: Replace with actual URLs before App Store submission
-        static let contactUs = "https://your-support-url.com"
-        static let privacyPolicy = "https://your-support-url.com/privacy"
-        static let termsOfService = "https://your-support-url.com/terms"
-        static let termsAndConditions = "https://example.com/terms-and-conditions"
+        static let contactUs = "https://sites.google.com/view/inovexa"
+        static let privacyPolicy = "https://sites.google.com/view/inovexa/privacy-policy"
+        static let termsOfService = "https://sites.google.com/view/inovexa/terms-and-conditions"
+        static let termsAndConditions = "https://sites.google.com/view/inovexa/terms-and-conditions"
         static let rateApp = "https://apps.apple.com/app/id0000000000" // replace with real App Store ID
     }
 

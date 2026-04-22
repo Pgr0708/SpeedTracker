@@ -2,6 +2,9 @@
 //  AuthService.swift
 //  SpeedTracker
 //
+//  Sign In with Apple + credential management
+//
+
 import Foundation
 import AuthenticationServices
 import SwiftUI
@@ -43,12 +46,20 @@ class AuthService: NSObject, ObservableObject {
                     self?.loadProfile()
                 case .revoked, .notFound:
                     self?.isAuthenticated = false
-                    // Only force logout UI if user manually logged out before
                 default:
                     self?.isAuthenticated = false
                 }
             }
         }
+    }
+
+    // MARK: - Auto Sign In (silent, for first launch)
+    func autoSignIn() {
+        guard !didLogOut else { return }
+        let storedUserID = KeychainHelper.shared.read(key: "appleUserID") ?? ""
+        guard storedUserID.isEmpty else { return } // Already has credentials
+        // Trigger Sign In with Apple automatically
+        signIn { }
     }
 
     // MARK: - Sign In with Apple
@@ -67,7 +78,7 @@ class AuthService: NSObject, ObservableObject {
     // MARK: - Sign Out
     func signOut() {
         isAuthenticated = false
-        didLogOut = false
+        didLogOut = true
         userID = ""
         displayName = ""
         email = ""
@@ -75,6 +86,17 @@ class AuthService: NSObject, ObservableObject {
         UserProfile.default.save()
         PurchaseService.shared.resetToFreeMode()
         lastCloudKitSync = 0
+
+        // Clear local history data
+        TripStore.shared.clearAllTrips()
+        PedometerService.shared.clearAllSessions()
+    }
+
+    // MARK: - Sign In success handler (restores iCloud data)
+    private func onSignInComplete() {
+        didLogOut = false
+        // Restore data from iCloud
+        CloudKitService.shared.syncAll(tripStore: TripStore.shared, pedometerService: PedometerService.shared)
     }
 
     private func loadProfile() {
@@ -111,6 +133,10 @@ extension AuthService: ASAuthorizationControllerDelegate {
             profile.save()
             self.displayName = profile.displayName
             self.email = profile.email ?? ""
+
+            // Restore iCloud data after sign in
+            self.onSignInComplete()
+
             self.signInCompletion?()
             self.signInCompletion = nil
         }
@@ -119,15 +145,15 @@ extension AuthService: ASAuthorizationControllerDelegate {
     nonisolated func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         Task { @MainActor in
             self.isLoading = false
+            self.signInCompletion = nil
         }
     }
 }
 
+// MARK: - ASAuthorizationControllerPresentationContextProviding
 extension AuthService: ASAuthorizationControllerPresentationContextProviding {
     nonisolated func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first?.windows.first ?? UIWindow()
+        return ASPresentationAnchor()
     }
 }
 
@@ -137,19 +163,21 @@ class KeychainHelper {
     private init() {}
 
     func save(key: String, value: String) {
-        let data = value.data(using: .utf8)!
+        let data = Data(value.utf8)
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrAccount as String: key,
-                                    kSecValueData as String: data]
+                                     kSecAttrAccount as String: key]
         SecItemDelete(query as CFDictionary)
-        SecItemAdd(query as CFDictionary, nil)
+        let addQuery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                        kSecAttrAccount as String: key,
+                                        kSecValueData as String: data]
+        SecItemAdd(addQuery as CFDictionary, nil)
     }
 
     func read(key: String) -> String? {
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrAccount as String: key,
-                                    kSecReturnData as String: true,
-                                    kSecMatchLimit as String: kSecMatchLimitOne]
+                                     kSecAttrAccount as String: key,
+                                     kSecReturnData as String: true,
+                                     kSecMatchLimit as String: kSecMatchLimitOne]
         var result: AnyObject?
         SecItemCopyMatching(query as CFDictionary, &result)
         guard let data = result as? Data else { return nil }
@@ -158,7 +186,7 @@ class KeychainHelper {
 
     func delete(key: String) {
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrAccount as String: key]
+                                     kSecAttrAccount as String: key]
         SecItemDelete(query as CFDictionary)
     }
 }

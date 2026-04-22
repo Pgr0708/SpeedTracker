@@ -67,11 +67,9 @@ struct HUDModeView: View {
 
     @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw = AppConstants.SpeedUnit.kmh.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.maxSpeedLimit) private var maxSpeedLimit: Double = 120
-    @AppStorage(AppConstants.UserDefaultsKeys.isMirrorModeEnabled) private var isMirrorMode = true
-    @AppStorage(AppConstants.UserDefaultsKeys.hasSeenHUDTiltTip) private var hasSeenTiltTip = false
+    @AppStorage(AppConstants.UserDefaultsKeys.isMirrorModeEnabled) private var isMirrorMode = false
     @Environment(\.dismiss) private var dismiss
     @State private var isHorizontalMode = false
-    @State private var showTiltTip = false
 
     var speedUnit: AppConstants.SpeedUnit { AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh }
     var displaySpeed: Double { locationManager.convertedSpeed(locationManager.currentSpeed, unit: speedUnit) }
@@ -108,10 +106,6 @@ struct HUDModeView: View {
                 .frame(width: size.width, height: size.height)
             }
 
-            // First-time tilt tip overlay
-            if showTiltTip {
-                tiltTipOverlay
-            }
         }
         .statusBar(hidden: true)
         .persistentSystemOverlays(.hidden)
@@ -126,56 +120,9 @@ struct HUDModeView: View {
         }
         .onReceive(locationManager.$isTracking) { tracking in
             tiltManager.isTrackingActive = tracking
-            // Show tilt tip the first time user starts tracking
-            if tracking && !hasSeenTiltTip {
-                withAnimation(.easeInOut(duration: 0.4)) {
-                    showTiltTip = true
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        showTiltTip = false
-                    }
-                    hasSeenTiltTip = true
-                }
-            }
         }
     }
 
-    // MARK: - Tilt Tip Overlay
-
-    private var tiltTipOverlay: some View {
-        VStack(spacing: 12) {
-            Spacer()
-            VStack(spacing: 10) {
-                Image(systemName: "iphone.gen3.radiowaves.left.and.right")
-                    .font(.system(size: 32))
-                    .foregroundColor(theme.primaryColor)
-                Text(L10n.text("hud.tiltTip"))
-                    .font(.rajdhaniMedium(16))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-            }
-            .padding(.horizontal, 24)
-            .padding(.vertical, 18)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(.ultraThinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(theme.primaryColor.opacity(0.3), lineWidth: 1)
-                    )
-            )
-            .padding(.horizontal, 40)
-            .padding(.bottom, 80)
-        }
-        .transition(.opacity.combined(with: .move(edge: .bottom)))
-        .onTapGesture {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                showTiltTip = false
-            }
-            hasSeenTiltTip = true
-        }
-    }
 
     // MARK: - Actions
 

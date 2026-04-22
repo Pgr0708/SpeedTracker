@@ -2,7 +2,32 @@
 //  SpeedTrackerView.swift
 //  SpeedTracker
 //
+
 import SwiftUI
+
+struct HUDActiveKey: PreferenceKey {
+    static var defaultValue = false
+    static func reduce(value: inout Bool, nextValue: () -> Bool) { value = nextValue() }
+}
+
+enum HomeMode: Int, CaseIterable {
+    case normal = 0
+    case hud = 1
+
+    var title: String {
+        switch self {
+        case .normal: return L10n.string("main.tracking")
+        case .hud: return "HUD"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .normal: return "speedometer"
+        case .hud: return "car.windshield.front"
+        }
+    }
+}
 
 struct SpeedTrackerView: View {
     @EnvironmentObject var theme: ThemeManager
@@ -11,12 +36,17 @@ struct SpeedTrackerView: View {
     @StateObject private var tripStore = TripStore.shared
     @StateObject private var notificationManager = NotificationManager.shared
     @StateObject private var audioService = AudioService.shared
+    @StateObject private var tiltManager = TiltManager()
 
     @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw = AppConstants.SpeedUnit.kmh.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.maxSpeedLimit) private var maxSpeedLimit: Double = 120
     @AppStorage(AppConstants.UserDefaultsKeys.minSpeedLimit) private var minSpeedLimit: Double = 0
     @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
+    @AppStorage(AppConstants.UserDefaultsKeys.isMirrorModeEnabled) private var isMirrorMode = false
+    @AppStorage(AppConstants.UserDefaultsKeys.hasSeenHUDMirrorTip) private var hasSeenMirrorTip = false
+    @State private var showMirrorTip = false
 
+    @State private var selectedMode: HomeMode = .normal
     @State private var animateGlow = false
     @State private var showStopConfirm = false
     @State private var lastMaxAlertSpeed: Double = 0
@@ -59,33 +89,44 @@ struct SpeedTrackerView: View {
     var body: some View {
         ZStack {
             theme.backgroundGradient.ignoresSafeArea()
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: locationManager.isTracking ? AppConstants.Design.paddingL : AppConstants.Design.paddingXL) {
-                    headerView
-                    speedGaugeView
-                    if locationManager.isTracking {
-                        statsGrid
-                        Spacer().frame(height: 120)
-                    } else {
-                        startStateCard
-                        Spacer().frame(height: 160)
-                    }
-                }
+
+            switch selectedMode {
+            case .normal:
+                trackingContent
+            case .hud:
+                hudInlineContent
             }
-            if showSpeedAlert {
+
+            if showSpeedAlert && selectedMode == .normal {
                 speedAlertOverlay
                     .transition(.move(edge: .top).combined(with: .opacity))
                     .zIndex(10)
             }
         }
         .safeAreaInset(edge: .bottom) {
-            controlButton
-                .padding(.horizontal, AppConstants.Design.paddingL)
-                .padding(.top, AppConstants.Design.paddingS)
-                .padding(.bottom, 92)
-                .background(.clear)
+            if selectedMode == .normal {
+                controlButton
+                    .padding(.horizontal, AppConstants.Design.paddingL)
+                    .padding(.top, AppConstants.Design.paddingS)
+                    .padding(.bottom, 92)
+                    .background(.clear)
+            }
         }
+        .preference(key: HUDActiveKey.self, value: selectedMode == .hud)
         .onAppear { animateGlow = true }
+        .onChange(of: selectedMode) { _, newMode in
+            if newMode == .hud && !isPremium {
+                showPaywall = true
+                selectedMode = .normal
+                return
+            }
+            if newMode == .hud {
+                tiltManager.isTrackingActive = true  // always active in HUD
+                tiltManager.start()
+            } else {
+                tiltManager.stop()
+            }
+        }
         .onChange(of: displaySpeed) { _, newSpeed in
             guard isPremium, locationManager.isTracking else { return }
             if maxSpeedLimit > 0 && newSpeed <= maxSpeedLimit {
@@ -125,6 +166,132 @@ struct SpeedTrackerView: View {
     private func triggerAlert(isMax: Bool, speed: Double) {
         alertIsMax = isMax; alertSpeed = speed; showSpeedAlert = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) { withAnimation { showSpeedAlert = false } }
+    }
+
+    // MARK: - Tracking Content
+    var trackingContent: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: locationManager.isTracking ? AppConstants.Design.paddingL : AppConstants.Design.paddingXL) {
+                headerView
+                modeSelectorView
+                speedGaugeView
+                if locationManager.isTracking {
+                    statsGrid
+                    Spacer().frame(height: 120)
+                } else {
+                    startStateCard
+                    Spacer().frame(height: 160)
+                }
+            }
+        }
+    }
+
+    // MARK: - HUD Inline Content
+    // MARK: - HUD Inline Content
+    var hudInlineContent: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            GeometryReader { proxy in
+                let isHorizontal = proxy.size.width > proxy.size.height
+                let gaugeSize = isHorizontal
+                    ? min(proxy.size.width * 0.94, proxy.size.height * 0.96)
+                    : min(proxy.size.width * 0.88, proxy.size.height * 0.62)
+
+                ZStack(alignment: .topTrailing) {
+                    // Speedometer centred
+                    SportBikeSpeedometer(
+                        speed: displaySpeed,
+                        unit: localizedSpeedUnit,
+                        accentColor: speedColor,
+                        theme: theme,
+                        maxValue: maxGaugeValue,
+                        diameter: gaugeSize,
+                        mirrored: isMirrorMode
+                    )
+                    .rotationEffect(.degrees(tiltManager.deviceRotation))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                    // Top controls — horizontal row
+                    HStack(spacing: 12) {
+                        // X → back to normal
+                        Button {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                selectedMode = .normal
+                            }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.white.opacity(0.9))
+                                .frame(width: 38, height: 38)
+                                .background(Circle().fill(.white.opacity(0.12)))
+                        }
+
+                        // Start / Stop
+                        if locationManager.isTracking {
+                            Button { showStopConfirm = true } label: {
+                                Text(L10n.text("main.stopMini"))
+                                    .font(.label)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 8)
+                                    .background(Capsule().fill(Color(hex: "FF3B5C")))
+                            }
+                        } else {
+                            Button { locationManager.startTracking() } label: {
+                                Image(systemName: "play.fill")
+                                    .font(.system(size: 16, weight: .bold))
+                                    .foregroundColor(.black)
+                                    .frame(width: 38, height: 38)
+                                    .background(Circle().fill(theme.primaryColor))
+                            }
+                        }
+                    }
+                    .rotationEffect(.degrees(isHorizontal ? 90 : 0))
+                    .padding(.top, proxy.safeAreaInsets.top + 16)
+                    .padding(.trailing, 20)
+                }
+                .frame(width: proxy.size.width, height: proxy.size.height)
+            }
+
+            // Mirror mode tip (first time only)
+            if showMirrorTip {
+                VStack {
+                    Spacer()
+                    HStack(spacing: 12) {
+                        Image(systemName: "arrow.left.and.right.righttriangle.left.righttriangle.right")
+                            .font(.system(size: 24))
+                            .foregroundColor(theme.primaryColor)
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(isMirrorMode ? "Mirror Mode ON" : "Mirror Mode OFF")
+                                .font(.rajdhaniMedium(14))
+                                .foregroundColor(.white)
+                            Text("Toggle windshield reflection in Settings")
+                                .font(.caption)
+                                .foregroundColor(.white.opacity(0.65))
+                        }
+                        Spacer()
+                    }
+                    .padding(.horizontal, 20).padding(.vertical, 14)
+                    .background(RoundedRectangle(cornerRadius: 16).fill(.ultraThinMaterial)
+                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(theme.primaryColor.opacity(0.3), lineWidth: 1)))
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 110)
+                }
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+                .onTapGesture { withAnimation { showMirrorTip = false } }
+            }
+        }
+        .onAppear {
+            if !hasSeenMirrorTip {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    withAnimation(.easeInOut(duration: 0.4)) { showMirrorTip = true }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                        withAnimation(.easeInOut(duration: 0.3)) { showMirrorTip = false }
+                        hasSeenMirrorTip = true
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Speed Alert Overlay
@@ -220,6 +387,42 @@ struct SpeedTrackerView: View {
         return L10n.string("main.gps")
     }
 
+    // MARK: - Mode Selector
+    var modeSelectorView: some View {
+        HStack(spacing: 4) {
+            ForEach(HomeMode.allCases, id: \.rawValue) { mode in
+                Button {
+                    HapticManager.shared.selection()
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                        selectedMode = mode
+                    }
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: mode.icon)
+                            .font(.system(size: 13, weight: .semibold))
+                        Text(mode.title)
+                            .font(.rajdhaniMedium(13))
+                    }
+                    .foregroundColor(selectedMode == mode ? .white : theme.textSecondary)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(selectedMode == mode ? theme.primaryColor : Color.clear)
+                    )
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(4)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(theme.isDarkMode ? Color.white.opacity(0.06) : Color.black.opacity(0.05))
+        )
+        .padding(.horizontal, AppConstants.Design.paddingL)
+    }
+
     // MARK: - Speed Gauge
     var speedGaugeView: some View {
         SportBikeSpeedometer(
@@ -227,8 +430,7 @@ struct SpeedTrackerView: View {
             unit: localizedSpeedUnit,
             accentColor: speedColor,
             theme: theme,
-            maxValue: maxGaugeValue,
-            diameter: 308
+            maxValue: maxGaugeValue
         )
         .padding(.vertical, AppConstants.Design.paddingM)
     }
@@ -453,5 +655,3 @@ struct SportBikeSpeedometer: View {
         .frame(width: diameter, height: diameter)
     }
 }
-
-#Preview { SpeedTrackerView().environmentObject(ThemeManager.shared).environmentObject(PurchaseService.shared) }
