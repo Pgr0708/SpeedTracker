@@ -62,7 +62,7 @@ class LocationManager: NSObject, ObservableObject {
         manager.startUpdatingLocation()
         manager.startUpdatingHeading()
         elapsedTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            Task { @MainActor in
+            Task { @MainActor [weak self] in
                 guard let self, let start = self.trackingStartTime else { return }
                 self.elapsedTime = Date().timeIntervalSince(start)
             }

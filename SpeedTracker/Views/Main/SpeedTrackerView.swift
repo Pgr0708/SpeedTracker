@@ -32,6 +32,7 @@ enum HomeMode: Int, CaseIterable {
 struct SpeedTrackerView: View {
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var purchaseService: PurchaseService
+    @EnvironmentObject var authService: AuthService
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var tripStore = TripStore.shared
     @StateObject private var notificationManager = NotificationManager.shared
@@ -41,7 +42,6 @@ struct SpeedTrackerView: View {
     @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw = AppConstants.SpeedUnit.kmh.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.maxSpeedLimit) private var maxSpeedLimit: Double = 120
     @AppStorage(AppConstants.UserDefaultsKeys.minSpeedLimit) private var minSpeedLimit: Double = 0
-    @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
     @AppStorage(AppConstants.UserDefaultsKeys.isMirrorModeEnabled) private var isMirrorMode = false
     @AppStorage(AppConstants.UserDefaultsKeys.hasSeenHUDMirrorTip) private var hasSeenMirrorTip = false
     @State private var showMirrorTip = false
@@ -62,6 +62,7 @@ struct SpeedTrackerView: View {
     @State private var isBelowMinVisible = false
 
     var speedUnit: AppConstants.SpeedUnit { AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh }
+    var isPremium: Bool { purchaseService.isPremium }
     var maxGaugeValue: Double {
         switch speedUnit {
         case .kmh:   return 250
@@ -185,7 +186,12 @@ struct SpeedTrackerView: View {
             Button(L10n.string("alert.stopTrip.save"), role: .destructive) { stopAndSave() }
             Button(L10n.string("common.cancel"), role: .cancel) {}
         } message: { Text(L10n.string("alert.stopTrip.message")) }
-        .sheet(isPresented: $showPaywall) { PaywallView().environmentObject(theme).environmentObject(purchaseService) }
+        .sheet(isPresented: $showPaywall) {
+            PaywallView()
+                .environmentObject(theme)
+                .environmentObject(purchaseService)
+                .environmentObject(authService)
+        }
     }
 
     private func triggerAlert(isMax: Bool, speed: Double) {

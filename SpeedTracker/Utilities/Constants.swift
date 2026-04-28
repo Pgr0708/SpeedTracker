@@ -222,6 +222,9 @@ enum AppConstants {
         static let hasSeenHUDMirrorTip = "hasSeenHUDMirrorTip"
         static let lastCloudKitSync = "lastCloudKitSync"
         static let pendingCloudKitUploads = "pendingCloudKitUploads"
+        static let currentPlanName = "currentPlanName"
+        static let currentProductID = "currentProductID"
+        static let currentExpirationDate = "currentExpirationDate"
     }
 
     // MARK: - RevenueCat & IAP
@@ -246,7 +249,7 @@ enum AppConstants {
 
     // MARK: - iCloud
     enum CloudKit {
-        static let containerID = "iCloud.com.centillion.SpeedTracker"
+        static let containerID = "iCloud.container.bhavik.speedtracker"
         static let tripRecordType = "TripRecord"
         static let pedometerSessionType = "PedometerSession"
         static let userPreferencesType = "UserPreferences"

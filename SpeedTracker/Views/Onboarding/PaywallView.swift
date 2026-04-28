@@ -4,16 +4,17 @@
 //
 import SwiftUI
 import SafariServices
+import AuthenticationServices
 
 struct PaywallView: View {
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var purchaseService: PurchaseService
-    @StateObject private var authService = AuthService.shared
+    @EnvironmentObject var authService: AuthService
     @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedPaywall) private var hasCompletedPaywall = false
-    @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
     @State private var selectedPlanIndex = 2  // default: Yearly
     @State private var appeared = false
     @State private var showTermsSheet = false
+    @State private var isRestoringPurchase = false
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -80,16 +81,32 @@ struct PaywallView: View {
             InAppWebView(url: URL(string: AppConstants.URLs.termsAndConditions)!)
         }
         .alert("Purchase Error", isPresented: $purchaseService.showError) {
-            Button(L10n.string("common.done")) {}
+            Button(L10n.string("common.done")) {
+                isRestoringPurchase = false
+            }
         } message: {
             Text(purchaseService.errorMessage ?? "Unknown purchase error.")
         }
         .alert(L10n.string("paywall.restoreTitle"), isPresented: $purchaseService.showRestoreSuccess) {
-            Button(L10n.string("common.done")) {}
+            Button(L10n.string("common.done")) {
+                let shouldDismiss = purchaseService.isPremium
+                isRestoringPurchase = false
+                if shouldDismiss {
+                    hasCompletedPaywall = true
+                    dismiss()
+                }
+            }
         } message: { Text(purchaseService.restoreMessage) }
-        .onAppear { withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.1)) { appeared = true } }
+        .onAppear {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.1)) { appeared = true }
+            if !hasCompletedPaywall && !purchaseService.isPremium && !authService.isAuthenticated {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    authService.autoSignIn()
+                }
+            }
+        }
         .onChange(of: purchaseService.isPremium) { _, premium in
-            if premium {
+            if premium && !isRestoringPurchase {
                 hasCompletedPaywall = true
                 dismiss()
             }
@@ -98,6 +115,16 @@ struct PaywallView: View {
 
     private var paywallBottomBar: some View {
         VStack(spacing: 14) {
+            if !authService.isAuthenticated {
+                SignInWithAppleButton(.signIn) { request in
+                    request.requestedScopes = [.fullName, .email]
+                } onCompletion: { result in
+                    authService.handleAuthorizationResult(result)
+                }
+                .signInWithAppleButtonStyle(theme.isDarkMode ? .white : .black)
+                .frame(height: 50)
+            }
+
             if purchaseService.isLoading {
                 ProgressView().tint(theme.primaryColor).scaleEffect(1.4).frame(height: 54)
             } else {
@@ -107,26 +134,18 @@ struct PaywallView: View {
                 }
             }
 
-            #if DEBUG
-            Button("⚡ DEV: Unlock Premium") {
-                purchaseService.isPremium = true
-            }
-            .font(.caption)
-            .foregroundColor(.orange)
-            #endif
-
             HStack {
-                Button(L10n.string("settings.appleSignIn")) {
-                    Task {
-                        authService.signIn { }
-                    }
+                if authService.isAuthenticated {
+                    Text(authService.email.isEmpty ? authService.displayName : authService.email)
+                        .font(.caption)
+                        .foregroundColor(theme.textSecondary)
+                        .lineLimit(1)
                 }
-                .font(.caption)
-                .foregroundColor(theme.textSecondary)
 
                 Spacer()
 
                 Button(L10n.string("paywall.restorePurchases")) {
+                    isRestoringPurchase = true
                     Task { await purchaseService.restore() }
                 }
                 .font(.caption)
@@ -221,7 +240,12 @@ struct PlanCard: View {
     }
 }
 
-#Preview { PaywallView().environmentObject(ThemeManager.shared).environmentObject(PurchaseService.shared) }
+#Preview {
+    PaywallView()
+        .environmentObject(ThemeManager.shared)
+        .environmentObject(PurchaseService.shared)
+        .environmentObject(AuthService.shared)
+}
 
 struct PremiumFeature: View {
     let icon: String

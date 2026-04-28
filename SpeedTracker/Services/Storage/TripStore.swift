@@ -19,10 +19,7 @@ class TripStore: ObservableObject {
     func saveTrip(_ trip: TripRecord) {
         trips.insert(trip, at: 0)
         persist()
-        // Trigger CloudKit sync if premium
-        if UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.isPremium) {
-            Task { try? await CloudKitService.shared.syncPreferences() }
-        }
+        CloudKitService.shared.syncAll(tripStore: self, pedometerService: PedometerService.shared)
     }
 
     func deleteTrip(_ trip: TripRecord) { trips.removeAll { $0.id == trip.id }; persist() }

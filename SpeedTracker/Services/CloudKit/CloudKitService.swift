@@ -9,6 +9,7 @@ import Foundation
 import CloudKit
 import SwiftUI
 import Combine
+import UIKit
 
 @MainActor
 class CloudKitService: ObservableObject {
@@ -25,9 +26,37 @@ class CloudKitService: ObservableObject {
 
     // MARK: - Sync All (call on launch, foreground, after save)
     func syncAll(tripStore: TripStore, pedometerService: PedometerService) {
+        guard AuthService.shared.isAuthenticated else {
+            syncError = nil
+            return
+        }
         guard !isSyncing else { return }
         Task {
             await performSync(tripStore: tripStore, pedometerService: pedometerService)
+        }
+    }
+
+    func syncAllInBackground(tripStore: TripStore, pedometerService: PedometerService) {
+        guard AuthService.shared.isAuthenticated else {
+            syncError = nil
+            return
+        }
+        guard !isSyncing else { return }
+
+        var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+        backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: "CloudKitSync") {
+            if backgroundTaskID != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+            }
+        }
+
+        Task {
+            await performSync(tripStore: tripStore, pedometerService: pedometerService)
+            if backgroundTaskID != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+            }
         }
     }
 
@@ -37,14 +66,75 @@ class CloudKitService: ObservableObject {
         defer { isSyncing = false }
 
         do {
-            try await syncPreferences()
-            try await uploadPendingTrips(tripStore: tripStore)
-            try await fetchRemoteTrips(tripStore: tripStore)
-            try await uploadPendingPedometerSessions(pedometerService: pedometerService)
-            lastSyncDate = Date()
-            UserDefaults.standard.set(lastSyncDate, forKey: AppConstants.UserDefaultsKeys.lastCloudKitSync)
+            try await ensureICloudAccountAvailable()
         } catch {
             syncError = error.localizedDescription
+            return
+        }
+
+        // Preferences sync is non-critical: never let it block trip/pedometer history sync.
+        // A schema mismatch on UserPreferences was previously aborting history restore on reinstall.
+        do {
+            try await syncPreferences()
+        } catch {
+            #if DEBUG
+            print("CloudKit: syncPreferences failed (non-fatal): \(error.localizedDescription)")
+            #endif
+        }
+
+        if PurchaseService.shared.isPremium && AuthService.shared.isAuthenticated {
+            do {
+                try await uploadPendingTrips(tripStore: tripStore)
+                guard AuthService.shared.isAuthenticated else { return }
+                try await fetchRemoteTrips(tripStore: tripStore)
+                guard AuthService.shared.isAuthenticated else { return }
+                try await uploadPendingPedometerSessions(pedometerService: pedometerService)
+                guard AuthService.shared.isAuthenticated else { return }
+                try await fetchRemotePedometerSessions(pedometerService: pedometerService)
+            } catch {
+                syncError = error.localizedDescription
+                return
+            }
+        }
+
+        lastSyncDate = Date()
+        UserDefaults.standard.set(lastSyncDate?.timeIntervalSince1970 ?? 0, forKey: AppConstants.UserDefaultsKeys.lastCloudKitSync)
+    }
+
+    private func ensureICloudAccountAvailable() async throws {
+        let status: CKAccountStatus = try await withCheckedThrowingContinuation { continuation in
+            container.accountStatus { status, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: status)
+                }
+            }
+        }
+
+        switch status {
+        case .available:
+            return
+        case .noAccount:
+            throw NSError(domain: "CloudKitService", code: 1, userInfo: [
+                NSLocalizedDescriptionKey: "No iCloud account is available for CloudKit sync."
+            ])
+        case .couldNotDetermine:
+            throw NSError(domain: "CloudKitService", code: 2, userInfo: [
+                NSLocalizedDescriptionKey: "CloudKit could not determine the iCloud account status."
+            ])
+        case .restricted:
+            throw NSError(domain: "CloudKitService", code: 3, userInfo: [
+                NSLocalizedDescriptionKey: "CloudKit access is restricted on this device."
+            ])
+        case .temporarilyUnavailable:
+            throw NSError(domain: "CloudKitService", code: 4, userInfo: [
+                NSLocalizedDescriptionKey: "iCloud is temporarily unavailable."
+            ])
+        @unknown default:
+            throw NSError(domain: "CloudKitService", code: 5, userInfo: [
+                NSLocalizedDescriptionKey: "CloudKit is unavailable."
+            ])
         }
     }
 
@@ -115,8 +205,10 @@ class CloudKitService: ObservableObject {
     }
 
     private func fetchRemoteTrips(tripStore: TripStore) async throws {
+        // Use a date-based predicate (not NSPredicate(value:true)) so CloudKit uses the
+        // queryable "date" index instead of requiring recordName to be marked Queryable.
         let query = CKQuery(recordType: AppConstants.CloudKit.tripRecordType,
-                           predicate: NSPredicate(value: true))
+                           predicate: NSPredicate(format: "date >= %@", Date.distantPast as NSDate))
         query.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         let (results, _) = try await privateDB.records(matching: query, resultsLimit: 200)
         let decoder = JSONDecoder()
@@ -149,8 +241,45 @@ class CloudKitService: ObservableObject {
             if let data = try? JSONEncoder().encode(session) {
                 record["sessionData"] = data as CKRecordValue
                 record["date"] = session.date as CKRecordValue
-                _ = try await privateDB.save(record)
+                record["sessionID"] = session.id.uuidString as CKRecordValue
+                let saved = try await privateDB.save(record)
+
+                if let idx = pedometerService.sessions.firstIndex(where: { $0.id == session.id }) {
+                    var updated = pedometerService.sessions[idx]
+                    updated.cloudKitRecordID = saved.recordID.recordName
+                    pedometerService.sessions[idx] = updated
+                }
             }
         }
+
+        if !unsynced.isEmpty {
+            pedometerService.persistSessions()
+        }
+    }
+
+    private func fetchRemotePedometerSessions(pedometerService: PedometerService) async throws {
+        let query = CKQuery(
+            recordType: AppConstants.CloudKit.pedometerSessionType,
+            predicate: NSPredicate(format: "date >= %@", Date.distantPast as NSDate)
+        )
+        query.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+
+        let (results, _) = try await privateDB.records(matching: query, resultsLimit: 200)
+        let decoder = JSONDecoder()
+        let localIDs = Set(pedometerService.sessions.map { $0.id.uuidString })
+
+        for (_, result) in results {
+            if case .success(let record) = result,
+               let data = record["sessionData"] as? Data,
+               let sessionID = record["sessionID"] as? String,
+               !localIDs.contains(sessionID),
+               var session = try? decoder.decode(PedometerSession.self, from: data) {
+                session.cloudKitRecordID = record.recordID.recordName
+                pedometerService.sessions.append(session)
+            }
+        }
+
+        pedometerService.sessions.sort { $0.date > $1.date }
+        pedometerService.persistSessions()
     }
 }

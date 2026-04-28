@@ -86,7 +86,7 @@ class PedometerService: ObservableObject {
         activityManager.stopActivityUpdates()
         elapsedTimer?.invalidate()
         elapsedTimer = nil
-        guard let start = startDate, steps > 0 else { return nil }
+        guard let start = startDate, elapsedTime > 0 else { return nil }
 
         let pace: Double
         if distance > 0 && elapsedTime > 0 {
@@ -108,6 +108,7 @@ class PedometerService: ObservableObject {
     func saveSession(_ session: PedometerSession) {
         sessions.insert(session, at: 0)
         persistSessions()
+        CloudKitService.shared.syncAll(tripStore: TripStore.shared, pedometerService: self)
     }
 
     // MARK: - Persistence
@@ -117,7 +118,7 @@ class PedometerService: ObservableObject {
         sessions = loaded
     }
 
-    private func persistSessions() {
+    func persistSessions() {
         if let data = try? JSONEncoder().encode(sessions) {
             UserDefaults.standard.set(data, forKey: AppConstants.UserDefaultsKeys.pedometerSessions)
         }

@@ -4,16 +4,21 @@
 //
 import SwiftUI
 
+enum HistoryTab { case trips, steps }
+
 struct HistoryView: View {
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var purchaseService: PurchaseService
+    @EnvironmentObject var authService: AuthService
     @StateObject private var tripStore = TripStore.shared
+    @StateObject private var pedometerService = PedometerService.shared
     @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw: String = AppConstants.SpeedUnit.kmh.rawValue
-    @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
     @State private var selectedTrip: TripRecord?
     @State private var showPaywall = false
+    @State private var selectedTab: HistoryTab = .trips
 
     var speedUnit: AppConstants.SpeedUnit { AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh }
+    var isPremium: Bool { purchaseService.isPremium }
 
     // Free users see only last 5 trips
     var visibleTrips: [TripRecord] {
@@ -24,10 +29,28 @@ struct HistoryView: View {
         NavigationStack {
             ZStack {
                 theme.backgroundGradient.ignoresSafeArea()
-                if tripStore.trips.isEmpty {
-                    emptyState
-                } else {
-                    tripList
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: AppConstants.Design.paddingL) {
+                        // Title
+                        HStack {
+                            Text(L10n.text("history.title"))
+                                .font(.headingMedium)
+                                .foregroundColor(theme.textPrimary)
+                            Spacer()
+                        }
+                        .padding(.horizontal, AppConstants.Design.paddingL)
+                        .padding(.top, AppConstants.Design.paddingXL)
+
+                        // Trips / Steps toggle
+                        tabToggle
+
+                        if selectedTab == .trips {
+                            tripsContent
+                        } else {
+                            stepsContent
+                        }
+                    }
+                    .padding(.bottom, 100)
                 }
             }
             .navigationDestination(item: $selectedTrip) { trip in
@@ -37,60 +60,113 @@ struct HistoryView: View {
             }
         }
         .sheet(isPresented: $showPaywall) {
-            PaywallView().environmentObject(theme).environmentObject(purchaseService)
+            PaywallView()
+                .environmentObject(theme)
+                .environmentObject(purchaseService)
+                .environmentObject(authService)
         }
     }
 
-    // MARK: - Empty State
-    var emptyState: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "clock.badge.questionmark").font(.system(size: 60)).foregroundColor(theme.textTertiary)
-            Text(L10n.text("history.noTrips")).font(.headingSmall).foregroundColor(theme.textPrimary)
-            Text(L10n.text("history.noTripsDesc"))
-                .font(.bodySmall).foregroundColor(theme.textSecondary).multilineTextAlignment(.center)
+    // MARK: - Tab Toggle
+    var tabToggle: some View {
+        HStack(spacing: 0) {
+            tabButton(title: "Trips", icon: "car.fill", tab: .trips)
+            tabButton(title: "Steps", icon: "figure.walk", tab: .steps)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: AppConstants.Design.cornerRadiusM)
+                .fill(theme.isDarkMode ? Color.white.opacity(0.07) : Color.black.opacity(0.05))
+        )
+        .padding(.horizontal, AppConstants.Design.paddingL)
+    }
+
+    @ViewBuilder
+    func tabButton(title: String, icon: String, tab: HistoryTab) -> some View {
+        let isSelected = selectedTab == tab
+        Button {
+            withAnimation(.easeInOut(duration: 0.2)) { selectedTab = tab }
+            HapticManager.shared.selection()
+        } label: {
+            HStack(spacing: 6) {
+                Image(systemName: icon).font(.system(size: 13))
+                Text(title).font(.bodySmall)
+            }
+            .foregroundColor(isSelected ? .white : theme.textSecondary)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: AppConstants.Design.cornerRadiusM - 2)
+                    .fill(isSelected ? theme.primaryColor : Color.clear)
+                    .padding(3)
+            )
         }
     }
 
-    // MARK: - Trip List
-    var tripList: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: AppConstants.Design.paddingL) {
-                HStack {
-                    Text(L10n.text("history.title"))
-                        .font(.headingMedium)
-                        .foregroundColor(theme.textPrimary)
-                    Spacer()
-                }
-                .padding(.horizontal, AppConstants.Design.paddingL)
-                .padding(.top, AppConstants.Design.paddingXL)
+    // MARK: - Trips Content
+    var tripsContent: some View {
+        Group {
+            if tripStore.trips.isEmpty {
+                emptyState(icon: "car.fill", message: "No trips yet.\nStart a trip to see your history here.")
+            } else {
+                VStack(spacing: AppConstants.Design.paddingL) {
+                    tripSummaryCard
 
-                summaryCard
+                    if !isPremium && tripStore.trips.count > 5 { upgradeBanner }
 
-                // Free tier upgrade banner
-                if !isPremium && tripStore.trips.count > 5 {
-                    upgradeBanner
-                }
+                    LazyVStack(spacing: AppConstants.Design.paddingM) {
+                        ForEach(visibleTrips) { trip in
+                            TripCard(trip: trip, speedUnit: speedUnit, theme: theme)
+                                .onTapGesture { selectedTrip = trip; HapticManager.shared.selection() }
+                        }
+                        .onDelete { offsets in tripStore.deleteTrips(at: offsets) }
 
-                LazyVStack(spacing: AppConstants.Design.paddingM) {
-                    ForEach(visibleTrips) { trip in
-                        TripCard(trip: trip, speedUnit: speedUnit, theme: theme)
-                            .onTapGesture { selectedTrip = trip; HapticManager.shared.selection() }
+                        if !isPremium && tripStore.trips.count > 5 { lockedTripsFooter }
                     }
-                    .onDelete { offsets in tripStore.deleteTrips(at: offsets) }
-
-                    // Locked trips count indicator for free users
-                    if !isPremium && tripStore.trips.count > 5 {
-                        lockedTripsFooter
-                    }
+                    .padding(.horizontal, AppConstants.Design.paddingL)
                 }
-                .padding(.horizontal, AppConstants.Design.paddingL)
-                .padding(.bottom, 100)
             }
         }
     }
 
-    // MARK: - Summary Card
-    var summaryCard: some View {
+    // MARK: - Steps Content
+    var stepsContent: some View {
+        Group {
+            if pedometerService.sessions.isEmpty {
+                emptyState(icon: "figure.walk", message: "No step sessions yet.\nStart a walk or run in the Steps tab.")
+            } else {
+                VStack(spacing: AppConstants.Design.paddingL) {
+                    stepsSummaryCard
+
+                    LazyVStack(spacing: AppConstants.Design.paddingM) {
+                        ForEach(pedometerService.sessions) { session in
+                            GlassMorphismCard(padding: AppConstants.Design.paddingM) {
+                                PedometerSessionRow(session: session, theme: theme)
+                            }
+                        }
+                        .onDelete { offsets in
+                            offsets.forEach { pedometerService.deleteSession(pedometerService.sessions[$0]) }
+                        }
+                    }
+                    .padding(.horizontal, AppConstants.Design.paddingL)
+                }
+            }
+        }
+    }
+
+    // MARK: - Empty State
+    func emptyState(icon: String, message: String) -> some View {
+        VStack(spacing: 20) {
+            Image(systemName: icon).font(.system(size: 60)).foregroundColor(theme.textTertiary)
+            Text(message)
+                .font(.bodySmall).foregroundColor(theme.textSecondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(.top, 60)
+        .padding(.horizontal, AppConstants.Design.paddingXL)
+    }
+
+    // MARK: - Trip Summary Card
+    var tripSummaryCard: some View {
         GlassMorphismCard {
             HStack(spacing: AppConstants.Design.paddingL) {
                 VStack(alignment: .leading, spacing: 4) {
@@ -101,6 +177,27 @@ struct HistoryView: View {
                 VStack(alignment: .trailing, spacing: 4) {
                     Text(L10n.text("history.totalDistance")).font(.label).foregroundColor(theme.textSecondary)
                     Text(formatTotalDistance(tripStore.totalDistance))
+                        .font(.orbitron(22)).foregroundColor(AppConstants.Colors.limeGreen)
+                }
+            }
+        }
+        .padding(.horizontal, AppConstants.Design.paddingL)
+    }
+
+    // MARK: - Steps Summary Card
+    var stepsSummaryCard: some View {
+        let totalSteps = pedometerService.sessions.reduce(0) { $0 + $1.steps }
+        let totalDist = pedometerService.sessions.reduce(0.0) { $0 + $1.distance }
+        return GlassMorphismCard {
+            HStack(spacing: AppConstants.Design.paddingL) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Total Steps").font(.label).foregroundColor(theme.textSecondary)
+                    Text("\(totalSteps)").font(.orbitron(28)).foregroundColor(theme.primaryColor)
+                }
+                Spacer()
+                VStack(alignment: .trailing, spacing: 4) {
+                    Text("Total Distance").font(.label).foregroundColor(theme.textSecondary)
+                    Text(formatTotalDistance(totalDist))
                         .font(.orbitron(22)).foregroundColor(AppConstants.Colors.limeGreen)
                 }
             }
@@ -204,4 +301,9 @@ struct TripStatView: View {
     }
 }
 
-#Preview { HistoryView().environmentObject(ThemeManager.shared).environmentObject(PurchaseService.shared) }
+#Preview {
+    HistoryView()
+        .environmentObject(ThemeManager.shared)
+        .environmentObject(PurchaseService.shared)
+        .environmentObject(AuthService.shared)
+}

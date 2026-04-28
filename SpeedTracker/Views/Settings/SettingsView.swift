@@ -4,12 +4,14 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct SettingsView: View {
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var purchaseService: PurchaseService
     @EnvironmentObject var localizationManager: LocalizationManager
-    @StateObject private var authService = AuthService.shared
+    @EnvironmentObject var authService: AuthService
+    @EnvironmentObject var cloudKitService: CloudKitService
 
     @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw: String = AppConstants.SpeedUnit.kmh.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.isHapticEnabled) private var isHapticsEnabled = true
@@ -19,7 +21,6 @@ struct SettingsView: View {
     @AppStorage(AppConstants.UserDefaultsKeys.preferredLanguage) private var preferredLanguage: String = "en"
     @AppStorage(AppConstants.UserDefaultsKeys.isSoundMuted) private var isSoundMuted = false
     @AppStorage(AppConstants.UserDefaultsKeys.isMirrorModeEnabled) private var isMirrorModeEnabled = false
-    @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
     @AppStorage(AppConstants.UserDefaultsKeys.lastCloudKitSync) private var lastCloudKitSync: Double = 0
 
     @State private var showSpeedUnitPicker = false
@@ -35,12 +36,17 @@ struct SettingsView: View {
     var speedUnit: AppConstants.SpeedUnit { AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh }
     var currentLanguage: AppConstants.SupportedLanguage { AppConstants.SupportedLanguage(rawValue: preferredLanguage) ?? .english }
     var localizedThemeName: String { L10n.string(theme.themeColor.displayNameKey) }
+    var isPremium: Bool { purchaseService.isPremium }
 
     var lastSyncText: String {
-        guard lastCloudKitSync > 0 else { return L10n.string("common.never") }
-        let date = Date(timeIntervalSince1970: lastCloudKitSync)
-        let f = RelativeDateTimeFormatter(); f.unitsStyle = .abbreviated
-        return f.localizedString(for: date, relativeTo: Date())
+        if cloudKitService.isSyncing { return "Syncing..." }
+        if lastCloudKitSync > 0 {
+            let date = Date(timeIntervalSince1970: lastCloudKitSync)
+            let f = RelativeDateTimeFormatter(); f.unitsStyle = .abbreviated
+            return f.localizedString(for: date, relativeTo: Date())
+        }
+        if let err = cloudKitService.syncError { return "Error: \(err)" }
+        return "Tap to sync"
     }
 
     var body: some View {
@@ -65,7 +71,12 @@ struct SettingsView: View {
         .sheet(isPresented: $showSpeedUnitPicker) { speedUnitPickerSheet }
         .sheet(isPresented: $showColorPicker) { colorPickerSheet }
         .sheet(isPresented: $showLanguagePicker) { languagePickerSheet }
-        .sheet(isPresented: $showPaywall) { PaywallView().environmentObject(theme).environmentObject(purchaseService) }
+        .sheet(isPresented: $showPaywall) {
+            PaywallView()
+                .environmentObject(theme)
+                .environmentObject(purchaseService)
+                .environmentObject(authService)
+        }
         .onChange(of: isMirrorModeEnabled) { _, isEnabled in
             mirrorModeAlertTitle = isEnabled ? "Mirror mode enabled" : "Direct HUD enabled"
             mirrorModeAlertMessage = isEnabled
@@ -91,6 +102,16 @@ struct SettingsView: View {
             }
             Button(L10n.string("common.cancel"), role: .cancel) {}
         } message: { Text(L10n.string("alert.signOut.message")) }
+        .alert("Purchase Error", isPresented: $purchaseService.showError) {
+            Button(L10n.string("common.done")) {}
+        } message: {
+            Text(purchaseService.errorMessage ?? "Unknown purchase error.")
+        }
+        .alert(L10n.string("paywall.restoreTitle"), isPresented: $purchaseService.showRestoreSuccess) {
+            Button(L10n.string("common.done")) {}
+        } message: {
+            Text(purchaseService.restoreMessage)
+        }
     }
 
     // MARK: - Header
@@ -119,30 +140,29 @@ struct SettingsView: View {
                         .foregroundColor(theme.primaryColor)
                 }
                 VStack(alignment: .leading, spacing: 2) {
-                    if authService.isAuthenticated {
-                        Text(authService.displayName.isEmpty ? L10n.string("settings.defaultUser") : authService.displayName)
-                            .font(.bodyMedium)
-                            .foregroundColor(theme.textPrimary)
-                        Text(authService.email.isEmpty ? L10n.string("settings.appleSignIn") : authService.email)
-                            .font(.caption)
-                            .foregroundColor(theme.textSecondary)
-                    } else {
-                        Text(L10n.string("settings.defaultUser"))
-                            .font(.bodyMedium)
-                            .foregroundColor(theme.textPrimary)
-                        Text("Free Plan")
-                            .font(.caption)
-                            .foregroundColor(theme.textTertiary)
-                    }
+                    Text(authService.email.isEmpty ? (authService.isAuthenticated && !authService.displayName.isEmpty ? authService.displayName : L10n.string("settings.defaultUser")) : authService.email)
+                        .font(.bodyMedium)
+                        .foregroundColor(theme.textPrimary)
+                    Text(purchaseService.remainingTimeSummary)
+                        .font(.caption)
+                        .foregroundColor(isPremium ? theme.primaryColor : theme.textTertiary)
                 }
                 Spacer()
-                if isPremium && authService.isAuthenticated {
-                    Label(L10n.string("common.premium"), systemImage: "crown.fill")
+                if isPremium {
+                    Label(purchaseService.currentPlanName, systemImage: "crown.fill")
                         .font(.caption)
                         .foregroundColor(theme.primaryColor)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(theme.primaryColor.opacity(0.12))
+                        .cornerRadius(8)
+                } else {
+                    Label("Free Plan", systemImage: "crown.slash")
+                        .font(.caption)
+                        .foregroundColor(theme.textTertiary)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(theme.textTertiary.opacity(0.12))
                         .cornerRadius(8)
                 }
             }
@@ -158,8 +178,7 @@ struct SettingsView: View {
                 Divider().background(theme.textTertiary.opacity(0.3))
             }
 
-            // Restore Purchases — always show when authenticated
-            if authService.isAuthenticated {
+            if !isPremium {
                 SettingRow(icon: "arrow.clockwise", title: L10n.string("settings.restorePurchases"), color: theme.primaryColor, theme: theme) {
                     Task { await purchaseService.restore() }
                 }
@@ -169,10 +188,7 @@ struct SettingsView: View {
             // iCloud Sync status
             if authService.isAuthenticated && isPremium {
                 SettingRow(icon: "icloud.fill", title: L10n.string("settings.iCloudSync"), value: L10n.string("settings.lastSyncPrefix") + " \(lastSyncText)", color: theme.primaryColor, theme: theme) {
-                    Task {
-                        CloudKitService.shared.syncAll(tripStore: TripStore.shared, pedometerService: PedometerService.shared)
-                        lastCloudKitSync = Date().timeIntervalSince1970
-                    }
+                    CloudKitService.shared.syncAll(tripStore: TripStore.shared, pedometerService: PedometerService.shared)
                 }
             } else {
                 SettingRow(icon: "icloud.slash.fill", title: L10n.string("settings.iCloudSync"), value: L10n.string("settings.off"), color: theme.textTertiary, showChevron: false, theme: theme) {}
@@ -186,11 +202,21 @@ struct SettingsView: View {
                     showLogoutAlert = true
                 }
             } else {
-                SettingRow(icon: "apple.logo", title: L10n.string("settings.appleSignIn"), color: theme.primaryColor, theme: theme) {
-                    authService.signIn { }
-                }
+                appleSignInRow
             }
         }
+    }
+
+    var appleSignInRow: some View {
+        SignInWithAppleButton(.signIn) { request in
+            request.requestedScopes = [.fullName, .email]
+        } onCompletion: { result in
+            authService.handleAuthorizationResult(result)
+        }
+        .signInWithAppleButtonStyle(theme.isDarkMode ? .white : .black)
+        .frame(height: 50)
+        .padding(.horizontal, AppConstants.Design.paddingM)
+        .padding(.vertical, AppConstants.Design.paddingM)
     }
 
     // MARK: - Appearance Section

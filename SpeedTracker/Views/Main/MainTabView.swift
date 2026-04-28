@@ -8,10 +8,11 @@ import SwiftUI
 struct MainTabView: View {
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var purchaseService: PurchaseService
+    @EnvironmentObject var authService: AuthService
     @State private var selectedTab = 0
     @State private var showPaywall = false
     @State private var isHUDActive = false
-    @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var isPremium = false
+    private var isPremium: Bool { purchaseService.isPremium }
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -37,7 +38,12 @@ struct MainTabView: View {
         .onPreferenceChange(HUDActiveKey.self) { active in
             withAnimation(.easeInOut(duration: 0.25)) { isHUDActive = active }
         }
-        .sheet(isPresented: $showPaywall) { PaywallView().environmentObject(theme).environmentObject(purchaseService) }
+        .sheet(isPresented: $showPaywall) {
+            PaywallView()
+                .environmentObject(theme)
+                .environmentObject(purchaseService)
+                .environmentObject(authService)
+        }
     }
 
     @ViewBuilder var tabContent: some View {

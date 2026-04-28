@@ -6,6 +6,7 @@ import SwiftUI
 
 @main
 struct SpeedTrackerApp: App {
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var themeManager = ThemeManager.shared
     @StateObject private var authService = AuthService.shared
     @StateObject private var purchaseService = PurchaseService.shared
@@ -53,32 +54,56 @@ struct SpeedTrackerApp: App {
             .environment(\.locale, localizationManager.currentLocale)
             .preferredColorScheme(themeManager.isDarkMode ? .dark : .light)
             .task {
-                await purchaseService.syncRevenueCatUser(
-                    isAuthenticated: authService.isAuthenticated,
-                    userID: authService.userID
-                )
                 try? await purchaseService.refreshProducts()
                 await purchaseService.checkPremiumStatus()
+                syncCloudIfEligible(background: false)
             }
-            .onChange(of: authService.isAuthenticated) { isAuthenticated in
+            .onChange(of: authService.isAuthenticated) { _, isAuthenticated in
                 Task {
                     await purchaseService.syncRevenueCatUser(
                         isAuthenticated: isAuthenticated,
                         userID: authService.userID
                     )
                     await purchaseService.checkPremiumStatus()
+                    syncCloudIfEligible(background: false)
                 }
             }
-            .onChange(of: authService.userID) { userID in
+            .onChange(of: authService.userID) { _, userID in
                 Task {
                     await purchaseService.syncRevenueCatUser(
                         isAuthenticated: authService.isAuthenticated,
                         userID: userID
                     )
+                    syncCloudIfEligible(background: false)
+                }
+            }
+            .onChange(of: purchaseService.isPremium) { _, isPremium in
+                if isPremium {
+                    authService.signInIfNeeded()
+                    syncCloudIfEligible(background: false)
+                }
+            }
+            .onChange(of: scenePhase) { _, phase in
+                switch phase {
+                case .active:
+                    syncCloudIfEligible(background: false)
+                case .background:
+                    syncCloudIfEligible(background: true)
+                default:
+                    break
                 }
             }
             .onAppear {
-                authService.checkCredentialState()
+                authService.checkCredentialState {
+                    Task {
+                        await purchaseService.syncRevenueCatUser(
+                            isAuthenticated: authService.isAuthenticated,
+                            userID: authService.userID
+                        )
+                        await purchaseService.checkPremiumStatus()
+                        syncCloudIfEligible(background: false)
+                    }
+                }
                 if hasCompletedPreferences && LocationManager.shared.hasLocationPermission {
                     hasGrantedPermissions = true
                 }
@@ -99,5 +124,21 @@ struct SpeedTrackerApp: App {
         if ud.object(forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) == nil { ud.set(120.0, forKey: AppConstants.UserDefaultsKeys.maxSpeedLimit) }
         if ud.object(forKey: AppConstants.UserDefaultsKeys.minSpeedLimit) == nil { ud.set(0.0, forKey: AppConstants.UserDefaultsKeys.minSpeedLimit) }
         if ud.object(forKey: AppConstants.UserDefaultsKeys.isSoundMuted) == nil { ud.set(false, forKey: AppConstants.UserDefaultsKeys.isSoundMuted) }
+    }
+
+    private func syncCloudIfEligible(background: Bool) {
+        guard authService.isAuthenticated, purchaseService.isPremium else { return }
+
+        if background {
+            cloudKitService.syncAllInBackground(
+                tripStore: TripStore.shared,
+                pedometerService: PedometerService.shared
+            )
+        } else {
+            cloudKitService.syncAll(
+                tripStore: TripStore.shared,
+                pedometerService: PedometerService.shared
+            )
+        }
     }
 }

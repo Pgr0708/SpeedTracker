@@ -8,7 +8,7 @@ import AuthenticationServices
 
 struct SignInView: View {
     @EnvironmentObject var theme: ThemeManager
-    @StateObject private var authService = AuthService.shared
+    @EnvironmentObject var authService: AuthService
     var onSuccess: () -> Void
     @State private var appeared = false
 
@@ -48,12 +48,7 @@ struct SignInView: View {
                     SignInWithAppleButton(.signIn) { request in
                         request.requestedScopes = [.fullName, .email]
                     } onCompletion: { result in
-                        switch result {
-                        case .success:
-                            authService.signIn { onSuccess() }
-                        case .failure:
-                            break
-                        }
+                        authService.handleAuthorizationResult(result, onSuccess: onSuccess)
                     }
                     .signInWithAppleButtonStyle(theme.isDarkMode ? .white : .black)
                     .frame(height: 54)

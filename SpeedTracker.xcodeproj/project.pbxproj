@@ -10,8 +10,19 @@
 		58A9A0C62FA1000000A25E2C /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 58A9A0C52FA1000000A25E2C /* RevenueCat */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CC00000A00AA0000BB0000CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 588EB6DF2F8662AC00A25E2C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 588EB6E62F8662AC00A25E2C;
+			remoteInfo = SpeedTracker;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		588EB6E72F8662AC00A25E2C /* SpeedTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC00000100AA0000BB0000CC /* SpeedTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -33,6 +44,11 @@
 			path = SpeedTracker;
 			sourceTree = "<group>";
 		};
+		CC00000200AA0000BB0000CC /* SpeedTrackerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SpeedTrackerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +60,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC00000400AA0000BB0000CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -51,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				588EB6E92F8662AC00A25E2C /* SpeedTracker */,
+				CC00000200AA0000BB0000CC /* SpeedTrackerTests */,
 				588EB6E82F8662AC00A25E2C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				588EB6E72F8662AC00A25E2C /* SpeedTracker.app */,
+				CC00000100AA0000BB0000CC /* SpeedTrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +114,27 @@
 			productReference = 588EB6E72F8662AC00A25E2C /* SpeedTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CC00000600AA0000BB0000CC /* SpeedTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC00000900AA0000BB0000CC /* Build configuration list for PBXNativeTarget "SpeedTrackerTests" */;
+			buildPhases = (
+				CC00000300AA0000BB0000CC /* Sources */,
+				CC00000400AA0000BB0000CC /* Frameworks */,
+				CC00000500AA0000BB0000CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC00000B00AA0000BB0000CC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CC00000200AA0000BB0000CC /* SpeedTrackerTests */,
+			);
+			name = SpeedTrackerTests;
+			productName = SpeedTrackerTests;
+			productReference = CC00000100AA0000BB0000CC /* SpeedTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -101,6 +147,15 @@
 				TargetAttributes = {
 					588EB6E62F8662AC00A25E2C = {
 						CreatedOnToolsVersion = 26.3;
+						SystemCapabilities = {
+							com.apple.AuthenticationServices.AppleID = {
+								enabled = 1;
+							};
+						};
+					};
+					CC00000600AA0000BB0000CC = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 588EB6E62F8662AC00A25E2C;
 					};
 				};
 			};
@@ -135,12 +190,20 @@
 			projectRoot = "";
 			targets = (
 				588EB6E62F8662AC00A25E2C /* SpeedTracker */,
+				CC00000600AA0000BB0000CC /* SpeedTrackerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		588EB6E52F8662AC00A25E2C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC00000500AA0000BB0000CC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -157,7 +220,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC00000300AA0000BB0000CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC00000B00AA0000BB0000CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 588EB6E62F8662AC00A25E2C /* SpeedTracker */;
+			targetProxy = CC00000A00AA0000BB0000CC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		588EB6F02F8662AF00A25E2C /* Debug */ = {
@@ -359,6 +437,50 @@
 			};
 			name = Release;
 		};
+		CC00000700AA0000BB0000CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QH39X8R3UD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bhavik.SpeedTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeedTracker";
+			};
+			name = Debug;
+		};
+		CC00000800AA0000BB0000CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QH39X8R3UD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bhavik.SpeedTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeedTracker";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -376,6 +498,15 @@
 			buildConfigurations = (
 				588EB6F32F8662AF00A25E2C /* Debug */,
 				588EB6F42F8662AF00A25E2C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC00000900AA0000BB0000CC /* Build configuration list for PBXNativeTarget "SpeedTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC00000700AA0000BB0000CC /* Debug */,
+				CC00000800AA0000BB0000CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
