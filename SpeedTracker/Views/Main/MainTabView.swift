@@ -85,9 +85,9 @@ struct CustomTabBar: View {
                 if isPremium { selectedTab = 2 } else { showPaywall = true }
             }
             Spacer()
-            TabBarButton(icon: "safari", title: L10n.string("compass.title"), isSelected: selectedTab == 3, isPremiumLocked: !isPremium, theme: theme) {
+            TabBarButton(icon: "safari", title: L10n.string("compass.title"), isSelected: selectedTab == 3, theme: theme) {
                 HapticManager.shared.selection()
-                if isPremium { selectedTab = 3 } else { showPaywall = true }
+                selectedTab = 3
             }
             Spacer()
             TabBarButton(icon: "gearshape.fill", title: L10n.string("settings.title"), isSelected: selectedTab == 4, theme: theme) {

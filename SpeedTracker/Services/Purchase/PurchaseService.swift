@@ -16,9 +16,7 @@ import RevenueCat
 class PurchaseService: NSObject, ObservableObject {
     static let shared = PurchaseService()
 
-    // UNLOCK: set to true to give all users premium. Remove this line to restore gating.
-    var isPremium: Bool { true }
-    @AppStorage(AppConstants.UserDefaultsKeys.isPremium) private var _isPremiumStored = false
+    @AppStorage(AppConstants.UserDefaultsKeys.isPremium) var isPremium = false
     @AppStorage(AppConstants.UserDefaultsKeys.currentPlanName) private var storedPlanName = "Free Plan"
     @AppStorage(AppConstants.UserDefaultsKeys.currentProductID) private var storedProductID = ""
     @AppStorage(AppConstants.UserDefaultsKeys.currentExpirationDate) private var storedExpirationDate: Double = 0
@@ -193,7 +191,7 @@ class PurchaseService: NSObject, ObservableObject {
     }
 
     func resetToFreeMode() {
-        _isPremiumStored = false
+        isPremium = false
         // Do NOT clear currentRevenueCatUserID here — syncRevenueCatUser needs it
         // to know it should call Purchases.shared.logOut() when isAuthenticated flips to false.
         currentPlanName = "Free Plan"
@@ -212,7 +210,7 @@ class PurchaseService: NSObject, ObservableObject {
     private func handle(customerInfo: CustomerInfo) {
         // Block RC delegate from re-enabling premium after sign-out
         guard AuthService.shared.isAuthenticated else {
-            _isPremiumStored = false
+            isPremium = false
             currentPlanName = "Free Plan"
             currentProductID = ""
             currentExpirationDate = nil
@@ -225,7 +223,7 @@ class PurchaseService: NSObject, ObservableObject {
         if let activeEntitlement = activeEntitlements[AppConstants.Purchase.primaryEntitlementID]
             ?? activeEntitlements[AppConstants.Purchase.lifetimeEntitlementID]
             ?? activeEntitlements.values.first {
-            _isPremiumStored = true
+            isPremium = true
             currentProductID = activeEntitlement.productIdentifier
             currentExpirationDate = activeEntitlement.expirationDate
             currentPlanName = title(for: activeEntitlement.productIdentifier)
@@ -234,7 +232,7 @@ class PurchaseService: NSObject, ObservableObject {
         }
 
         if let activeSubscriptionID = currentActiveSubscriptionProductID(in: customerInfo) {
-            _isPremiumStored = true
+            isPremium = true
             currentProductID = activeSubscriptionID
             currentExpirationDate = customerInfo.expirationDate(forProductIdentifier: activeSubscriptionID)
             currentPlanName = title(for: activeSubscriptionID)
@@ -243,7 +241,7 @@ class PurchaseService: NSObject, ObservableObject {
         }
 
         if customerInfo.nonSubscriptions.contains(where: { $0.productIdentifier == AppConstants.Purchase.lifetimeProductID }) {
-            _isPremiumStored = true
+            isPremium = true
             currentProductID = AppConstants.Purchase.lifetimeProductID
             currentExpirationDate = nil
             currentPlanName = title(for: AppConstants.Purchase.lifetimeProductID)
@@ -251,7 +249,7 @@ class PurchaseService: NSObject, ObservableObject {
             return
         }
 
-        _isPremiumStored = false
+        isPremium = false
         currentProductID = ""
         currentExpirationDate = nil
         currentPlanName = "Free Plan"
@@ -435,7 +433,7 @@ extension PurchaseService {
         currentPlanName = planName
         currentProductID = productID
         currentExpirationDate = expirationDate
-        _isPremiumStored = premium
+        isPremium = premium
         persistSubscriptionMetadata()
     }
 }
