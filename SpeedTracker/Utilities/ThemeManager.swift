@@ -13,7 +13,7 @@ class ThemeManager: ObservableObject {
     static let shared = ThemeManager()
     
     @AppStorage(AppConstants.UserDefaultsKeys.isDarkModeEnabled) var isDarkMode: Bool = true
-    @AppStorage(AppConstants.UserDefaultsKeys.themeColor) private var themeColorRaw: String = AppConstants.ThemeColor.blue.rawValue
+    @AppStorage(AppConstants.UserDefaultsKeys.themeColor) private var themeColorRaw: String = AppConstants.ThemeColor.red.rawValue
     
     var themeColor: AppConstants.ThemeColor {
         get { AppConstants.ThemeColor(rawValue: themeColorRaw) ?? .blue }

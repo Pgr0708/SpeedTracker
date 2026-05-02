@@ -50,6 +50,16 @@ class LocationManager: NSObject, ObservableObject {
 
     func requestPermission() { manager.requestWhenInUseAuthorization() }
 
+    func startHeading() {
+        guard hasLocationPermission else { return }
+        manager.startUpdatingHeading()
+    }
+
+    func stopHeading() {
+        guard !isTracking else { return }
+        manager.stopUpdatingHeading()
+    }
+
     var hasLocationPermission: Bool {
         authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways
     }

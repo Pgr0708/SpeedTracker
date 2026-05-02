@@ -14,6 +14,7 @@ struct HistoryView: View {
     @StateObject private var pedometerService = PedometerService.shared
     @AppStorage(AppConstants.UserDefaultsKeys.preferredSpeedUnit) private var speedUnitRaw: String = AppConstants.SpeedUnit.kmh.rawValue
     @State private var selectedTrip: TripRecord?
+    @State private var selectedSession: PedometerSession?
     @State private var showPaywall = false
     @State private var selectedTab: HistoryTab = .trips
 
@@ -57,6 +58,10 @@ struct HistoryView: View {
                 TripDetailView(trip: trip)
                     .environmentObject(theme)
                     .environmentObject(purchaseService)
+            }
+            .navigationDestination(item: $selectedSession) { session in
+                PedometerDetailView(session: session)
+                    .environmentObject(theme)
             }
         }
         .sheet(isPresented: $showPaywall) {
@@ -142,6 +147,7 @@ struct HistoryView: View {
                             GlassMorphismCard(padding: AppConstants.Design.paddingM) {
                                 PedometerSessionRow(session: session, theme: theme)
                             }
+                            .onTapGesture { selectedSession = session; HapticManager.shared.selection() }
                         }
                         .onDelete { offsets in
                             offsets.forEach { pedometerService.deleteSession(pedometerService.sessions[$0]) }

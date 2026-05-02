@@ -4,6 +4,9 @@
 //
 
 import SwiftUI
+import StoreKit
+import StoreKit
+import StoreKit
 
 struct HUDActiveKey: PreferenceKey {
     static var defaultValue = false
@@ -60,6 +63,9 @@ struct SpeedTrackerView: View {
     @State private var showPaywall = false
     @State private var isOverMaxVisible = false
     @State private var isBelowMinVisible = false
+    @State private var hasEverExceededMinSpeed = false
+    @AppStorage("savedTripCount") private var savedTripCount = 0
+    @Environment(\.requestReview) var requestReview
 
     var speedUnit: AppConstants.SpeedUnit { AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh }
     var isPremium: Bool { purchaseService.isPremium }
@@ -160,6 +166,7 @@ struct SpeedTrackerView: View {
             }
             if minSpeedLimit > 0 && newSpeed >= minSpeedLimit {
                 isBelowMinVisible = false
+                hasEverExceededMinSpeed = true
             }
 
             if maxSpeedLimit > 0 && newSpeed > maxSpeedLimit && !isOverMaxVisible {
@@ -170,7 +177,7 @@ struct SpeedTrackerView: View {
                 audioService.playMaxSpeedAlert()
                 HapticManager.shared.notification(type: .error)
             }
-            if minSpeedLimit > 0 && locationManager.isMoving && newSpeed < minSpeedLimit && !isBelowMinVisible {
+            if minSpeedLimit > 0 && locationManager.isMoving && newSpeed < minSpeedLimit && !isBelowMinVisible && hasEverExceededMinSpeed {
                 lastMinAlertSpeed = newSpeed
                 isBelowMinVisible = true
                 triggerAlert(isMax: false, speed: newSpeed)
@@ -239,7 +246,7 @@ struct SpeedTrackerView: View {
                         diameter: gaugeSize,
                         mirrored: isReversedHUDDisplay
                     )
-                    .rotationEffect(.degrees(tiltManager.deviceRotation))
+                    .rotationEffect(.degrees(isMirrorMode ? tiltManager.deviceRotation : -tiltManager.deviceRotation))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -569,7 +576,12 @@ struct SpeedTrackerView: View {
         lastMaxAlertSpeed = 0; lastMinAlertSpeed = 999
         isOverMaxVisible = false
         isBelowMinVisible = false
+        hasEverExceededMinSpeed = false
         audioService.resetAlertCooldowns()
+        savedTripCount += 1
+        if savedTripCount == 2 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { requestReview() }
+        }
     }
 
     private func presentMirrorTipIfNeeded() {

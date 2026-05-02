@@ -5,6 +5,7 @@
 
 import SwiftUI
 import AuthenticationServices
+import StoreKit
 
 struct SettingsView: View {
     @EnvironmentObject var theme: ThemeManager
@@ -32,6 +33,10 @@ struct SettingsView: View {
     @State private var showMirrorModeAlert = false
     @State private var mirrorModeAlertTitle = ""
     @State private var mirrorModeAlertMessage = ""
+    @State private var showContactSheet = false
+    @State private var showPrivacySheet = false
+    @State private var showTermsSheet = false
+    @Environment(\.requestReview) var requestReview
 
     var speedUnit: AppConstants.SpeedUnit { AppConstants.SpeedUnit(rawValue: speedUnitRaw) ?? .kmh }
     var currentLanguage: AppConstants.SupportedLanguage { AppConstants.SupportedLanguage(rawValue: preferredLanguage) ?? .english }
@@ -71,6 +76,9 @@ struct SettingsView: View {
         .sheet(isPresented: $showSpeedUnitPicker) { speedUnitPickerSheet }
         .sheet(isPresented: $showColorPicker) { colorPickerSheet }
         .sheet(isPresented: $showLanguagePicker) { languagePickerSheet }
+        .sheet(isPresented: $showContactSheet) { InAppWebView(url: URL(string: AppConstants.URLs.contactUs)!) }
+        .sheet(isPresented: $showPrivacySheet) { InAppWebView(url: URL(string: AppConstants.URLs.privacyPolicy)!) }
+        .sheet(isPresented: $showTermsSheet) { InAppWebView(url: URL(string: AppConstants.URLs.termsOfService)!) }
         .sheet(isPresented: $showPaywall) {
             PaywallView()
                 .environmentObject(theme)
@@ -323,19 +331,19 @@ struct SettingsView: View {
     var supportSection: some View {
         SettingsSection(title: L10n.string("settings.support").uppercased(), theme: theme) {
             SettingRow(icon: "star.fill", title: L10n.string("settings.rateApp"), color: theme.primaryColor, theme: theme) {
-                if let url = URL(string: AppConstants.URLs.rateApp) { UIApplication.shared.open(url) }
+                requestReview()
             }
             Divider().background(theme.textTertiary.opacity(0.3))
             SettingRow(icon: "questionmark.circle.fill", title: L10n.string("settings.contactUs"), color: theme.primaryColor, theme: theme) {
-                if let url = URL(string: AppConstants.URLs.contactUs) { UIApplication.shared.open(url) }
+                showContactSheet = true
             }
             Divider().background(theme.textTertiary.opacity(0.3))
             SettingRow(icon: "doc.text.fill", title: L10n.string("settings.privacyPolicy"), color: theme.primaryColor, theme: theme) {
-                if let url = URL(string: AppConstants.URLs.privacyPolicy) { UIApplication.shared.open(url) }
+                showPrivacySheet = true
             }
             Divider().background(theme.textTertiary.opacity(0.3))
             SettingRow(icon: "doc.plaintext.fill", title: L10n.string("settings.termsOfService"), color: theme.primaryColor, theme: theme) {
-                if let url = URL(string: AppConstants.URLs.termsOfService) { UIApplication.shared.open(url) }
+                showTermsSheet = true
             }
             Divider().background(theme.textTertiary.opacity(0.3))
             SettingRow(icon: "info.circle.fill", title: L10n.string("settings.about"), value: "v\(AppConstants.App.version)",

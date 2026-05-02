@@ -45,6 +45,10 @@ struct CompassView: View {
         }
         .onAppear {
             withAnimation(.spring(response: 0.6, dampingFraction: 0.75).delay(0.1)) { appeared = true }
+            locationManager.startHeading()
+        }
+        .onDisappear {
+            locationManager.stopHeading()
         }
     }
 

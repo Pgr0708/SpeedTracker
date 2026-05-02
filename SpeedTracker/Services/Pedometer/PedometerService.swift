@@ -27,7 +27,9 @@ class PedometerService: ObservableObject {
     private let activityManager = CMMotionActivityManager()
     private var startDate: Date?
     private var elapsedTimer: Timer?
+    private var locationSampleTimer: Timer?
     private var currentActivity: String = "walking"
+    private var collectedRoute: [RoutePoint] = []
 
     private init() { loadSessions() }
 
@@ -43,8 +45,17 @@ class PedometerService: ObservableObject {
         let authStatus = CMPedometer.authorizationStatus()
         guard authStatus != .denied && authStatus != .restricted else { return }
         steps = 0; distance = 0; calories = 0; currentPace = 0; avgSpeed = 0; elapsedTime = 0
+        collectedRoute = []
         startDate = Date()
         isTracking = true
+        locationSampleTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                let loc = LocationManager.shared
+                guard loc.latitude != 0 || loc.longitude != 0 else { return }
+                self.collectedRoute.append(RoutePoint(latitude: loc.latitude, longitude: loc.longitude))
+            }
+        }
 
         pedometer.startUpdates(from: startDate!) { [weak self] data, error in
             guard let data, error == nil else { return }
@@ -86,6 +97,8 @@ class PedometerService: ObservableObject {
         activityManager.stopActivityUpdates()
         elapsedTimer?.invalidate()
         elapsedTimer = nil
+        locationSampleTimer?.invalidate()
+        locationSampleTimer = nil
         guard let start = startDate, elapsedTime > 0 else { return nil }
 
         let pace: Double
@@ -100,7 +113,8 @@ class PedometerService: ObservableObject {
             steps: steps, distance: distance, calories: calories,
             avgPace: pace, avgSpeed: speed,
             goalSteps: dailyGoal, goalAchieved: steps >= dailyGoal,
-            activityType: currentActivity
+            activityType: currentActivity,
+            routeCoordinates: collectedRoute
         )
         return session
     }

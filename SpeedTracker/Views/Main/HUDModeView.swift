@@ -245,7 +245,7 @@ struct HUDModeView: View {
                 diameter: gaugeSize,
                 mirrored: isReversedHUDDisplay
             )
-            .rotationEffect(.degrees(tiltManager.deviceRotation))
+            .rotationEffect(.degrees(isMirrorMode ? tiltManager.deviceRotation : -tiltManager.deviceRotation))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

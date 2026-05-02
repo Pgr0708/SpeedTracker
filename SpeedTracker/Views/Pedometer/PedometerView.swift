@@ -257,6 +257,11 @@ struct PedometerSessionRow: View {
                     .font(.bodyMedium).foregroundColor(theme.textPrimary)
                 Text(dateFormatted)
                     .font(.system(size: 12)).foregroundColor(theme.textSecondary)
+                if session.goalSteps > 0 {
+                    Text(session.goalAchieved ? "Goal achieved ✓" : "Goal: \(session.goalSteps) steps")
+                        .font(.system(size: 11))
+                        .foregroundColor(session.goalAchieved ? AppConstants.Colors.limeGreen : theme.textTertiary)
+                }
             }
             Spacer()
             VStack(alignment: .trailing, spacing: 2) {
@@ -264,6 +269,10 @@ struct PedometerSessionRow: View {
                     .font(.system(size: 14, weight: .medium)).foregroundColor(theme.textPrimary)
                 Text(String(format: "%.0f kcal", session.calories))
                     .font(.system(size: 12)).foregroundColor(AppConstants.Colors.neonOrange)
+                if session.avgPace > 0 {
+                    Text(String(format: "%.1f min/km", session.avgPace))
+                        .font(.system(size: 11)).foregroundColor(theme.textSecondary)
+                }
             }
         }
         .padding(.horizontal, AppConstants.Design.paddingM)
